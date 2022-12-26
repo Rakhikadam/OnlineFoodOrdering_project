@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".payment21_page1">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical"
+          >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Payment Opition"
+        android:textColor="@color/black"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg"
+        >
+        <RadioButton
+            android:id="@+id/credit_debit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+         android:text="Credit or Debit Card"
+            android:background="@drawable/bg"
+            ></RadioButton>
+
+
+        <LinearLayout
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/recyclepayment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                ></androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                android:id="@+id/add_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADD NEW CARD"
+                android:layout_gravity="center"
+                ></Button>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/paymentinfo"
+
+            >
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/bg"
+                android:text="number"
+                android:maxLength="12"
+                android:inputType="number"
+                android:paddingLeft="20dp"
+                ></EditText>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Name of the card"
+                android:paddingLeft="10dp"
+                android:inputType="text"
+                android:background="@drawable/bg"
+                ></EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:hint="Expiry Date"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="1"
+                    android:inputType="date"
+                    android:background="@drawable/bg"
+                    ></EditText>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:hint="CVV"
+                    android:maxLength="4"
+                    android:inputType="number"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg"
+                    ></EditText>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADD YOUR CARD"
+                android:layout_gravity="center"
+                ></Button>
+
+        </LinearLayout>
+
+
+
+
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+         android:text="UPI Payment"
+        android:background="@drawable/bg"
+        ></RadioButton>
+
+
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+         android:text="Cash On Delivery"
+            android:background="@drawable/bg"
+            ></RadioButton>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delivery Option"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        ></TextView>
+
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+          android:text="Home Delivery"
+            android:background="@drawable/bg"
+            ></RadioButton>
+
+
+
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+           android:text="Pickup"
+            android:background="@drawable/bg"
+            ></RadioButton>
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Order Summary"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"></TextView>
+
+    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sub Total"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"></TextView>
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="250RS"
+            android:textSize="20dp"
+                android:layout_alignParentRight="true"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+                android:gravity="right"
+            android:layout_marginLeft="20dp"></TextView>
+</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coupon Discount"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"></TextView>
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0RS"
+            android:textSize="20dp"
+                android:layout_alignParentRight="true"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+                android:gravity="right"
+            android:layout_marginLeft="20dp"></TextView>
+</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tax"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"></TextView>
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100RS"
+            android:textSize="20dp"
+                android:layout_alignParentRight="true"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+                android:gravity="right"
+            android:layout_marginLeft="20dp"></TextView>
+</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delivery Charges"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"></TextView>
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FREE"
+                android:layout_alignParentRight="true"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+                android:gravity="right"
+            android:layout_marginLeft="20dp"></TextView>
+</RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GRAND TOTAL"
+            android:textSize="30dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"></TextView>
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="900RS"
+            android:textSize="30dp"
+                android:layout_alignParentRight="true"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+                android:gravity="right"
+            android:layout_marginLeft="20dp"></TextView>
+        </RelativeLayout>
+
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        android:background="@drawable/bg"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+            >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(4 items)"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            ></TextView>
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            ></Spinner>
+    </RelativeLayout>
+      </LinearLayout>
+  </ScrollView>
+</LinearLayout>
