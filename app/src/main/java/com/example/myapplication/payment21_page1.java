@@ -7,12 +7,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -77,9 +79,20 @@ public class payment21_page1 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_payment21_page1, container, false);
         RecyclerView recycler = view.findViewById(R.id.recyclepayment);
         List<pesronpayment>list = new ArrayList<>();
-        pesronpayment payment = new pesronpayment("23344444","Rakhi","12-22-2023","333211","VISA");
+         /*
+         5555  - visa
+         4444 - master
+         3333 - rupay
+         2222 - AMEX
+          */
+        pesronpayment payment = new pesronpayment("5555 1234 5678","Rakhi","12-22-2023","333211","VISA");
+        pesronpayment payment2 = new pesronpayment("4444 1234 5678","Rakhi","12-22-2023","333211","VISA");
+        pesronpayment payment3 = new pesronpayment("3333 1234 5678","Rakhi","12-22-2023","333211","VISA");
+        pesronpayment payment4 = new pesronpayment("2222 1234 5678","Rakhi","12-22-2023","333211","VISA");
         list.add(payment);
-
+        list.add(payment2);
+        list.add(payment3);
+        list.add(payment4);
         PaymentlistAdpter adpter = new PaymentlistAdpter(list);
         recycler.setAdapter(adpter);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -92,15 +105,6 @@ public class payment21_page1 extends Fragment {
         Button add_card = view.findViewById(R.id.add_card);
 
 
-       /* EditText cardnumber = view.findViewById(R.id.card_number);
-        cardnumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-cardnumber = Pattern.matches("")
-            }
-        });
-
-        */
 
 
 
@@ -157,6 +161,50 @@ cardnumber = Pattern.matches("")
             holder.type.setText(list.get(position).getType());
             holder.card_number.setText(list.get(position).getCard_number());
 
+            //using subString method .add list in credit card and spilit different card type
+
+            Log.e("TAG",list.get(position).getCard_number().substring(0,3));//show input in logcat
+            if (list.get(position).getCard_number().substring(0,4).equalsIgnoreCase("5555")){
+                holder.type.setText("VISA");
+                holder.card_img.setImageDrawable(getResources().getDrawable(R.drawable.visa));
+            }
+
+              if (list.get(position).getCard_number().substring(0,4).equalsIgnoreCase("4444")){
+                holder.type.setText("MASTER");
+                holder.card_img.setImageDrawable(getResources().getDrawable(R.drawable.master));
+            }
+
+
+              if (list.get(position).getCard_number().substring(0,4).equalsIgnoreCase("3333")){
+                holder.type.setText("RUPAY");
+                holder.card_img.setImageDrawable(getResources().getDrawable(R.drawable.rupay));
+            }
+
+              if (list.get(position).getCard_number().substring(0,4).equalsIgnoreCase("2222")){
+                holder.type.setText("AMAX");
+                holder.card_img.setImageDrawable(getResources().getDrawable(R.drawable.amax));
+            }
+//OR
+//using spilt method add list into creditcard and spilt of different type card
+         /*  if (list.get(position).getCard_number().split(" ")[0].equalsIgnoreCase("5555")){
+               holder.type.setText("VISA");
+               holder.card_img.setImageDrawable(getResources().getDrawable(R.drawable.visa));
+           }
+            if (list.get(position).getCard_number().split(" ")[0].equalsIgnoreCase("4444")){
+                holder.type.setText("MASTER");
+                holder.card_img.setImageDrawable(getResources().getDrawable(R.drawable.master));
+            }
+            if (list.get(position).getCard_number().split(" ")[0].equalsIgnoreCase("3333")){
+                holder.type.setText("RUPAY");
+                holder.card_img.setImageDrawable(getResources().getDrawable(R.drawable.rupay));
+            }
+            if (list.get(position).getCard_number().split(" ")[0].equalsIgnoreCase("2222")){
+                holder.type.setText("AMEX");
+               holder.card_img.setImageDrawable(getResources().getDrawable(R.drawable.rupay));
+            }
+
+          */
+
 
 
 
@@ -170,11 +218,13 @@ cardnumber = Pattern.matches("")
 
         public class CustomViewHolder extends RecyclerView.ViewHolder {
             TextView card_number,type;
+            ImageView card_img;
 
             public CustomViewHolder(@NonNull View itemView) {
                 super(itemView);
                 card_number = itemView.findViewById(R.id.card_number);
                 type = itemView.findViewById(R.id.typecard);
+                card_img = itemView.findViewById(R.id.card_img);
 
 
             }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,13 +50,15 @@ public class Page10 extends AppCompatActivity {
         //second RecycleView Adpter list
         Image = findViewById(R.id.imagerecycle1);
         List<Drawable>list1 = new ArrayList<>();
-        list1.add(getResources().getDrawable(R.drawable.restaurant));
+        list1.add(getResources().getDrawable(R.drawable.imagep7));
         list1.add(getResources().getDrawable(R.drawable.image3));
         list1.add(getResources().getDrawable(R.drawable.image4));
-        list1.add(getResources().getDrawable(R.drawable.imag5));
+        list1.add(getResources().getDrawable(R.drawable.icecream1));
         FoodImageAdpter adpter1 = new FoodImageAdpter(list1);
         Image.setAdapter(adpter1);
         Image.setLayoutManager(new LinearLayoutManager(Page10.this,RecyclerView.HORIZONTAL,false));
+
+
 
 
         //Third RecycleView Adpter List
@@ -64,32 +67,36 @@ public class Page10 extends AppCompatActivity {
         NonvegImage item = new NonvegImage("25% offers","Grilled Chiken","120 RS","https://i.ndtvimg.com/i/2015-12/grilled-chicken-625_625x350_71451368942.jpg");
         list2.add(item);
         NonvegImage item1 = new NonvegImage("50% offers","Mutton Korma","200 RS","https://i.ndtvimg.com/i/2015-03/badam-korma_625x350_41426244081.jpg");
-        list2.add(item);
+        list2.add(item1);
         NonvegImage item2 = new NonvegImage("20% offers","Tandoori Lamb Chops","250 RS","https://i.ndtvimg.com/i/2016-06/lamb-chops_625x350_51466768845.jpg");
-        list2.add(item);
+        list2.add(item2);
         NonvegImage item3 = new NonvegImage("30% offers","Malabar Fish Biryani","220 RS","https://i.ndtvimg.com/i/2016-11/biryani-620_620x350_41478678907.jpg");
-        list2.add(item);
+        list2.add(item3);
         NonVegAdpter adpter2 = new NonVegAdpter(list2);
         Nonvegview.setAdapter(adpter2);
         Nonvegview.setLayoutManager(new LinearLayoutManager(Page10.this,RecyclerView.HORIZONTAL,false));
 
 
+
+
         //Fourt RecyleView Adpter List
+
+        TextView vegfood = findViewById(R.id.vegfood);
         VegView = findViewById(R.id.imagerecycle3);
         List<NonvegImage>list3 = new ArrayList<>();
         NonvegImage item4 = new NonvegImage("30% offeres","Veg Biryani","150 RS","https://foodiewish.com/wp-content/uploads/2020/03/Vegetable-Biryani-foodiewish.jpg");
         list3.add(item4);
         NonvegImage item5 = new NonvegImage("30% offeres","Alu Puri","100 RS","https://foodiewish.com/wp-content/uploads/2020/03/Vegetarian-dishes-foodiewish.jpg");
-        list3.add(item4);
+        list3.add(item5);
         NonvegImage item6 = new NonvegImage("10% offeres","Khichdi","120 RS","https://foodiewish.com/wp-content/uploads/2020/03/Khichdi-foodiewish.jpg");
-        list3.add(item4);
+        list3.add(item6);
         NonvegImage item7 = new NonvegImage("40% offeres","Special Veg Biryani","250 RS","https://foodiewish.com/wp-content/uploads/2020/03/Vegetable-Biryani-foodiewish.jpg");
-        list3.add(item4);
+        list3.add(item7);
         NonVegAdpter adpter3 = new NonVegAdpter(list3);
         VegView.setAdapter(adpter3);
         VegView.setLayoutManager(new LinearLayoutManager(Page10.this,RecyclerView.HORIZONTAL,false));
 
-        VegView.setOnClickListener(new View.OnClickListener() {
+        vegfood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Page10.this,Page11.class);
@@ -99,7 +106,7 @@ public class Page10 extends AppCompatActivity {
 
 
 
-        //Fourt RecyleView Adpter List
+        //fivth RecyleView Adpter List
         Starters = findViewById(R.id.imagerecycle4);
         List<NonvegImage>list4 = new ArrayList<>();
         NonvegImage image1 = new NonvegImage("2% OFF","Halwa","50 RS","https://foodiewish.com/wp-content/uploads/2020/03/Halwa-foodiewish.jpg");
@@ -117,27 +124,19 @@ public class Page10 extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
     }
+
+
+
+
     //FirstRecycleView Adpter class
     class ItemfoodAdpter extends RecyclerView.Adapter<ItemfoodAdpter.CustomViewHolder> {
         List<fooditem> list;
-
 
         public ItemfoodAdpter(List<fooditem> list) {
             this.list = list;
 
         }
-
         @NonNull
         @Override
         public ItemfoodAdpter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -171,9 +170,10 @@ public class Page10 extends AppCompatActivity {
         }
     }
 
+
+
+
     //SecondRecycleView Adpter class
-
-
     class FoodImageAdpter extends RecyclerView.Adapter<FoodImageAdpter.CustomViewHolder>{
             List<Drawable> list1;
 
@@ -205,10 +205,13 @@ public class Page10 extends AppCompatActivity {
                 ImageView image;
                 public CustomViewHolder(@NonNull View itemView) {
                     super(itemView);
-                    image = findViewById(R.id.image8);
+                    image = itemView.findViewById(R.id.image8);
                 }
             }
         }
+
+
+
 
 
     //ThirdRecycleView Adpter class
@@ -250,6 +253,7 @@ public class Page10 extends AppCompatActivity {
             TextView foodname;
             TextView price;
             TextView offers;
+            TextView vegfood;
             public CustomViewHolder(@NonNull View itemView) {
                 super(itemView);
 

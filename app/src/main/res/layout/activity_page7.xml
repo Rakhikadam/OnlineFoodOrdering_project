@@ -14,7 +14,7 @@
         android:textSize="40dp"
         android:textColor="@color/black"
         android:layout_marginTop="40dp"
-        android:layout_marginLeft="20dp"
+        android:gravity="center"
         ></TextView>
 
     <TextView
@@ -24,23 +24,18 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="50dp"
+        android:gravity="center"
         android:textSize="20dp"
         ></TextView>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Didn't receive the sms?"
-        android:textSize="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="100dp">
 
-    </TextView>
+
 <com.chaos.view.PinView
     android:layout_width="wrap_content"
     android:layout_height="60dp"
     android:layout_gravity="center"
     app:itemHeight="60dp"
+    android:inputType="number"
     app:itemWidth="60dp"
     app:itemRadius="5dp"
     app:itemSpacing="10dp"
@@ -48,19 +43,26 @@
     app:viewType="rectangle"
     style="@style/PinWidget.PinView"
     android:id="@+id/pinview"
+    android:layout_marginTop="30dp"
     ></com.chaos.view.PinView>
-<EditText
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
-  <TextView
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Didn't receive the sms?"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        ></TextView>
+
+     <TextView
       android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Resend OTP"
         android:textSize="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="100dp">
-
-    </TextView>
+         android:gravity="center"
+         ></TextView>
 
     <Button
         android:id="@+id/verify"
@@ -70,6 +72,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
+        android:background="@color/orange"
         ></Button>
 
 

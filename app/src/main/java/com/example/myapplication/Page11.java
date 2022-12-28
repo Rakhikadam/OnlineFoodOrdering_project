@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -53,6 +55,7 @@ public class Page11 extends AppCompatActivity {
         });
 
 
+
     }
 
     class FoodAdpter extends RecyclerView.Adapter<FoodAdpter.CustomAdpter>{
@@ -75,6 +78,13 @@ public class Page11 extends AppCompatActivity {
             holder.foodname.setText(list.get(position).getFood_name());
             holder.prise.setText(list.get(position).getPrise());
             Glide.with(Page11.this).load(list.get(position).getImage()).into(holder.image);
+            holder.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Page11.this,Page13.class);
+                    startActivity(intent);
+                }
+            });
 
         }
 

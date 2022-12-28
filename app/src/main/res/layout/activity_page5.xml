@@ -47,6 +47,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:text="GET OTP"
+        android:background="@color/orange"
         ></Button>
 
     <TextView
@@ -62,44 +63,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        >
+android:weightSum="2"        >
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/bg"
             >
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/facebook"
                 ></ImageView>
 
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Log in with"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="20dp"
-                ></Button>
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="10dp"
+                ></TextView>
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bg"
+            android:layout_marginRight="30dp"
             >
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+               android:src="@drawable/googleimage"
                 ></ImageView>
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Log in with"
+                android:paddingLeft="30dp"
                 android:layout_marginRight="30dp"
-                ></Button>
+                ></TextView>
         </RelativeLayout>
-
 
 
     </LinearLayout>

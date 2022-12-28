@@ -117,39 +117,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Aire Conditioned"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            ></TextView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="wifi"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            ></TextView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cards Accepted"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            ></TextView>
-
+      <androidx.recyclerview.widget.RecyclerView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:id="@+id/recyclerFacility"
+          ></androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
     <TextView

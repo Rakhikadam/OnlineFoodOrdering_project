@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,11 @@ public class complete_page21 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_complete_page21, container, false);
+        View view =  inflater.inflate(R.layout.fragment_complete_page21, container, false);
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.completeprocess,new complete21_page1());
+        transaction.commit();
+    return view;
     }
 }

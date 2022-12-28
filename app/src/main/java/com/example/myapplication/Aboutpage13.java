@@ -2,11 +2,18 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +66,65 @@ public class Aboutpage13 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_aboutpage13, container, false);
+        View view = inflater.inflate(R.layout.fragment_aboutpage13, container, false);
+
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerFacility);
+        List<facility>list1 = new ArrayList<>();
+        facility first = new facility("wifi");
+        list1.add(first);
+        facility first1 = new facility("Aire conditioner");
+        list1.add(first1);
+        facility first2 = new facility("cards Accepted");
+        list1.add(first2);
+        facility first3 = new facility("Parking");
+        list1.add(first3);
+        facility first4 = new facility("Wallet Accepted");
+        list1.add(first4);
+        FacilityAdpter adpter = new FacilityAdpter(list1);
+        recyclerView.setAdapter(adpter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+
+
+
+
+        return view;
+    }
+
+    class FacilityAdpter extends RecyclerView.Adapter<FacilityAdpter.CustomHolderAdpter>{
+        List<facility> list1;
+
+        public FacilityAdpter(List<facility> list1) {
+            this.list1 = list1;
+        }
+
+        @NonNull
+        @Override
+        public FacilityAdpter.CustomHolderAdpter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.facilites_recycler13,parent,false);
+            CustomHolderAdpter holder = new CustomHolderAdpter(view);
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull FacilityAdpter.CustomHolderAdpter holder, int position) {
+
+            holder.facilityname.setText(list1.get(position).getFacility_name());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return list1.size() ;
+        }
+
+        public class CustomHolderAdpter extends RecyclerView.ViewHolder{
+            TextView facilityname;
+            public CustomHolderAdpter(@NonNull View itemView) {
+                super(itemView);
+                facilityname = itemView.findViewById(R.id.textfacility);
+            }
+
+        }
     }
 }

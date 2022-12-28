@@ -19,19 +19,28 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/bg"
-
+                android:background="@drawable/bgorange"
                 android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mumbai"
+                    android:textColor="@color/black"
+                    android:paddingLeft="5dp"
+                    ></TextView>
 
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"></Spinner>
+                    android:layout_marginLeft="5dp"></Spinner>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -46,8 +55,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="150dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="10dp"
                     android:src="@drawable/search"></ImageView>
 
                 <ImageView
@@ -58,10 +67,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="20dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:background="@drawable/bg"
                 android:orientation="horizontal"
 
@@ -72,28 +84,30 @@
                     android:layout_height="wrap_content"
                     android:text="Veg"></TextView>
 
-                <ToggleButton
+                <Switch
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></ToggleButton>
+                    android:layout_height="wrap_content"></Switch>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Non-veg"></TextView>
+                    android:text="Non-veg"
+                    android:textColor="@color/black"
+                    ></TextView>
 
                 <ImageView
                     android:id="@+id/filiter"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:paddingLeft="100dp"
+                    android:paddingLeft="70dp"
                     android:src="@drawable/sort"></ImageView>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:paddingLeft="20dp"
-                    android:text="Filiter"></TextView>
+                    android:paddingLeft="10dp"
+                    android:text="FILITER"></TextView>
             </LinearLayout>
 
 

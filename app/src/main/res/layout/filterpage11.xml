@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
@@ -23,11 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reset"
+            android:paddingRight="5dp"
+            android:textColor="@color/orange"
+            android:layout_alignParentRight="true"
             android:textSize="20dp"
      android:layout_marginLeft="100dp"
             ></TextView>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <View
@@ -47,27 +50,31 @@
         android:layout_marginTop="10dp"
         ></TextView>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Open now"
             android:textSize="20dp"
+            android:textColor="@color/black"
             android:layout_marginRight="100dp"
             android:layout_marginLeft="10dp"
             ></TextView>
 
-        <RadioButton
+        <CheckBox
+            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"/>
 
-    </LinearLayout>
+            ></CheckBox>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
@@ -76,11 +83,13 @@
         android:layout_marginTop="10dp"
         ></View>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -91,12 +100,12 @@
             android:layout_marginLeft="10dp"
             ></TextView>
 
-        <RadioButton
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"/>
-
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+   ></CheckBox>
+    </RelativeLayout>
 
 
 
@@ -107,11 +116,13 @@
         android:layout_marginTop="10dp"
         ></View>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -122,12 +133,12 @@
             android:layout_marginLeft="10dp"
             ></TextView>
 
-        <RadioButton
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"/>
-
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            ></CheckBox>
+    </RelativeLayout>
 
 
     <View
@@ -137,11 +148,13 @@
         android:layout_marginTop="10dp"
         ></View>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -153,10 +166,12 @@
             ></TextView>
 
         <RadioButton
+            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"/>
-    </LinearLayout>
+            ></RadioButton>
+    </RelativeLayout>
+
 
 
     <View
@@ -166,11 +181,14 @@
         android:layout_marginTop="10dp"
         ></View>
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -184,10 +202,10 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"/>
+            android:layout_alignParentRight="true"
+            ></RadioButton>
 
-
-</LinearLayout>
+</RelativeLayout>
 
     <View
         android:layout_width="match_parent"
@@ -196,11 +214,14 @@
         android:layout_marginTop="10dp"
         ></View>
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -214,10 +235,23 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"/>
+            android:layout_alignParentRight="true"
+            ></RadioButton>
+    </RelativeLayout>
 
 
-</LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="APPLY"
+        android:background="@drawable/bgorange"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        ></Button>
+
+
 
 
     </LinearLayout>

@@ -27,21 +27,24 @@ public class Page5 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String number = text.getText().toString();
-                if (Pattern.matches("[7-9]?[0-9]{5,7}",number)){
+                if (Pattern.matches("[[9]+[0-9]],{8}",number)){
                 editor.putString("mobile number",number);
                 editor.commit();
                 }
                 else {
                     Toast.makeText(Page5.this, "Enter the valid number", Toast.LENGTH_SHORT).show();
-              return;
                 }
-                Log.e("TAG",number);
 
                 Intent intent = new Intent(Page5.this,Page7.class);
                 startActivity(intent);
 
+
+                return;
+
             }
+
         });
+
 
 
     }
