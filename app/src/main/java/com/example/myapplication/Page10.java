@@ -71,6 +71,7 @@ public class Page10 extends AppCompatActivity {
         NonvegImage item2 = new NonvegImage("20% offers","Tandoori Lamb Chops","250 RS","https://i.ndtvimg.com/i/2016-06/lamb-chops_625x350_51466768845.jpg");
         list2.add(item2);
         NonvegImage item3 = new NonvegImage("30% offers","Malabar Fish Biryani","220 RS","https://i.ndtvimg.com/i/2016-11/biryani-620_620x350_41478678907.jpg");
+
         list2.add(item3);
         NonVegAdpter adpter2 = new NonVegAdpter(list2);
         Nonvegview.setAdapter(adpter2);
@@ -120,6 +121,11 @@ public class Page10 extends AppCompatActivity {
 
         NonvegImage image4 = new NonvegImage("2% OFF","Momas","100 RS","https://foodiewish.com/wp-content/uploads/2020/03/Momos-foodiewish.jpg");
         list4.add(image4);
+
+        NonVegAdpter adpter4 = new NonVegAdpter(list3);
+        Starters.setAdapter(adpter4);
+
+        VegView.setLayoutManager(new LinearLayoutManager(Page10.this,RecyclerView.HORIZONTAL,false));
 
 
 

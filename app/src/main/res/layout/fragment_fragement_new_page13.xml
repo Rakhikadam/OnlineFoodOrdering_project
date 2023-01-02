@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".FragementNew_page13">
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+
+        <!-- TODO: Update blank fragment layout -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/image3"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/ll_pager13"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+
+                android:layout_below="@+id/ll_tabpage13"
+                ></androidx.viewpager.widget.ViewPager>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/ll_tabpage13"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                ></com.google.android.material.tabs.TabLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
+</LinearLayout>

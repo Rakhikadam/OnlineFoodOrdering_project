@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -84,9 +85,8 @@ public class Homepage13 extends Fragment {
         View view  = inflater.inflate(R.layout.fragment_homepage13, container, false);
         RecyclerView recycler1 = view.findViewById(R.id.recycle1page13);
 
-        //Initalize menus category
+        //first Initalize menus category
         Set<String> category = new LinkedHashSet<>(); //set linkedHashSet
-
         recycler1.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
 
 
@@ -94,7 +94,7 @@ public class Homepage13 extends Fragment {
 
 
 
-        //Initalize menulist
+        //Second Initalize menulist
         recycler2 = view.findViewById(R.id.recyle2page13);
         List<Itemname>list  = new ArrayList<>();
         Itemname list1 = new Itemname("Paneer","150Rs","Main Course","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg","Serves2");
@@ -113,7 +113,7 @@ public class Homepage13 extends Fragment {
 
         recycler2.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //
+        //add item category
         for (Itemname item : list){
            if (item.category.equalsIgnoreCase("Main Course")){
                MainCourse.add(item);
@@ -137,14 +137,14 @@ public class Homepage13 extends Fragment {
            category.add(item.getCategory());
 
         }
-        recycler1.setAdapter(new CategoryAdpter(category)); //recycler1 CategoryAdpter set in category
-
-
 
         return view;
 
     }
-    //create Adpter of list
+
+
+
+    //first create Adpter of list
     class ItemAdpter extends RecyclerView.Adapter<ItemAdpter.CustomAdpterHolder>{
         List<Itemname> list;
 
@@ -170,6 +170,7 @@ public class Homepage13 extends Fragment {
             Log.e("TAG",list.get(position).getImage());
 
 
+            //gone and visible method
             holder.add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -186,6 +187,73 @@ public class Homepage13 extends Fragment {
                 }
             });
 
+
+
+
+
+            //1st method add food
+            holder.plus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (holder.onetext.getText().toString().equalsIgnoreCase("1")){
+                        holder.onetext.setText("2");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("2")){
+                        holder.onetext.setText("3");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("3")){
+                        holder.onetext.setText("4");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("4")){
+                        holder.onetext.setText("5");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("5")){
+                        holder.onetext.setText("6");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("6")){
+                        holder.onetext.setText("7");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("7")){
+                        holder.onetext.setText("8");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("8")){
+                        holder.onetext.setText("9");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("9")){
+                        holder.onetext.setText("10");
+                    }
+                    else if (
+                            holder.onetext.getText().toString().equalsIgnoreCase("10")){
+                        Toast.makeText(getActivity(), "Maximum value exceed", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+            });
+
+
+
+            //2nd method remove
+           holder.minus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int value = Integer.parseInt(String.valueOf(holder.onetext.getText().toString().equalsIgnoreCase("1")));
+                    if (value>1){
+                        value = value-1;
+                        holder.onetext.setText(String.valueOf(value));
+                    }
+                    else {
+                        Toast.makeText(getActivity(), "Add value", Toast.LENGTH_SHORT).show();
+
+                    holder.add.setVisibility(View.VISIBLE);
+                    holder.gone.setVisibility(View.GONE);
+                    }
+
+                }
+            });
+
+
         }
 
 
@@ -201,6 +269,9 @@ public class Homepage13 extends Fragment {
             TextView serves;
             Button add ;
             LinearLayout gone;
+            Button minus , plus;
+            TextView onetext;
+
 
 
             public CustomAdpterHolder(@NonNull View itemView) {
@@ -212,6 +283,10 @@ public class Homepage13 extends Fragment {
                 add = itemView.findViewById(R.id.buttonvisible);
                 gone = itemView.findViewById(R.id.buttongone);
 
+                minus = itemView.findViewById(R.id.minus);
+                plus = itemView.findViewById(R.id.plus);
+                onetext = itemView.findViewById(R.id.onetext);
+
             }
         }
     }
@@ -219,7 +294,7 @@ public class Homepage13 extends Fragment {
 
 
 
-    //crate Adpter of category
+    //Second crate Adpter of category
     class CategoryAdpter extends RecyclerView.Adapter<CategoryAdpter.CustomAdpterHolder>{
     //covert set to list
     List<String> category;

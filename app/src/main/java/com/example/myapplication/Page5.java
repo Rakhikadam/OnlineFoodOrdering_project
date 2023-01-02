@@ -27,7 +27,7 @@ public class Page5 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String number = text.getText().toString();
-                if (Pattern.matches("[[9]+[0-9]],{8}",number)){
+                if (Pattern.matches("[[7-9]+[0-9]],{8}",number)){
                 editor.putString("mobile number",number);
                 editor.commit();
                 }

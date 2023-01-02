@@ -70,6 +70,7 @@
         >
 
         <Button
+            android:id="@+id/minus"
             android:layout_width="47dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
@@ -78,6 +79,7 @@
             android:text="-"></Button>
 
         <TextView
+            android:id="@+id/onetext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
@@ -86,12 +88,12 @@
             ></TextView>
 
         <Button
+            android:id="@+id/plus"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/bgorange"
        android:layout_marginLeft="10dp"
-
-        android:text="+"
+            android:text="+"
         ></Button>
 
     </LinearLayout>

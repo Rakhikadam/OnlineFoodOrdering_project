@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AccountFragement_page10">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:id="@+id/ll_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/ll_profile"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/imagefoodicon"
+            android:layout_marginTop="50dp"
+            ></de.hdodenhof.circleimageview.CircleImageView>
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:id="@+id/ll_text"
+       android:text="Rakhi  Kadam"
+       android:layout_below="@+id/ll_profile"
+       android:textColor="@color/black"
+       android:textSize="30dp"
+       ></TextView>
+ <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="RakhiKadam1@gmail.com"
+       android:layout_below="@+id/ll_text"
+       android:textColor="@color/black"
+       android:textSize="15dp"
+       ></TextView>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:src="@drawable/edit"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="20dp"
+            ></ImageView>
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/accountrecycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        ></androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>
