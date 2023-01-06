@@ -2,11 +2,21 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +69,63 @@ public class shoopingcartFragement_page10 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shoopingcart_fragement_page10, container, false);
+        View view =  inflater.inflate(R.layout.fragment_shoopingcart_fragement_page10, container, false);
+        RecyclerView cartrecycler = view.findViewById(R.id.shoppingcartlist);
+
+        List<shoppingcartlist>list = new ArrayList<>();
+
+        shoppingcartlist list1 = new shoppingcartlist("Paneer","150Rs","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
+        list.add(list1);
+ shoppingcartlist list2 = new shoppingcartlist("Paneer","150Rs","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
+        list.add(list2);
+ shoppingcartlist list3 = new shoppingcartlist("Paneer","150Rs","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
+        list.add(list3);
+
+        ShoopingAdpter adpter =new ShoopingAdpter(list);
+        cartrecycler.setAdapter(adpter);
+        cartrecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        return view;
+    }
+    class ShoopingAdpter extends RecyclerView.Adapter<ShoopingAdpter.CustomViewHolder>{
+        List<shoppingcartlist> list;
+
+        public ShoopingAdpter(List<shoppingcartlist> list) {
+            this.list = list;
+
+        }
+
+        @NonNull
+        @Override
+        public ShoopingAdpter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(getContext()).inflate(R.layout.shoppingcartlist_page10,parent,false);
+            CustomViewHolder holder = new CustomViewHolder(v);
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ShoopingAdpter.CustomViewHolder holder, int position) {
+
+            holder.price.setText(list.get(position).getPrice());
+            holder.name.setText(list.get(position).getName());
+            Glide.with(getContext()).load(list.get(position).getImage()).into(holder.image);
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        public class CustomViewHolder extends RecyclerView.ViewHolder {
+            ImageView image;
+            TextView name;
+            TextView price;
+            public CustomViewHolder(@NonNull View itemView) {
+                super(itemView);
+                image = itemView.findViewById(R.id.shoppingimage1);
+                name= itemView.findViewById(R.id.carttext);
+                price = itemView.findViewById(R.id.cartprise);
+            }
+        }
     }
 }

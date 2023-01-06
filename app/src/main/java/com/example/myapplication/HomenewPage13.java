@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -32,9 +34,12 @@ import java.util.Set;
 public class HomenewPage13 extends Fragment {
     RecyclerView food;
     RecyclerView list1;
-    List<fooditemlist> MainCourse = new ArrayList<fooditemlist>();
+    List<fooditemlist> MainCourse = new ArrayList<>();
     List<fooditemlist> Desserts = new ArrayList<fooditemlist>();
     List<fooditemlist> Chiness = new ArrayList<fooditemlist>();
+    List<fooditemlist> Breakfast = new ArrayList<>();
+    List<fooditemlist> Starters = new ArrayList<fooditemlist>();
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -107,28 +112,36 @@ public class HomenewPage13 extends Fragment {
         //2nd recycler view adpter
          food = v.findViewById(R.id.frecyle2page13);
         List<fooditemlist>list3 = new ArrayList<>();
-        fooditemlist image1 = new fooditemlist("Paneer","150Rs","Main Course","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
+        fooditemlist image1 = new fooditemlist("Paneer","150Rs","MainCourse","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg","service2");
         list3.add(image1);
-        fooditemlist image2 = new fooditemlist("Ice-Cream","150Rs","Desserts","https://joyfoodsunshine.com/wp-content/uploads/2020/06/homemade-chocolate-ice-cream-recipe-7.jpg");
+        fooditemlist image2 = new fooditemlist("Ice-Cream","150Rs","Desserts","https://joyfoodsunshine.com/wp-content/uploads/2020/06/homemade-chocolate-ice-cream-recipe-7.jpg","service2");
         list3.add(image2);
-        fooditemlist image3 = new fooditemlist("Idle","150Rs","Main Course","https://www.shutterstock.com/image-photo/idli-sambhar-idly-sambar-popular-260nw-1527060110.jpg");
+        fooditemlist image3 = new fooditemlist("Idle","150Rs","Starters","https://www.shutterstock.com/image-photo/idli-sambhar-idly-sambar-popular-260nw-1527060110.jpg","service2");
         list3.add(image3);
-        fooditemlist image4 = new fooditemlist("Paneer","150Rs","Chinese","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
+        fooditemlist image4 = new fooditemlist("Noddles","150Rs","Chiness","https://www.wellandgood.com/wp-content/uploads/2020/12/chow-mein-cup-full-of-kale-feature.jpg","service2");
         list3.add(image4);
+        fooditemlist image5 = new fooditemlist("Noodels","150Rs","Breakfast","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg","service2");
+        list3.add(image5);
         MenulistAdpter adpter1 = new MenulistAdpter(list3);
         food.setAdapter(adpter1);
         food.setLayoutManager(new LinearLayoutManager(getContext()));
 
         for (fooditemlist item : list3 ){
-            if (item.category.equalsIgnoreCase("Main Course")){
+            if (item.category.equalsIgnoreCase("MainCourse")){
                 MainCourse.add(item);
             }
             if (item.category.equalsIgnoreCase("Desserts")){
                 Desserts.add(item);
 
             }
-            if (item.category.equalsIgnoreCase("Chinese")){
+            if (item.category.equalsIgnoreCase("Chiness")){
                 Chiness.add(item);
+            }
+            if (item.category.equalsIgnoreCase("Starters")){
+                Starters.add(item);
+            }
+            if (item.category.equalsIgnoreCase("Breakfast")){
+                Breakfast.add(item);
             }
            list.add(item.getCategory());
         }
@@ -142,16 +155,15 @@ public class HomenewPage13 extends Fragment {
 
 
 
-    //first recyclerview adpter class
+
+    //first button recyclerview adpter class
     class MenuAdpter extends RecyclerView.Adapter<MenuAdpter.CustomHolderAdpter>{
         ArrayList<String> list;
-
 
         public MenuAdpter(Set<String> list) {
             this.list = new ArrayList<>(list);
 
         }
-
         @NonNull
         @Override
         public MenuAdpter.CustomHolderAdpter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -164,6 +176,7 @@ public class HomenewPage13 extends Fragment {
         public void onBindViewHolder(@NonNull MenuAdpter.CustomHolderAdpter holder, @SuppressLint("RecyclerView") int position) {
 
             holder.button.setText(list.get(position));
+
             holder.button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -178,6 +191,14 @@ public class HomenewPage13 extends Fragment {
                     }
                else if (list.get(position).equalsIgnoreCase("Chiness")){
                         MenulistAdpter adpter = new MenulistAdpter(Chiness);
+                        food.setAdapter(adpter);
+                    }
+               else if (list.get(position).equalsIgnoreCase("Starters")){
+                        MenulistAdpter adpter = new MenulistAdpter(Starters);
+                        food.setAdapter(adpter);
+                    }
+               else if (list.get(position).equalsIgnoreCase("Breakfast")){
+                        MenulistAdpter adpter = new MenulistAdpter(Breakfast);
                         food.setAdapter(adpter);
                     }
                 }
@@ -197,6 +218,8 @@ public class HomenewPage13 extends Fragment {
             }
         }
     }
+
+
 
 
 
@@ -224,8 +247,96 @@ public class HomenewPage13 extends Fragment {
         public void onBindViewHolder(@NonNull MenulistAdpter.CustomHolderAdpter holder, int position) {
 
             holder.name.setText(list3.get(position).getName());
-            holder.price.setText(list3.get(position).getPrise());
-            Glide.with(getContext()).load(list3.get(position).getImage()).into(holder.photo);
+            holder.price.setText(list3.get(position).getPrice());
+            holder.serves.setText(list3.get(position).getService_type());
+
+            Glide.with(getContext()).load(list3.get(position).getImage()).into(holder.image);
+            Log.e("TAG",list3.get(position).getImage());
+
+
+            //add button visible and gone method
+            holder.add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    holder.gone.setVisibility(View.VISIBLE);
+                    holder.add.setVisibility(View.GONE);
+                }
+            });
+
+            holder.gone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    holder.add.setVisibility(View.VISIBLE);
+                    holder.gone.setVisibility(View.GONE);
+                }
+            });
+
+
+            //1st method add food
+            holder.plus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (holder.onetext.getText().toString().equalsIgnoreCase("1")){
+                        holder.onetext.setText("2");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("2")){
+                        holder.onetext.setText("3");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("3")){
+                        holder.onetext.setText("4");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("4")){
+                        holder.onetext.setText("5");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("5")){
+                        holder.onetext.setText("6");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("6")){
+                        holder.onetext.setText("7");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("7")){
+                        holder.onetext.setText("8");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("8")){
+                        holder.onetext.setText("9");
+                    }
+                    else if (holder.onetext.getText().toString().equalsIgnoreCase("9")){
+                        holder.onetext.setText("10");
+                    }
+                    else if (
+                            holder.onetext.getText().toString().equalsIgnoreCase("10")){
+                        Toast.makeText(getActivity(), "Maximum value exceed", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+            });
+
+
+            //2nd method remove
+            holder.minus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int value = Integer.parseInt(String.valueOf(holder.onetext.getText().toString().equalsIgnoreCase("1")));
+                    if (value>1){
+                        value = value-1;
+                        holder.onetext.setText(String.valueOf(value));
+                    }
+                    else {
+                        Toast.makeText(getActivity(), "Add value", Toast.LENGTH_SHORT).show();
+
+                        holder.add.setVisibility(View.VISIBLE);
+                        holder.gone.setVisibility(View.GONE);
+                    }
+
+                }
+            });
+
+
+
+
+
 
         }
 
@@ -235,14 +346,28 @@ public class HomenewPage13 extends Fragment {
         }
 
         public class CustomHolderAdpter extends RecyclerView.ViewHolder{
-            ImageView photo;
-            TextView name , price;
+            ImageView image;
+            TextView name;
+            TextView price;
+            TextView serves;
+            Button add ;
+            LinearLayout gone;
+            Button minus , plus;
+            TextView onetext;
+
 
             public CustomHolderAdpter(@NonNull View itemView) {
                 super(itemView);
-                photo = itemView.findViewById(R.id.image1page13);
+                image = itemView.findViewById(R.id.image1page13);
                 name = itemView.findViewById(R.id.text1page13);
                 price = itemView.findViewById(R.id.text2page13);
+                serves = itemView.findViewById(R.id.text3page13);
+                add = itemView.findViewById(R.id.buttonvisible);
+                gone = itemView.findViewById(R.id.buttongone);
+
+                minus = itemView.findViewById(R.id.minus);
+                plus = itemView.findViewById(R.id.plus);
+                onetext = itemView.findViewById(R.id.onetext);
             }
         }
     }

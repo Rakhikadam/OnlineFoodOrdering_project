@@ -1,18 +1,14 @@
 package com.example.myapplication;
 
-public class fooditemlist {
+public class shoppingcartlist {
     String name;
     String price;
-    String category;
     String image;
-    String Service_type;
 
-    public fooditemlist(String name, String price, String category, String image, String service_type) {
+    public shoppingcartlist(String name, String price, String image) {
         this.name = name;
         this.price = price;
-        this.category = category;
         this.image = image;
-        Service_type = service_type;
     }
 
     public String getName() {
@@ -31,27 +27,11 @@ public class fooditemlist {
         this.price = price;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String getImage() {
         return image;
     }
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public String getService_type() {
-        return Service_type;
-    }
-
-    public void setService_type(String service_type) {
-        Service_type = service_type;
     }
 }

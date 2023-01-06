@@ -1,12 +1,26 @@
 package com.example.myapplication;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +73,137 @@ public class ReviewnewPage13 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reviewnew_page13, container, false);
+        View view = inflater.inflate(R.layout.fragment_reviewnew_page13, container, false);
+        RecyclerView recyclernew = view.findViewById(R.id.ll_reviewewcycle);
+        List<reviewlistnew> list = new ArrayList<>();
+
+        reviewlistnew user = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
+        list.add(user);
+        reviewlistnew user1 = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
+        list.add(user1);
+        reviewlistnew user2 = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
+        list.add(user2);
+        reviewlistnew user3 = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
+        list.add(user3);
+        reviewlistnew user4 = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
+        list.add(user4);
+        reviewlistnew user5 = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
+        list.add(user5);
+        reviewlistnew user6 = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
+        list.add(user6);
+        reviewlistnew user7 = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
+        list.add(user7);
+        ReviewnewAdpter adpter = new ReviewnewAdpter(list);
+        recyclernew.setAdapter(adpter);
+
+        recyclernew.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        Button reviewbutton = view.findViewById(R.id.ll_addreview);
+
+        reviewbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog customdialog = new Dialog(getContext());
+                customdialog.setContentView(R.layout.addreviewpage13);
+                customdialog.show();
+
+            }
+        });
+
+
+
+        return view;
+    }
+    class ReviewnewAdpter extends RecyclerView.Adapter<ReviewnewAdpter.CustomAdpterHolder>{
+
+        List<reviewlistnew> list;
+
+        public ReviewnewAdpter(List<reviewlistnew> list) {
+            this.list = list;
+
+        }
+
+        @NonNull
+        @Override
+        public ReviewnewAdpter.CustomAdpterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View ABc = LayoutInflater.from(getContext()).inflate(R.layout.reviewlistpage13, parent, false);
+            CustomAdpterHolder holder = new CustomAdpterHolder(ABc);
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ReviewnewAdpter.CustomAdpterHolder holder, int position) {
+
+            holder.date.setText(list.get(position).getDate());
+            holder.name.setText(list.get(position).getName());
+            holder.message.setText(list.get(position).getMessage());
+            holder.comment.setText(list.get(position).getComments());
+//set star background using case
+            Log.e("TAG",(list.get(position).getStar()));
+            switch (list.get(position).getStar()) {
+                case "1":
+                    holder.ll_star.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(1).setBackgroundColor(getResources().getColor(R.color.gray));
+                    holder.ll_star.getChildAt(2).setBackgroundColor(getResources().getColor(R.color.gray));
+                    holder.ll_star.getChildAt(3).setBackgroundColor(getResources().getColor(R.color.gray));
+                    holder.ll_star.getChildAt(4).setBackgroundColor(getResources().getColor(R.color.gray));
+                    break;
+                case "2":
+                    holder.ll_star.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(1).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(2).setBackgroundColor(getResources().getColor(R.color.gray));
+                    holder.ll_star.getChildAt(3).setBackgroundColor(getResources().getColor(R.color.gray));
+                    holder.ll_star.getChildAt(4).setBackgroundColor(getResources().getColor(R.color.gray));
+                    break;
+
+                case "3":
+                    holder.ll_star.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(1).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(2).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(3).setBackgroundColor(getResources().getColor(R.color.gray));
+                    holder.ll_star.getChildAt(4).setBackgroundColor(getResources().getColor(R.color.gray));
+                    break;
+
+                case "4":
+                    holder.ll_star.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(1).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(2).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(3).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(4).setBackgroundColor(getResources().getColor(R.color.gray));
+                    break;
+
+                case "5":
+                    holder.ll_star.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(1).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(2).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(3).setBackgroundColor(getResources().getColor(R.color.green));
+                    holder.ll_star.getChildAt(4).setBackgroundColor(getResources().getColor(R.color.green));
+                    break;
+            }
+            Glide.with(getContext()).load(list.get(position).getProfile()).into(holder.profile);
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        public class CustomAdpterHolder extends RecyclerView.ViewHolder{
+            ImageView profile;
+            LinearLayout ll_star;
+            TextView name, comment, message, date;
+
+            public CustomAdpterHolder(@NonNull View itemView) {
+                super(itemView);
+                profile = itemView.findViewById(R.id.profilereview);
+                name = itemView.findViewById(R.id.text1review);
+                comment = itemView.findViewById(R.id.text3review);
+                message = itemView.findViewById(R.id.text4review);
+                date = itemView.findViewById(R.id.text2review);
+                ll_star = itemView.findViewById(R.id.ll_star);
+
+            }
+        }
     }
 }

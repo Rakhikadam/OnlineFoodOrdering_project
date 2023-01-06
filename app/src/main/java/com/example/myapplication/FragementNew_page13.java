@@ -13,8 +13,14 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FragementNew_page13 extends Fragment {
@@ -27,7 +33,7 @@ public class FragementNew_page13 extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private int mParam1;
     private String mParam2;
 
     public FragementNew_page13() {
@@ -40,7 +46,7 @@ public class FragementNew_page13 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam1 = getArguments().getInt("id");
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -62,10 +68,26 @@ public class FragementNew_page13 extends Fragment {
         tab.getTabAt(1).setText("Photo");
         tab.getTabAt(2).setText("Review");
         tab.getTabAt(3).setText("About");
-    pager.setOffscreenPageLimit(1);
+
+        List<restaurant> image2 = new ArrayList<>();
+        restaurant list5 = new restaurant("Alpha hotel", "30% OFF ", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
+        image2.add(list5);
+        restaurant list6 = new restaurant("Star hotel", "30% OFF", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
+        image2.add(list6);
+        restaurant list7 = new restaurant("Blue hotel", "30% OFF", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
+        image2.add(list7);
+        restaurant list8 = new restaurant("Alpha hotel", "30% OFF", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
+        image2.add(list8);
+
+        ImageView image = view.findViewById(R.id.imagep13);
+        Glide.with(getContext()).load(image2.get(mParam1).getImage()).into(image);
+
+        TextView text = view.findViewById(R.id.textp13);
+        text.setText(image2.get(mParam1).getName());
 
         return view;
     }
+
 
     private void doNothing() {
 

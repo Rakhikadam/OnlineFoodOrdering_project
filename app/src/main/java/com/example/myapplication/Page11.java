@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -81,9 +82,10 @@ public class Page11 extends AppCompatActivity {
             holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(Page11.this,Page13.class);
-                    startActivity(intent);
-                }
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.ll_page11,new FragementNew_page13());
+                    transaction.commit();
+                     }
             });
 
         }
@@ -97,12 +99,14 @@ public class Page11 extends AppCompatActivity {
             ImageView image;
             TextView foodname;
             TextView prise;
+           // RelativeLayout imagess;
 
             public CustomAdpter(@NonNull View itemView) {
                 super(itemView);
                 image = itemView.findViewById(R.id.image1page11);
                 foodname = itemView.findViewById(R.id.text2page11);
                 prise = itemView.findViewById(R.id.text3page11);
+              //  imagess = itemView.findViewById(R.id.ll_image11);
             }
         }
     }

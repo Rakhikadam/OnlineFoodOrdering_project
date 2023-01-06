@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,7 +116,7 @@ public class homefragement_page10 extends Fragment {
 
         RecyclerView NonVeg = view.findViewById(R.id.fimagerecycle2);
         List<foodlist>nonveglist = new ArrayList<>();
-        foodlist photo = new foodlist("Grilled Chiken","25% offers","https://i.ndtvimg.com/i/2015-12/grilled-chicken-625_625x350_71451368942.jpg");
+        foodlist photo = new foodlist("Grilled Chiken","25% offers","890https://i.ndtvimg.com/i/2015-12/grilled-chicken-625_625x350_71451368942.jpg");
         nonveglist.add(photo);
 
         foodlist photo1 = new foodlist("Mutton Korma","50% offers","https://i.ndtvimg.com/i/2015-03/badam-korma_625x350_41426244081.jpg");
@@ -170,7 +171,12 @@ foodlist starter4 = new foodlist("Halwa","2% offer","https://foodiewish.com/wp-c
 
 
         TextView viewall = view.findViewById(R.id.llviewall1);
-        TextView vegfood = view.findViewById(R.id.vegfood);
+        TextView viewall1 = view.findViewById(R.id.ll_viewall3);
+        TextView vegfood = view.findViewById(R.id.ll_viewall2);
+
+        //underline of textview
+        vegfood.setText(Html.fromHtml("<u>View all</u>"));
+
         viewall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -183,7 +189,16 @@ foodlist starter4 = new foodlist("Halwa","2% offer","https://foodiewish.com/wp-c
             @Override
             public void onClick(View view) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame,new homefragement_page10());
+                transaction.replace(R.id.frame,new FragementNew_page13());
+                transaction.commit();
+            }
+        });
+
+        viewall1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame,new FragementNew_page13());
                 transaction.commit();
             }
         });

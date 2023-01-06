@@ -51,7 +51,7 @@ public class Page7 extends AppCompatActivity {
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Page7.this,Page10.class);
+                Intent intent = new Intent(Page7.this,Page9.class);
                 startActivity(intent);
             }
         });

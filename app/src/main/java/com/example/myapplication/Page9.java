@@ -65,7 +65,7 @@ public class Page9 extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Page9.this,Page10.class);
+                Intent intent = new Intent(Page9.this,Page10_FragementandTab.class);
                 startActivity(intent);
             }
         });

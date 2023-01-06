@@ -2,11 +2,20 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +68,67 @@ public class PhotonewPage13 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_photonew_page13, container, false);
+        View view =  inflater.inflate(R.layout.fragment_photonew_page13, container, false);
+
+        RecyclerView recycler =view.findViewById(R.id.ll_photorecycle13);
+
+        List<photo> list = new ArrayList<>();
+        photo image1 = new photo("https://assets1.cbsnewsstatic.com/hub/i/2015/07/01/0b059f60-344d-4ada-baae-e683aff3650a/istock000044051102large.jpg");
+        list.add(image1);
+        photo image2 = new photo("https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/seqow1xpsqqmheeipuso");
+        list.add(image2);
+        photo image3 = new photo("https://mydaintykitchen.com/wp-content/uploads/2019/07/31-Quick-Party-Appetizers-1.jpg");
+        list.add(image3);
+        photo image4 = new photo("https://img.buzzfeed.com/thumbnailer-prod-us-east-1/video-api/assets/173373.jpg");
+        list.add(image4);
+        PhotolistnewAdpter adpter = new PhotolistnewAdpter(list);
+        recycler.setAdapter(adpter);
+        recycler.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
+
+
+        return view;
     }
+
+    class PhotolistnewAdpter extends RecyclerView.Adapter<PhotolistnewAdpter.CustomAdpterHolder>{
+
+        List<photo> list;
+        public PhotolistnewAdpter(List<photo> list) {
+            this.list = list;
+
+        }
+
+        @NonNull
+        @Override
+        public PhotolistnewAdpter.CustomAdpterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View ABC = LayoutInflater.from(getContext()).inflate(R.layout.photoimage13,parent,false);
+            CustomAdpterHolder holder = new CustomAdpterHolder(ABC);
+
+            return holder;
+
+
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull PhotolistnewAdpter.CustomAdpterHolder holder, int position) {
+            Glide.with(getContext()).load(list.get(position).getImage()).into(holder.image);
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        public class CustomAdpterHolder extends RecyclerView.ViewHolder{
+            ImageView image;
+
+            public CustomAdpterHolder(@NonNull View itemView) {
+                super(itemView);
+
+                image = itemView.findViewById(R.id.photo);
+
+            }
+        }
+    }
+
 }

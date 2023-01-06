@@ -33,7 +33,7 @@ public class Page10_FragementandTab extends AppCompatActivity {
        tab.getTabAt(3).setIcon(R.drawable.person);
        pager.setOffscreenPageLimit(4);
     }
-
+//open next and previous fragement page
    @Override
     public void onBackPressed() {
         for (Fragment fragment:getSupportFragmentManager().getFragments()){
@@ -41,6 +41,11 @@ public class Page10_FragementandTab extends AppCompatActivity {
             if (fragment instanceof FragementNew_page13){
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.remove(fragment);
+                for (Fragment fragment1:getSupportFragmentManager().getFragments()){
+                    if (fragment1 instanceof HomenewPage13||fragment1 instanceof PhotonewPage13||fragment1 instanceof ReviewnewPage13||fragment1 instanceof AboutnewPage13){
+                        transaction.remove(fragment1);
+                    }
+                }
                 transaction.commit();
                 return;
 

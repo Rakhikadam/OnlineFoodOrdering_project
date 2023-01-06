@@ -9,12 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AboutnewPage13#newInstance} factory method to
+ * Use the {@link hotelMyAccount_page10#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AboutnewPage13 extends Fragment {
+public class hotelMyAccount_page10 extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +28,7 @@ public class AboutnewPage13 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AboutnewPage13() {
+    public hotelMyAccount_page10() {
         // Required empty public constructor
     }
 
@@ -35,11 +38,11 @@ public class AboutnewPage13 extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AboutnewPage13.
+     * @return A new instance of fragment hotelMyAccount_page10.
      */
     // TODO: Rename and change types and number of parameters
-    public static AboutnewPage13 newInstance(String param1, String param2) {
-        AboutnewPage13 fragment = new AboutnewPage13();
+    public static hotelMyAccount_page10 newInstance(String param1, String param2) {
+        hotelMyAccount_page10 fragment = new hotelMyAccount_page10();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,9 +63,9 @@ public class AboutnewPage13 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_aboutnew_page13, container, false);
+        View view =  inflater.inflate(R.layout.fragment_hotel_my_account_page10, container, false);
+        
 
-
-        return view;
+   return view;
     }
 }

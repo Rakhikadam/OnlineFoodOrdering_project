@@ -136,7 +136,10 @@ public class Homepage13 extends Fragment {
            }
            category.add(item.getCategory());
 
+
         }
+        CategoryAdpter adpter = new CategoryAdpter(category);
+        recycler1.setAdapter(adpter);
 
         return view;
 
@@ -144,7 +147,7 @@ public class Homepage13 extends Fragment {
 
 
 
-    //first create Adpter of list
+    //second menu create Adpter of list
     class ItemAdpter extends RecyclerView.Adapter<ItemAdpter.CustomAdpterHolder>{
         List<Itemname> list;
 
@@ -294,7 +297,7 @@ public class Homepage13 extends Fragment {
 
 
 
-    //Second crate Adpter of category
+    //first button crate Adpter of category
     class CategoryAdpter extends RecyclerView.Adapter<CategoryAdpter.CustomAdpterHolder>{
     //covert set to list
     List<String> category;
