@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.model.CartItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,11 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class shoopingcartFragement_page10 extends Fragment {
+    ItemAddListner Listner;
+    List<shoppingcart> list = new ArrayList<shoppingcart>();
+    ShoopingAdpter adpter;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,6 +69,32 @@ public class shoopingcartFragement_page10 extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        Page10_FragementandTab activity = (Page10_FragementandTab) getActivity();
+        activity.Listner = new ItemAddListner() {
+            @Override
+            public void Itemadd(CartItem item) {
+                shoppingcart cart = new shoppingcart(item.getName(), item.getPrice(), item.getImageUrl());
+                list.add(cart);
+                adpter.notifyDataSetChanged();
+
+
+            }
+
+            @Override
+            public Void Update(String name, String quantity) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getName().equals(name)) {
+                        list.get(i).setCount(quantity);
+                        adpter.notifyDataSetChanged();
+                    }
+
+                }
+                return null;
+            }
+
+        };
+
+        Listner = activity.Listner;
     }
 
     @Override

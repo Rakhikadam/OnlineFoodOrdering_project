@@ -5,6 +5,7 @@ public class shoppingcart {
     String name;
     String price;
     String image;
+    String  count ="1";
 
     public shoppingcart(String name, String price, String image) {
         this.name = name;
@@ -14,6 +15,14 @@ public class shoppingcart {
 
     public String getName() {
         return name;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 
     public void setName(String name) {

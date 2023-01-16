@@ -19,6 +19,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +38,7 @@ public class FragementNew_page13 extends Fragment {
     // TODO: Rename and change types of parameters
     private int mParam1;
     private String mParam2;
+    JSONObject data= new JSONObject();
 
     public FragementNew_page13() {
         // Required empty public constructor
@@ -47,7 +51,11 @@ public class FragementNew_page13 extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getInt("id");
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            try {
+                data = new JSONObject(getArguments().getString("data")) ;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -64,26 +72,35 @@ public class FragementNew_page13 extends Fragment {
 
         tab.getTabAt(0).setText("Menu");
 //        tab.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.fav));
-
         tab.getTabAt(1).setText("Photo");
         tab.getTabAt(2).setText("Review");
         tab.getTabAt(3).setText("About");
 
         List<restaurant> image2 = new ArrayList<>();
-        restaurant list5 = new restaurant("Alpha hotel", "30% OFF ", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
-        image2.add(list5);
-        restaurant list6 = new restaurant("Star hotel", "30% OFF", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
-        image2.add(list6);
-        restaurant list7 = new restaurant("Blue hotel", "30% OFF", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
-        image2.add(list7);
-        restaurant list8 = new restaurant("Alpha hotel", "30% OFF", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
-        image2.add(list8);
+//        restaurant list5 = new restaurant("Alpha hotel", "30% OFF ", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
+//        image2.add(list5);
+//        restaurant list6 = new restaurant("Star hotel", "30% OFF", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
+//        image2.add(list6);
+//        restaurant list7 = new restaurant("Blue hotel", "30% OFF", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
+//        image2.add(list7);
+//        restaurant list8 = new restaurant("Alpha hotel", "30% OFF", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
+//        image2.add(list8);
 
+        //set data
         ImageView image = view.findViewById(R.id.imagep13);
-        Glide.with(getContext()).load(image2.get(mParam1).getImage()).into(image);
+        try {
+            Glide.with(getContext()).load(data.getString("hotelimage")).into(image);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         TextView text = view.findViewById(R.id.textp13);
-        text.setText(image2.get(mParam1).getName());
+        try {
+            text.setText(data.getString("hotelname"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         return view;
     }
@@ -93,7 +110,7 @@ public class FragementNew_page13 extends Fragment {
 
     }
 
-    public static class PagernewAdpter extends  FragmentPagerAdapter{
+    public  class PagernewAdpter extends  FragmentPagerAdapter{
 
         public PagernewAdpter(@NonNull FragmentManager fm) {
             super(fm);
@@ -103,6 +120,62 @@ public class FragementNew_page13 extends Fragment {
         @Override
         public Fragment getItem(int position) {
             if (position == 0){
+
+                Fragment fragment =  new HomenewPage13();
+                try {
+                    Bundle bundle =new Bundle();
+                    bundle.putString("Menulist",data.getJSONArray("Menulist").toString());
+                    fragment.setArguments(bundle);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return fragment;
+            }
+
+            else if (position == 1){
+
+                Fragment fragment = new PhotonewPage13();
+
+                Bundle bundle = new Bundle();
+                try {
+                    bundle.putString("hotelphotos",data.getJSONArray("hotelphotos").toString());
+                    fragment.setArguments(bundle);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return fragment;
+            }
+
+            else if (position == 2){
+                Fragment fragment =  new ReviewnewPage13();
+
+                Bundle bundle = new Bundle();
+                try {
+                    bundle.putString("Review",data.getJSONArray("Review").toString());
+                    fragment.setArguments(bundle);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return fragment;
+            }
+
+
+            else if (position == 3 ){
+                Fragment fragment = new AboutnewPage13();
+                Bundle bundle = new Bundle();
+
+                try {
+                    bundle.putString("About",data.getString("About").toString());
+                    fragment.setArguments(bundle);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return fragment;
+            }
+
+
+
+          /*  if (position == 1){
                 return new HomenewPage13();
             }
             else if (position == 1){
@@ -114,6 +187,8 @@ public class FragementNew_page13 extends Fragment {
             else if (position == 3){
                 return new AboutnewPage13();
             }
+
+             */
             return null;
         }
 

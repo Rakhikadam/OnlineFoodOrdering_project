@@ -10,13 +10,17 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
+import com.example.myapplication.model.CartItem;
 import com.google.android.material.tabs.TabLayout;
 
 public class Page10_FragementandTab extends AppCompatActivity {
-    ViewPager pager ;
-    TabLayout tab ;
+    ViewPager pager;
+    TabLayout tab;
+    public ItemAddListner Listner;
+
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page10_fragementand_tab);
@@ -24,25 +28,27 @@ public class Page10_FragementandTab extends AppCompatActivity {
         tab = findViewById(R.id.tab10);
 
         PagerAdpter adpter = new PagerAdpter(getSupportFragmentManager());
+
         pager.setAdapter(adpter);
         tab.setupWithViewPager(pager);
 
-       tab.getTabAt(0).setIcon(R.drawable.home);
-       tab.getTabAt(1).setIcon(R.drawable.shopping_cart);
-       tab.getTabAt(2).setIcon(R.drawable.dinning);
-       tab.getTabAt(3).setIcon(R.drawable.person);
-       pager.setOffscreenPageLimit(4);
+        tab.getTabAt(0).setIcon(R.drawable.home);
+        tab.getTabAt(1).setIcon(R.drawable.shopping_cart);
+        tab.getTabAt(2).setIcon(R.drawable.dinning);
+        tab.getTabAt(3).setIcon(R.drawable.person);
+        pager.setOffscreenPageLimit(4);
     }
-//open next and previous fragement page
-   @Override
-    public void onBackPressed() {
-        for (Fragment fragment:getSupportFragmentManager().getFragments()){
 
-            if (fragment instanceof FragementNew_page13){
+    //open next and previous fragement page
+    @Override
+    public void onBackPressed() {
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+
+            if (fragment instanceof FragementNew_page13) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.remove(fragment);
-                for (Fragment fragment1:getSupportFragmentManager().getFragments()){
-                    if (fragment1 instanceof HomenewPage13||fragment1 instanceof PhotonewPage13||fragment1 instanceof ReviewnewPage13||fragment1 instanceof AboutnewPage13){
+                for (Fragment fragment1 : getSupportFragmentManager().getFragments()) {
+                    if (fragment1 instanceof HomenewPage13 || fragment1 instanceof PhotonewPage13 || fragment1 instanceof ReviewnewPage13 || fragment1 instanceof AboutnewPage13) {
                         transaction.remove(fragment1);
                     }
                 }
@@ -61,11 +67,7 @@ public class Page10_FragementandTab extends AppCompatActivity {
 
     }
 
-
-    }
-
-
-    class PagerAdpter extends FragmentPagerAdapter{
+    public class PagerAdpter extends FragmentPagerAdapter {
 
         public PagerAdpter(@NonNull FragmentManager fm) {
             super(fm);
@@ -74,17 +76,13 @@ public class Page10_FragementandTab extends AppCompatActivity {
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            if (position == 0){
+            if (position == 0) {
                 return new homefragement_page10();
-            }
-
-            else if (position == 1){
+            } else if (position == 1) {
                 return new shoopingcartFragement_page10();
-            }
-            else if (position == 2){
+            } else if (position == 2) {
                 return new FineDinningFragement_page10();
-            }
-            else if (position == 3){
+            } else if (position == 3) {
                 return new AccountFragement_page10();
             }
 
@@ -94,10 +92,15 @@ public class Page10_FragementandTab extends AppCompatActivity {
         @Override
         public int getCount() {
             return 4;
-
+        }
 
 
     }
 
+}
 
+
+interface ItemAddListner {  //interface has all method is abstract and that is  public
+    void Itemadd(CartItem item);
+    Void Update(String name, String quantity);
 }

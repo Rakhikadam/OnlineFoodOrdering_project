@@ -19,6 +19,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +39,7 @@ public class ReviewnewPage13 extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private JSONArray reviewdata;
     private String mParam2;
 
     public ReviewnewPage13() {
@@ -64,7 +68,11 @@ public class ReviewnewPage13 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            try {
+                reviewdata = new JSONArray(getArguments().getString("Review"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -77,7 +85,20 @@ public class ReviewnewPage13 extends Fragment {
         RecyclerView recyclernew = view.findViewById(R.id.ll_reviewewcycle);
         List<reviewlistnew> list = new ArrayList<>();
 
-        reviewlistnew user = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
+        try {
+            reviewdata = new JSONArray(getArguments().getString("Review"));
+            for (int i = 0; i<reviewdata.length();i++){
+                JSONObject object = reviewdata.getJSONObject(i);
+                reviewlistnew review = new reviewlistnew(object.getString("profile"),object.getString("name"),object.getString("Title"),object.getString("date"),object.getString("Decripition"),object.getString("reviewAverage"));
+           list.add(review);
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+       /* reviewlistnew user = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
         list.add(user);
         reviewlistnew user1 = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
         list.add(user1);
@@ -93,9 +114,10 @@ public class ReviewnewPage13 extends Fragment {
         list.add(user6);
         reviewlistnew user7 = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
         list.add(user7);
+
+      */
         ReviewnewAdpter adpter = new ReviewnewAdpter(list);
         recyclernew.setAdapter(adpter);
-
         recyclernew.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Button reviewbutton = view.findViewById(R.id.ll_addreview);
@@ -138,7 +160,11 @@ public class ReviewnewPage13 extends Fragment {
             holder.name.setText(list.get(position).getName());
             holder.message.setText(list.get(position).getMessage());
             holder.comment.setText(list.get(position).getComments());
-//set star background using case
+            Glide.with(getContext()).load(list.get(position).getProfile()).into(holder.profile);
+
+
+            //set star background using case
+
             Log.e("TAG",(list.get(position).getStar()));
             switch (list.get(position).getStar()) {
                 case "1":

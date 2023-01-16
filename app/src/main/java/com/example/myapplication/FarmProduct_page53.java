@@ -98,6 +98,7 @@ public class FarmProduct_page53 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    JSONArray farmproduct;
 
     public FarmProduct_page53() {
         // Required empty public constructor
@@ -127,6 +128,12 @@ public class FarmProduct_page53 extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            try {
+                farmproduct = new JSONArray(getArguments().getString("data"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -139,7 +146,7 @@ public class FarmProduct_page53 extends Fragment {
 
         List<farmlist>list = new ArrayList<>();
 
-        //using JSONArray
+        //ex. using JSONArray
       /* try {
             JSONArray array = new JSONArray(data);
             for (int i=0; i<array.length();i++){
@@ -151,17 +158,17 @@ public class FarmProduct_page53 extends Fragment {
             }
         } catch (JSONException e) {
             e.printStackTrace(); .
-        }
+        }*/
 
-       */
 
-        //using JSON method
-       /* List<farm> list1 = new ArrayList<>();
+
+        //using page on JSON method
+        List<farm> list1 = new ArrayList<>();
         try {
-            JSONArray array = new JSONArray(data);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject object = array.getJSONObject(i);
-                farm one = new farm(object.getString("foodname"),object.getString("price"), object.getString("image"));
+            farmproduct = new JSONArray(getArguments().getString("data"));
+            for (int i = 0; i < farmproduct.length(); i++) {
+                JSONObject object = farmproduct.getJSONObject(i);
+                farm one = new farm(object.getString("name"),object.getString("price"), object.getString("Farmimage"));
                 list1.add(one);
             }
 
@@ -169,16 +176,17 @@ public class FarmProduct_page53 extends Fragment {
             e.printStackTrace();
         }
 
+
         FarmAdpter adpter = new FarmAdpter(list1);
         farm.setAdapter(adpter);
 
-        */
 
 
 
 
 
-        farmlist image1 = new farmlist("Fresh Grapes","200Rs per/kg","https://www.shutterstock.com/image-photo/green-grape-leaves-isolated-on-260nw-533487490.jpg");
+
+        /*farmlist image1 = new farmlist("Fresh Grapes","200Rs per/kg","https://www.shutterstock.com/image-photo/green-grape-leaves-isolated-on-260nw-533487490.jpg");
         list.add(image1);
  farmlist image2 = new farmlist("Fresh Straberry","200Rs per/kg","https://m.media-amazon.com/images/I/61Xl3VVZjKL._SX679_.jpg");
         list.add(image2);
@@ -186,6 +194,8 @@ public class FarmProduct_page53 extends Fragment {
         list.add(image3);
         FarmListAdpter adpter = new FarmListAdpter(list);
         farm.setAdapter(adpter);
+
+         */
         farm.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
         return view;
@@ -193,7 +203,7 @@ public class FarmProduct_page53 extends Fragment {
 
 
     //using JSON method
-    /*class FarmAdpter extends RecyclerView.Adapter<FarmAdpter.custoViewHolder>{
+    class FarmAdpter extends RecyclerView.Adapter<FarmAdpter.custoViewHolder>{
         List<farm> list1;
 
         public FarmAdpter(List<farm> list1) {
@@ -210,10 +220,30 @@ public class FarmProduct_page53 extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull FarmAdpter.custoViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull FarmAdpter.custoViewHolder holder, @SuppressLint("RecyclerView") int position) {
             holder.name.setText(list1.get(position).getName());
             holder.price.setText(list1.get(position).getPrice());
             Glide.with(getContext()).load(list1.get(position).getImage()).into(holder.image);
+            holder.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    Fragment fragment = new Farminfo_page55();
+                    Bundle bundle = new Bundle();
+                    JSONObject object = new JSONObject();
+
+                    try {
+                        object = farmproduct.getJSONObject(position);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    bundle.putInt("ID",position);
+                    bundle.putString("data",object.toString());
+                    fragment.setArguments(bundle);
+                    transaction.replace(R.id.frame,fragment);
+                    transaction.commit();
+                }
+            });
 
         }
 
@@ -238,12 +268,12 @@ public class FarmProduct_page53 extends Fragment {
         }
     }
 
-     */
 
 
 
 
 
+/*
     class FarmListAdpter extends RecyclerView.Adapter<FarmListAdpter.CustomViewHolder>{
         List<farmlist> list;
 
@@ -302,6 +332,8 @@ public class FarmProduct_page53 extends Fragment {
             }
         }
     }
+
+ */
 
 
 }

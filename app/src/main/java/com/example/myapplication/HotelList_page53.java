@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +40,7 @@ public class HotelList_page53 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    JSONArray hotels;
 
     public HotelList_page53() {
         // Required empty public constructor
@@ -64,6 +70,14 @@ public class HotelList_page53 extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            try {
+                hotels = new JSONArray(getArguments().getString("data"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
@@ -75,7 +89,22 @@ public class HotelList_page53 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_hotel_list_page53, container, false);
         RecyclerView recycler = view.findViewById(R.id.hotel_page53);
         List<Hotellit>list = new ArrayList<>();
-        Hotellit image1 = new Hotellit("Alpha hotel", "30% OFF ", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
+
+        try {
+            hotels = new JSONArray(getArguments().getString("data"));
+            for (int i =0; i<hotels.length(); i++){
+             //  JSONArray array = hotels.getJSONArray(i);
+                JSONObject object = hotels.getJSONObject(i);
+                Hotellit hotels = new Hotellit(object.getString("hotelname"),object.getString("offers"),object.getString("hotelimage"));
+                list.add(hotels);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        /*Hotellit image1 = new Hotellit("Alpha hotel", "30% OFF ", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
         list.add(image1);
         Hotellit image2 = new Hotellit("Star hotel", "30% OFF", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
         list.add(image2);
@@ -83,9 +112,11 @@ public class HotelList_page53 extends Fragment {
         list.add(image3);
         Hotellit image4 = new Hotellit("Alpha hotel", "30% OFF", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
         list.add(image4);
+
+         */
+        recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL));
         HotelListAdpter adpter = new HotelListAdpter(list);
         recycler.setAdapter(adpter);
-        recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL));
 
 
 
@@ -107,7 +138,7 @@ public class HotelList_page53 extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull HotelListAdpter.CustomViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull HotelListAdpter.CustomViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
             holder.name.setText(list.get(position).getName());
             holder.offer.setText(list.get(position).getOffer());
@@ -120,10 +151,17 @@ public class HotelList_page53 extends Fragment {
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                     Fragment fragment = new FragementNew_page13();
                     Bundle bundle = new Bundle();
+                    JSONObject object = new JSONObject();
+
+                    try {
+                        object = hotels.getJSONObject(position);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     bundle.putInt("id", position);
-                    bundle.putString("key", "hotelinfo");
+                    bundle.putString("data", object.toString());
                     fragment.setArguments(bundle);
-                    transaction.replace(R.id.frame, fragment);
+                    transaction.add(R.id.frame, fragment);
                     transaction.commit();
 
                 }

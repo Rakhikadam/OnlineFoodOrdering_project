@@ -20,6 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.model.CartItem;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -34,6 +39,10 @@ import java.util.Set;
 public class HomenewPage13 extends Fragment {
     RecyclerView food;
     RecyclerView list1;
+    HotelsPage10 activity;
+
+
+    List<fooditemlist> list3 = new ArrayList<>();
     List<fooditemlist> MainCourse = new ArrayList<>();
     List<fooditemlist> Desserts = new ArrayList<fooditemlist>();
     List<fooditemlist> Chiness = new ArrayList<fooditemlist>();
@@ -47,7 +56,7 @@ public class HomenewPage13 extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private JSONArray Menudata;
     private String mParam2;
 
     public HomenewPage13() {
@@ -75,11 +84,18 @@ public class HomenewPage13 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity  = (HotelsPage10) getActivity();
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            try {
+                Menudata = new JSONArray(getArguments().getString("Menulist"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+
 
     @Override
     public void onStart() {
@@ -112,7 +128,22 @@ public class HomenewPage13 extends Fragment {
         //2nd recycler view adpter
          food = v.findViewById(R.id.frecyle2page13);
         List<fooditemlist>list3 = new ArrayList<>();
-        fooditemlist image1 = new fooditemlist("Paneer","150Rs","MainCourse","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg","service2");
+
+
+        try {
+//            Menudata = new JSONArray(getArguments().getString("Menulist"));
+            for (int i=0; i<Menudata.length(); i++){
+                JSONObject object = Menudata.getJSONObject(i);
+                fooditemlist foodlist = new fooditemlist(object.getString("name"),object.getString("price"),object.getString("Catageory"),object.getString("photo"),object.getString("Service"));
+                list3.add(foodlist);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+       /* fooditemlist image1 = new fooditemlist("Paneer","150Rs","MainCourse","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg","service2");
         list3.add(image1);
         fooditemlist image2 = new fooditemlist("Ice-Cream","150Rs","Desserts","https://joyfoodsunshine.com/wp-content/uploads/2020/06/homemade-chocolate-ice-cream-recipe-7.jpg","service2");
         list3.add(image2);
@@ -121,12 +152,14 @@ public class HomenewPage13 extends Fragment {
         fooditemlist image4 = new fooditemlist("Noddles","150Rs","Chiness","https://www.wellandgood.com/wp-content/uploads/2020/12/chow-mein-cup-full-of-kale-feature.jpg","service2");
         list3.add(image4);
         fooditemlist image5 = new fooditemlist("Noodels","150Rs","Breakfast","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg","service2");
-        list3.add(image5);
+        list3.add(image5);*/
+        food.setLayoutManager(new LinearLayoutManager(getContext()));//first set layout
+
         MenulistAdpter adpter1 = new MenulistAdpter(list3);
         food.setAdapter(adpter1);
-        food.setLayoutManager(new LinearLayoutManager(getContext()));
 
         for (fooditemlist item : list3 ){
+
             if (item.category.equalsIgnoreCase("MainCourse")){
                 MainCourse.add(item);
             }
@@ -180,6 +213,11 @@ public class HomenewPage13 extends Fragment {
             holder.button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    if (list.get(position).equalsIgnoreCase("All Menulist")){
+                        MenulistAdpter adpter = new MenulistAdpter(list3);
+                        food.setAdapter(adpter);
+                    }
                     if (list.get(position).equalsIgnoreCase("MainCourse")){
                         MenulistAdpter adpter = new MenulistAdpter(MainCourse);
                         food.setAdapter(adpter);
@@ -260,8 +298,18 @@ public class HomenewPage13 extends Fragment {
                 public void onClick(View view) {
                     holder.gone.setVisibility(View.VISIBLE);
                     holder.add.setVisibility(View.GONE);
+
+
+                    CartItem item= new CartItem(list3.get(position).getName(),list3.get(position).getImage(),list3.get(position).getPrice());
+
+                    Log.e("TAG", "onClick: " );
+                    activity.listner.AddItem(item);
+
+
                 }
             });
+
+
 
             holder.gone.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -308,7 +356,7 @@ public class HomenewPage13 extends Fragment {
                             holder.onetext.getText().toString().equalsIgnoreCase("10")){
                         Toast.makeText(getActivity(), "Maximum value exceed", Toast.LENGTH_SHORT).show();
                     }
-
+                    activity.listner.Update(list3.get(position).getName(),holder.onetext.getText().toString());
 
                 }
             });
@@ -318,7 +366,7 @@ public class HomenewPage13 extends Fragment {
             holder.minus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int value = Integer.parseInt(String.valueOf(holder.onetext.getText().toString().equalsIgnoreCase("1")));
+                    int value = Integer.parseInt(String.valueOf(holder.onetext.getText().toString()));
                     if (value>1){
                         value = value-1;
                         holder.onetext.setText(String.valueOf(value));

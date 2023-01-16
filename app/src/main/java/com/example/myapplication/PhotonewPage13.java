@@ -14,6 +14,10 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +34,7 @@ public class PhotonewPage13 extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private JSONArray Photodata;
     private String mParam2;
 
     public PhotonewPage13() {
@@ -58,8 +62,13 @@ public class PhotonewPage13 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            try {
+                Photodata = new JSONArray(getArguments().getString("hotelphotos"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -72,8 +81,10 @@ public class PhotonewPage13 extends Fragment {
 
         RecyclerView recycler =view.findViewById(R.id.ll_photorecycle13);
 
+
+
         List<photo> list = new ArrayList<>();
-        photo image1 = new photo("https://assets1.cbsnewsstatic.com/hub/i/2015/07/01/0b059f60-344d-4ada-baae-e683aff3650a/istock000044051102large.jpg");
+       /* photo image1 = new photo("https://assets1.cbsnewsstatic.com/hub/i/2015/07/01/0b059f60-344d-4ada-baae-e683aff3650a/istock000044051102large.jpg");
         list.add(image1);
         photo image2 = new photo("https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/seqow1xpsqqmheeipuso");
         list.add(image2);
@@ -81,9 +92,25 @@ public class PhotonewPage13 extends Fragment {
         list.add(image3);
         photo image4 = new photo("https://img.buzzfeed.com/thumbnailer-prod-us-east-1/video-api/assets/173373.jpg");
         list.add(image4);
+
+       */
+
+        try {
+            Photodata =new JSONArray(getArguments().getString("hotelphotos"));
+            for (int i=0 ; i<Photodata.length(); i++){
+                JSONObject object = Photodata.getJSONObject(i);
+                photo photolit = new photo(object.getString("photo"));
+                list.add(photolit);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+        recycler.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
         PhotolistnewAdpter adpter = new PhotolistnewAdpter(list);
         recycler.setAdapter(adpter);
-        recycler.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
 
 
         return view;

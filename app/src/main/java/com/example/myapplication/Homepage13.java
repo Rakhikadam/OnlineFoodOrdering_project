@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.model.CartItem;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -31,6 +32,7 @@ import java.util.Set;
  * create an instance of this fragment.
  */
 public class Homepage13 extends Fragment {
+    Page10_FragementandTab activity;
     List<Itemname>MainCourse = new ArrayList<>();
     List<Itemname>Desserts = new ArrayList<>();
     List<Itemname>Chinese = new ArrayList<>();
@@ -72,6 +74,7 @@ public class Homepage13 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = (Page10_FragementandTab) getActivity();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -165,7 +168,7 @@ public class Homepage13 extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ItemAdpter.CustomAdpterHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ItemAdpter.CustomAdpterHolder holder, @SuppressLint("RecyclerView") int position) {
             holder.name.setText(list.get(position).getName());
             holder.price.setText(list.get(position).getPrice());
             holder.serves.setText(list.get(position).getService_type());
@@ -179,6 +182,10 @@ public class Homepage13 extends Fragment {
                 public void onClick(View view) {
                     holder.gone.setVisibility(View.VISIBLE);
                     holder.add.setVisibility(View.GONE);
+                    CartItem item = new CartItem(list.get(position).getName(),list.get(position).getImage(),list.get(position).getPrice());
+                    activity.Listner.Itemadd(item);
+
+
                 }
             });
 
@@ -231,6 +238,7 @@ public class Homepage13 extends Fragment {
                         Toast.makeText(getActivity(), "Maximum value exceed", Toast.LENGTH_SHORT).show();
                     }
 
+                    activity.Listner.Update(list.get(position).getName(),holder.onetext.getText().toString());
 
                 }
             });

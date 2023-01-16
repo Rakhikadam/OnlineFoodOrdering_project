@@ -7,9 +7,12 @@
 
     <ImageView
         android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:src="@drawable/image3"
         android:id="@+id/fimage1page11"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="fitXY"
         ></ImageView>
 
         <TextView
