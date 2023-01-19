@@ -4,13 +4,13 @@ public class addresslist {
     String name ;
     String location ;
     String address;
-    String number;
+    String number_email;
 
-    public addresslist(String name, String location, String address, String number) {
+    public addresslist(String name, String location, String address, String number_email) {
         this.name = name;
         this.location = location;
         this.address = address;
-        this.number = number;
+        this.number_email = number_email;
     }
 
     public String getName() {
@@ -38,10 +38,10 @@ public class addresslist {
     }
 
     public String getNumber() {
-        return number;
+        return number_email;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setNumber(String number_email) {
+        this.number_email = number_email;
     }
 }

@@ -1,146 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/page1"
-    tools:context=".location21_page1">
+    tools:context=".location21_page1"><LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delivery Address"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-         />
+        android:id="@+id/addresslist"
+        android:visibility="visible"
+        ></androidx.recyclerview.widget.RecyclerView>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="Email"
-        android:background="@drawable/bg"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="20dp"
-        ></EditText>
- <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="Name"
-        android:background="@drawable/bg"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="20dp"
-        ></EditText>
- <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="Address"
-        android:background="@drawable/bg"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="20dp"
-        ></EditText>
- <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="Nearest Landmark"
-        android:background="@drawable/bg"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="20dp"
-        ></EditText>
- <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="State"
-        android:background="@drawable/bg"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="20dp"
-        ></EditText>
- <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="City"
-        android:background="@drawable/bg"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="20dp"
-        ></EditText>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Type of Address"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            ></RadioButton>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home"
-            android:textColor="@color/black"
-            ></TextView>
-  <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-           android:layout_marginLeft="30dp"
-            ></RadioButton>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home"
-            android:textColor="@color/black"
-            ></TextView>
-
-    </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/addaddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg"
+        android:layout_gravity="center"
+        android:visibility="visible"
+
+
         >
-
-        <CheckBox
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            ></CheckBox>
-
+            android:layout_height="50dp"
+            android:src="@drawable/add_circle"
+            ></ImageView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save this as my defualt address"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:text="Add new address"
             android:textColor="@color/black"
-            ></TextView>
+            android:textSize="30dp"></TextView>
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/lineargone"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delivery Address"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Email"
+            android:background="@drawable/bg"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="20dp"
+            ></EditText>
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Name"
+            android:background="@drawable/bg"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="20dp"
+            ></EditText>
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Address"
+            android:background="@drawable/bg"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="20dp"
+            ></EditText>
+        <EditText
+            android:id="@+id/landmark"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Nearest Landmark"
+            android:background="@drawable/bg"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="20dp"
+            ></EditText>
+        <EditText
+            android:id="@+id/state"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="State"
+            android:background="@drawable/bg"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="20dp"
+            ></EditText>
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="City"
+            android:background="@drawable/bg"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="20dp"
+            ></EditText>
+
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Type of Address"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            />
+
+        <RadioGroup
+            android:id="@+id/radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textColor="@color/black"
+                ></RadioButton>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Office"
+                android:textColor="@color/black"
+                ></RadioButton>
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ></CheckBox>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save this as my defualt address"
+                android:textColor="@color/black"
+                ></TextView>
+
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/savebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:background="@color/orange"
+            ></Button>
 
 
     </LinearLayout>
 
 
 
-</LinearLayout>
+
+
+
+</LinearLayout></androidx.core.widget.NestedScrollView>

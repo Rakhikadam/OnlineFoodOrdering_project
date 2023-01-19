@@ -130,7 +130,7 @@ public class HomenewPage13 extends Fragment {
         List<fooditemlist>list3 = new ArrayList<>();
 
 
-        try {
+try {
 //            Menudata = new JSONArray(getArguments().getString("Menulist"));
             for (int i=0; i<Menudata.length(); i++){
                 JSONObject object = Menudata.getJSONObject(i);
@@ -301,7 +301,6 @@ public class HomenewPage13 extends Fragment {
 
 
                     CartItem item= new CartItem(list3.get(position).getName(),list3.get(position).getImage(),list3.get(position).getPrice());
-
                     Log.e("TAG", "onClick: " );
                     activity.listner.AddItem(item);
 

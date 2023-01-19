@@ -67,7 +67,7 @@ public class location_page21 extends Fragment {
         transaction.commit();
 
 
-        Button button = view.findViewById(R.id.continuebutton);
+      /*  Button button = view.findViewById(R.id.continuebutton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +76,7 @@ public class location_page21 extends Fragment {
                 transaction.commit();
             }
         });
-
+*/
 
 
         return view;
