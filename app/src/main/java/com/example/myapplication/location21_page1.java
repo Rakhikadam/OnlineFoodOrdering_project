@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,9 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,8 +36,12 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class location21_page1 extends Fragment {
+    OnPageChangedListner listner;
+    AddressAdpter adpter;
     SharedPreferences preferences;
     private JSONArray adddata;
+    JSONArray array;
+    SharedPreferences.Editor editor;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,9 +52,12 @@ public class location21_page1 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public location21_page1() {
-        // Required empty public constructor
+    public location21_page1(OnPageChangedListner listner) {
+        this.listner = listner;
+
     }
+    // Required empty public constructor
+
 
     /**
      * Use this factory method to create a new instance of
@@ -57,19 +68,21 @@ public class location21_page1 extends Fragment {
      * @return A new instance of fragment location21_page1.
      */
     // TODO: Rename and change types and number of parameters
-    public static location21_page1 newInstance(String param1, String param2) {
-        location21_page1 fragment = new location21_page1();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    public static location21_page1 newInstance(String param1, String param2) {
+//        location21_page1 fragment = new location21_page1();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences = getContext().getSharedPreferences("myapp", Context.MODE_PRIVATE);
+        //preferences = getContext().getSharedPreferences("myapp", Context.MODE_PRIVATE);//address sharedprefernce
+        preferences = getContext().getSharedPreferences("MYAPP", Context.MODE_PRIVATE);
+
 
         if (getArguments() != null) {
             try {
@@ -85,7 +98,7 @@ public class location21_page1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_location21_page1, container, false);
+        View view = inflater.inflate(R.layout.fragment_location21_page1, container, false);
 
         LinearLayout add_address = view.findViewById(R.id.addaddress);
         LinearLayout info = view.findViewById(R.id.lineargone);
@@ -95,26 +108,25 @@ public class location21_page1 extends Fragment {
         EditText landmark = view.findViewById(R.id.landmark);
         EditText state = view.findViewById(R.id.state);
         EditText city = view.findViewById(R.id.city);
+        Button checkout = view.findViewById(R.id.checkout);
 
+
+        //set data on the list
         RecyclerView listadd = view.findViewById(R.id.addresslist);
-        List<addresslist>list = new ArrayList<>();
+        List<addresslist> list = new ArrayList<>();
         try {
-            adddata = new JSONArray(preferences.getString("ADDRESS","[]"));
-            for (int i = 0; i<adddata.length(); i++){
+            adddata = new JSONArray(preferences.getString("ADDRESS", "[]"));
+            for (int i = 0; i < adddata.length(); i++) {
                 JSONObject object = adddata.getJSONObject(i);
-                addresslist addlist = new addresslist(object.getString("Name"), object.getString("Landmark"),object.getString("Address"), object.getString("EmailId") );
+                addresslist addlist = new addresslist(object.getString("Name"), object.getString("Landmark"), object.getString("Address"), object.getString("EmailId"));
                 list.add(addlist);
-
             }
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        AddressAdpter adpter = new AddressAdpter(list);
+        adpter = new AddressAdpter(list);
         listadd.setLayoutManager(new LinearLayoutManager(getContext()));
         listadd.setAdapter(adpter);
-
 
 
         Button savebutton = view.findViewById(R.id.savebutton);
@@ -129,50 +141,42 @@ public class location21_page1 extends Fragment {
 
 
                 //set data using JSON
-                JSONArray array = null;
+                array = null;
                 try {
-                    array = new JSONArray(preferences.getString("ADDRESS","[]"));
+                    array = new JSONArray(preferences.getString("ADDRESS", "[]"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("EmailId",email.getText().toString());
-                    jsonObject.put("Name",name.getText().toString());
-                    jsonObject.put("Address",address.getText().toString());
-                    jsonObject.put("Landmark",landmark.getText().toString());
-                    jsonObject.put("State",state.getText().toString());
-                    jsonObject.put("City",city.getText().toString());
+                    jsonObject.put("EmailId", email.getText().toString());
+                    jsonObject.put("Name", name.getText().toString());
+                    jsonObject.put("Address", address.getText().toString());
+                    jsonObject.put("Landmark", landmark.getText().toString());
+                    jsonObject.put("State", state.getText().toString());
+                    jsonObject.put("City", city.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 array.put(jsonObject);
 
-                Log.e("TAG",array.toString());
+                Log.e("TAG", array.toString());
 
                 //save data in sharedpreferences
-                SharedPreferences.Editor editor= preferences.edit();
-                editor.putString("ADDRESS",array.toString());
+                editor = preferences.edit();
+                editor.putString("ADDRESS", array.toString());
                 editor.commit();
-                email.setText(preferences.getString("EmailId",null));
-                name.setText(preferences.getString("Name",null));
-                address.setText(preferences.getString("Address",null));
-                landmark.setText(preferences.getString("Landmark",null));
-                state.setText(preferences.getString("State",null));
-                city.setText(preferences.getString("City",null));
-
+                email.setText(preferences.getString("EmailId", null));
+                name.setText(preferences.getString("Name", null));
+                address.setText(preferences.getString("Address", null));
+                landmark.setText(preferences.getString("Landmark", null));
+                state.setText(preferences.getString("State", null));
+                city.setText(preferences.getString("City", null));
 
 
                 adpter.notifyDataSetChanged();
             }
         });
-
-
-
-
-
-
-
 
 
         add_address.setOnClickListener(new View.OnClickListener() {
@@ -181,13 +185,36 @@ public class location21_page1 extends Fragment {
                 info.setVisibility(View.VISIBLE);
                 add_address.setVisibility(View.GONE);
 
-
             }
         });
 
 
+        //getting total amount price using sharedprefernce
+        TextView price = view.findViewById(R.id.addressprice);
+        editor = preferences.edit();
+        price.setText(preferences.getString("TOTAL", null));
 
 
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (adpter.checkPosition == -1) {
+                    Toast.makeText(getActivity(), "Select address button", Toast.LENGTH_SHORT).show();
+
+                    adpter.notifyDataSetChanged();
+                } else {
+//                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                    transaction.replace(R.id.page1, new payment21_page1());
+//                    transaction.commit();
+
+                    listner.OnPageChanged(1);  //pass listner and set position
+
+
+                }
+
+
+            }
+        });
 
 
         return view;
@@ -195,29 +222,76 @@ public class location21_page1 extends Fragment {
 
     }
 
-    class AddressAdpter extends RecyclerView.Adapter<AddressAdpter.CustomViewHolder>{
+    class AddressAdpter extends RecyclerView.Adapter<AddressAdpter.CustomViewHolder> {
         List<addresslist> list;
+        public int checkPosition = -1;
+
 
         public AddressAdpter(List<addresslist> list) {
             this.list = list;
+//            this.listner = listner;
 
         }
 
         @NonNull
         @Override
         public AddressAdpter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View ABC = LayoutInflater.from(getContext()).inflate(R.layout.addresslist_page21,parent,false);
+            View ABC = LayoutInflater.from(getContext()).inflate(R.layout.addresslist_page21, parent, false);
             CustomViewHolder holder = new CustomViewHolder(ABC);
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull AddressAdpter.CustomViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull AddressAdpter.CustomViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
             holder.name.setText(list.get(position).getName());
             holder.location.setText(list.get(position).getLocation());
             holder.address.setText(list.get(position).getAddress());
             holder.number.setText(list.get(position).getNumber());
+
+            //radio button check condition
+            if (checkPosition == position) {
+                holder.radio.setChecked(true);
+            } else {
+                holder.radio.setChecked(false);
+            }
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    checkPosition = position;         //checkposition means save position
+                    adpter.notifyDataSetChanged();
+
+
+
+                }
+            });
+
+
+            holder.radio.setClickable(false);
+
+
+            holder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    array = new JSONArray();
+
+                    try {
+                        array = new JSONArray(preferences.getString("ADDRESS", "[]"));
+                        array.remove(position);
+                        list.remove(position);
+                        editor = preferences.edit();
+                        editor.putString("ADDRESS", array.toString());
+                        editor.commit();
+
+                        adpter.notifyDataSetChanged();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
 
         }
 
@@ -227,14 +301,20 @@ public class location21_page1 extends Fragment {
         }
 
         public class CustomViewHolder extends RecyclerView.ViewHolder {
-            TextView name,location,address,number;
+            TextView name, location, address, number;
+            TextView delete;
+            RadioButton radio;
+            LinearLayout linearLayout;
 
             public CustomViewHolder(@NonNull View itemView) {
                 super(itemView);
                 name = itemView.findViewById(R.id.addressname);
+                linearLayout = itemView.findViewById(R.id.address1);
+                radio = itemView.findViewById(R.id.radio);
                 location = itemView.findViewById(R.id.area);
                 address = itemView.findViewById(R.id.addressperson);
                 number = itemView.findViewById(R.id.mobilenumber);
+                delete = itemView.findViewById(R.id.delete);
 
             }
         }

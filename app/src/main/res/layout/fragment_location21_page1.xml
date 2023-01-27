@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:id="@+id/page1"
-    tools:context=".location21_page1"><LinearLayout
+    tools:context=".location21_page1">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/checkbox"
+        >
+
+
+    <LinearLayout
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-
     <!-- TODO: Update blank fragment layout -->
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -208,6 +219,54 @@
 
 
 
+</LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:background="@drawable/bg"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total"
+            android:paddingLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/addressprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            ></TextView>
+        <Button
+            android:id="@+id/checkout"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Checkout"
+            android:textSize="20dp"
+            android:layout_marginLeft="50dp"
+            android:background="@color/orange"
+            android:textColor="@color/white"
+            ></Button>
 
 
-</LinearLayout></androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+
+</RelativeLayout>

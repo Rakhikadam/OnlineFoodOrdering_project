@@ -87,6 +87,41 @@ public class HotelsPage10 extends AppCompatActivity {
                 }
             }
 
+            for (Fragment fragment1 : getSupportFragmentManager().getFragments()){
+                if (fragment1 instanceof Resturant_SQLite){
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.remove(fragment1);
+                    transaction.commit();
+                    return;
+                }
+            }
+            for (Fragment fragment1 : getSupportFragmentManager().getFragments()){
+                if (fragment1 instanceof Homemade_SQLite){
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.remove(fragment1);
+                    transaction.commit();
+                    return;
+                }
+            }
+
+            for (Fragment fragment1 : getSupportFragmentManager().getFragments()){
+                if (fragment1 instanceof Farm_SQLite){
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.remove(fragment1);
+                    transaction.commit();
+                    return;
+                }
+            }
+             for (Fragment fragment1 : getSupportFragmentManager().getFragments()){
+                 if (fragment1 instanceof MenuListSQL_page13){
+                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                     transaction.remove(fragment1);
+                     transaction.commit();
+                     return;
+                 }
+             }
+
+
 
             JSONObject object = new JSONObject();
             try {

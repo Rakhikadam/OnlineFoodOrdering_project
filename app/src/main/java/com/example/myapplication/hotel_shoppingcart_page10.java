@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.model.CartItem;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +41,9 @@ public class hotel_shoppingcart_page10 extends Fragment {
     int Totalprice = 0;
     TextView price;
     TextView totalprice;
+    JSONArray adddata;
+    SharedPreferences.Editor editor;
+    SharedPreferences preferences; //declare
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -71,7 +80,9 @@ public class hotel_shoppingcart_page10 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         preferences = getContext().getSharedPreferences("MYAPP", Context.MODE_PRIVATE);
         if (getArguments() != null) {
+
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
@@ -119,7 +130,29 @@ public class hotel_shoppingcart_page10 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_hotel_shoppingcart, container, false);
 
         RecyclerView cart = view.findViewById(R.id.cart);
-         totalprice = view.findViewById(R.id.totalprice);
+
+       totalprice = view.findViewById(R.id.totalprice);
+    //    TextView checkout = view.findViewById(R.id.checkout);
+
+
+
+
+
+        //get Shareprefernce data in cart
+        try {
+            adddata = new JSONArray(preferences.getString("CARTLIST","[]"));
+            editor = preferences.edit();
+
+            for (int i = 0; i<adddata.length(); i++){
+                JSONObject object = adddata.getJSONObject(i);
+                shoppingcart cartlist = new shoppingcart(object.getString("name"),object.getString("price"),object.getString("Image"));
+                list.add(cartlist);
+                update_total();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
 //        shoppingcart image1 = new shoppingcart("Paneer", "150Rs", "https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
 //        list.add(image1);
@@ -140,6 +173,14 @@ public class hotel_shoppingcart_page10 extends Fragment {
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                //put totalamount price using shredprefernce
+                editor = preferences.edit();
+                editor.putString("TOTAL",totalprice.getText().toString());
+                editor.commit();
+
+      //Intent convert class
                 Intent intent = new Intent(getActivity(),Page21.class);
                 startActivity(intent);
             }
@@ -150,7 +191,10 @@ public class hotel_shoppingcart_page10 extends Fragment {
 
         return view;
     }
-class  ShoopingcarAdpter extends RecyclerView.Adapter<ShoopingcarAdpter.CustomAdpterHolder>{
+
+
+    //
+    class  ShoopingcarAdpter extends RecyclerView.Adapter<ShoopingcarAdpter.CustomAdpterHolder>{
     List<shoppingcart> list;
 
     public ShoopingcarAdpter(List<shoppingcart> list) {
@@ -174,6 +218,12 @@ class  ShoopingcarAdpter extends RecyclerView.Adapter<ShoopingcarAdpter.CustomAd
         holder.name.setText(list.get(position).getName());
         holder.count.setText(list.get(position).getCount());
         Glide.with(getContext()).load(list.get(position).getImage()).into(holder.image);
+
+
+
+
+
+
 
       holder.plus.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -200,13 +250,26 @@ class  ShoopingcarAdpter extends RecyclerView.Adapter<ShoopingcarAdpter.CustomAd
                   listner.Update(list.get(position).getName(),holder.count.getText().toString());
               }
               else {
-                  for (int i=0; i<list.size();i++){
-                      if (list.get(i).getName().equals(holder.name.getText().toString())){
-                          list.remove(i);
-                          adpter.notifyDataSetChanged();
-                      }
+                  JSONArray array = new JSONArray();   //removelist in shoopingcart
+                  try {
+                      array = new JSONArray(preferences.getString("CARTLIST","[]"));
+                      array.remove(position);
+                       list.remove(position);
+                      editor = preferences.edit();
+                      editor.putString("CARTLIST",array.toString());
+                      editor.commit();
+                      // update_total();
 
-                    }
+                  } catch (JSONException e) {
+                      e.printStackTrace();
+                  }
+
+//                  list.remove(i);
+                  update_total();   //new value n list updated
+                  adpter.notifyDataSetChanged();
+
+
+
 
                   //Toast.makeText(getActivity(), "Add value", Toast.LENGTH_SHORT).show();
               }
@@ -242,12 +305,13 @@ class  ShoopingcarAdpter extends RecyclerView.Adapter<ShoopingcarAdpter.CustomAd
         }
     }
 }
+
+//GST add total amount
 public void update_total(){
         int total = 0;
         for (int i=0; i< list.size();i++){
           //  total = total+Integer....
             total += Integer.parseInt(list.get(i).getCount()) * Integer.parseInt(list.get(i).getPrice().replace("RS",""));
-
 
         }
         total = (int) ((total*0.18)+total);

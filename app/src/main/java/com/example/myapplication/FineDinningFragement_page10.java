@@ -60,5 +60,6 @@ public class FineDinningFragement_page10 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fine_dinning_fragement_page10, container, false);
+
     }
 }

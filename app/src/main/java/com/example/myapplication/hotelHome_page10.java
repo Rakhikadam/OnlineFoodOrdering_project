@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -651,28 +650,28 @@ public class hotelHome_page10 extends Fragment {
             "          \"Catageory\": \"MainCourse\"\n" +
             "        },\n" +
             "        {\n" +
-            "          \"photo1\": \"https://joyfoodsunshine.com/wp-content/uploads/2020/06/homemade-chocolate-ice-cream-recipe-7.jpg\",\n" +
+            "          \"photo\": \"https://joyfoodsunshine.com/wp-content/uploads/2020/06/homemade-chocolate-ice-cream-recipe-7.jpg\",\n" +
             "          \"name\": \"Ice-Cream\",\n" +
             "          \"price\": \"150RS\",\n" +
             "          \"Service\": \"Service2\",\n" +
             "          \"Catageory\": \"Desserts\"\n" +
             "        },\n" +
             "        {\n" +
-            "          \"photo2\": \"https://www.shutterstock.com/image-photo/idli-sambhar-idly-sambar-popular-260nw-1527060110.jpg\",\n" +
+            "          \"photo\": \"https://www.shutterstock.com/image-photo/idli-sambhar-idly-sambar-popular-260nw-1527060110.jpg\",\n" +
             "          \"name\": \"Idle\",\n" +
             "          \"price\": \"150RS\",\n" +
             "          \"Service\": \"Service2\",\n" +
             "          \"Catageory\": \"Starters\"\n" +
             "        },\n" +
             "        {\n" +
-            "          \"photo3\": \"https://www.wellandgood.com/wp-content/uploads/2020/12/chow-mein-cup-full-of-kale-feature.jpg\",\n" +
+            "          \"photo\": \"https://www.wellandgood.com/wp-content/uploads/2020/12/chow-mein-cup-full-of-kale-feature.jpg\",\n" +
             "          \"name\": \"Noddles\",\n" +
             "          \"price\": \"150RS\",\n" +
             "          \"Service\": \"Service2\",\n" +
             "          \"Catageory\": \"Chiness\"\n" +
             "        },\n" +
             "        {\n" +
-            "          \"photo4\": \"https://images.pexels.com/photos/103124/pexels-photo-103124.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2\",\n" +
+            "          \"photo\": \"https://images.pexels.com/photos/103124/pexels-photo-103124.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2\",\n" +
             "          \"name\": \"Egg\",\n" +
             "          \"price\": \"150RS\",\n" +
             "          \"Service\": \"Service2\",\n" +
@@ -1204,6 +1203,8 @@ public class hotelHome_page10 extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_hotel_home_page10, container, false);
+
+
         try {
             //convert datalist in JSONArray
             dataArray = new JSONObject(dataList);
@@ -1288,6 +1289,7 @@ public class hotelHome_page10 extends Fragment {
 
 
 
+
         //Fourth recyclerview
         RecyclerView recycler3 = view.findViewById(R.id.himagerecycle3);
         List<restaurant> image3 = new ArrayList<>();
@@ -1325,7 +1327,6 @@ public class hotelHome_page10 extends Fragment {
 
 
         //Fivth recyclerview
-
         RecyclerView recycler4 = view.findViewById(R.id.himagerecycle4);
         List<farm> image4 = new ArrayList<>();
 
@@ -1421,8 +1422,241 @@ public class hotelHome_page10 extends Fragment {
         });
 
 
+
+
+//SQLite Database Example
+  //3rd recycler hotellist
+        RecyclerView sqlrecycler = view.findViewById(R.id.himagerecycle2);
+        DBHelper helper = new DBHelper(getContext());
+//        helper.getWritableDatabase().execSQL("UPDATE Hotel SET image = 'https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg' WHERE id = '1';");
+//        helper.getWritableDatabase().execSQL("UPDATE Hotel SET image = 'https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg' WHERE id = '2';");
+//        helper.getWritableDatabase().execSQL("UPDATE Hotel SET image = 'https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg' WHERE id = '3';");
+       // helper.getWritableDatabase().execSQL("DELETE FROM Hotel WHERE id='1'");delete row in SQL database list and run only one time. command willbe write on Execute SQL
+        List<Hotelinfo> hotelinfos = helper.gethotelsinfo();
+       /* Hotelinfo hotel1 = new Hotelinfo("Alpha Hotel","Bhandup","https://www.itchotels.com/content/dam/itchotels/in/umbrella/images/headmast-desktop/welcomhotel-bhubaneswar.jpg","25% OFF","Any bar, cafe, restaurant, hotel or similar business needs","988765554","500RS for two people");
+        hotelinfos.add(hotel1);
+ Hotelinfo hotel2 = new Hotelinfo("Star Hotel","Bhandup","https://www.itchotels.com/content/dam/itchotels/in/umbrella/images/headmast-desktop/welcomhotel-bhubaneswar.jpg","25% OFF","Any bar, cafe, restaurant, hotel or similar business needs","988765554","500RS for two people");
+        hotelinfos.add(hotel2);
+ Hotelinfo hotel3 = new Hotelinfo("Taj Hotel","Bhandup","https://www.itchotels.com/content/dam/itchotels/in/umbrella/images/headmast-desktop/welcomhotel-bhubaneswar.jpg","25% OFF","Any bar, cafe, restaurant, hotel or similar business needs","988765554","500RS for two people");
+        hotelinfos.add(hotel3);
+ */
+        sqlrecycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        HotelinfoAdpter adpter5 = new HotelinfoAdpter(helper.gethotelsinfo());
+        sqlrecycler.setAdapter(adpter5);
+
+
+
+        //4 SQLite Recycler homemade
+        RecyclerView sqlrecycler2 = view.findViewById(R.id.himagerecycle3);
+       // DBHelper helper = new DBHelper(getContext());
+        List<Homemadeinfo>homemadeinfo = helper.getHomemadeinfo();
+        sqlrecycler2.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        HomemadeAdpter adpter6 = new HomemadeAdpter(helper.getHomemadeinfo());
+        sqlrecycler2.setAdapter(adpter6);
+
+
+        //sth SQLite recycler farmproduct
+        RecyclerView sqlrecyclet3 = view.findViewById(R.id.himagerecycle4);
+       // DBHelper helper2 = new DBHelper(getContext());
+     /*   helper.getWritableDatabase().execSQL("UPDATE Farm SET image = 'https://www.shutterstock.com/image-photo/green-grape-leaves-isolated-on-260nw-533487490.jpg' WHERE id = '1'");
+        helper.getWritableDatabase().execSQL("UPDATE Farm SET image = 'https://www.shutterstock.com/image-photo/green-grape-leaves-isolated-on-260nw-533487490.jpg' WHERE id = '2'");
+        helper.getWritableDatabase().execSQL("UPDATE Farm SET image = 'https://www.shutterstock.com/image-photo/green-grape-leaves-isolated-on-260nw-533487490.jpg' WHERE id = '3'");
+        helper.getWritableDatabase().execSQL("UPDATE Farm SET name = 'mango' WHERE id = '2'");
+
+     */
+        List<farminfo>list6 = helper.getfarminfo();
+        sqlrecyclet3.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        FarmAdpter adpter7 = new FarmAdpter(helper.getfarminfo());
+        sqlrecyclet3.setAdapter(adpter7);
+
         return view;
     }
+
+
+
+//3recycler SQLite adpter class
+class HotelinfoAdpter extends RecyclerView.Adapter<HotelinfoAdpter.CustomViewHolder>{
+    List<Hotelinfo> gethotelsinfo;
+
+    public HotelinfoAdpter(List<Hotelinfo> gethotelsinfo) {
+        this.gethotelsinfo = gethotelsinfo;
+
+    }
+
+    @NonNull
+    @Override
+    public HotelinfoAdpter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+       View ABC = LayoutInflater.from(getContext()).inflate(R.layout.imagepagenew10,parent,false);
+       CustomViewHolder holder = new CustomViewHolder(ABC);
+       return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull HotelinfoAdpter.CustomViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        holder.name.setText(gethotelsinfo.get(position).getName());
+        holder.offer.setText(gethotelsinfo.get(position).getOffers());
+        Glide.with(getContext()).load(gethotelsinfo.get(position).getImage()).into(holder.image);
+
+        holder.relative.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        Fragment fragment = new FragementNew_page13();
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", position);
+        //initalize JSONobject
+       /* JSONObject object =new JSONObject();
+        try {
+            object = data.getJSONObject(position);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.e("MSG",object.toString());
+       */ bundle.putString("data", toString());
+        fragment.setArguments(bundle);
+        transaction.replace(R.id.frame, fragment);
+        transaction.commit();
+
+    }
+        });
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return gethotelsinfo.size();
+    }
+
+    public class CustomViewHolder extends RecyclerView.ViewHolder {
+        ImageView image;
+        TextView name;
+        TextView offer;
+        RelativeLayout relative;
+        public CustomViewHolder(@NonNull View itemView) {
+            super(itemView);
+            image = itemView.findViewById(R.id.fimage1page10);
+            name = itemView.findViewById(R.id.ftext2page10);
+            offer = itemView.findViewById(R.id.ftext1page10);
+            relative = itemView.findViewById(R.id.realitive1);
+
+        }
+    }
+}
+
+//4th SQLite Adpter class
+class HomemadeAdpter extends RecyclerView.Adapter<HomemadeAdpter.CustomViewHolder>{
+    List<Homemadeinfo> homemadeinfo;
+
+
+    public HomemadeAdpter(List<Homemadeinfo> homemadeinfo) {
+        this.homemadeinfo = homemadeinfo;
+
+    }
+
+    @NonNull
+    @Override
+    public HomemadeAdpter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View ABC = LayoutInflater.from(getContext()).inflate(R.layout.imagepagenew10,parent,false);
+        CustomViewHolder holder = new CustomViewHolder(ABC);
+
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull HomemadeAdpter.CustomViewHolder holder, int position) {
+        holder.name.setText(homemadeinfo.get(position).getName());
+        holder.offer.setText(homemadeinfo.get(position).getOffers());
+        Glide.with(getContext()).load(homemadeinfo.get(position).getImage()).into(holder.image);
+
+        holder.relative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                Fragment fragment = new FragementNew_page13();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", position);
+                //initalize JSONobject
+             /*   JSONObject object =new JSONObject();
+                try {
+                    object = data.getJSONObject(position);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+             */ //  Log.e("MSG",object.toString());
+                bundle.putString("data", toString());
+                fragment.setArguments(bundle);
+                transaction.replace(R.id.frame, fragment);
+                transaction.commit();
+
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return homemadeinfo.size();
+    }
+
+    public class CustomViewHolder extends RecyclerView.ViewHolder {
+        ImageView image;
+        TextView name;
+        TextView offer;
+        RelativeLayout relative;
+
+        public CustomViewHolder(@NonNull View itemView) {
+            super(itemView);
+            image = itemView.findViewById(R.id.fimage1page10);
+            name = itemView.findViewById(R.id.ftext2page10);
+            offer = itemView.findViewById(R.id.ftext1page10);
+            relative = itemView.findViewById(R.id.realitive1);
+
+
+        }
+    }
+}
+
+//5th farmproduct SQLite adpterclass
+    class FarmAdpter extends RecyclerView.Adapter<FarmAdpter.CustomViewHolder>{
+    List<farminfo> getfarminfo;
+
+    public FarmAdpter(List<farminfo> getfarminfo) {
+        this.getfarminfo = getfarminfo;
+    }
+
+    @NonNull
+    @Override
+    public FarmAdpter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.farmproductpage10, parent, false);
+        CustomViewHolder holder = new CustomViewHolder(view);
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull FarmAdpter.CustomViewHolder holder, int position) {
+        holder.name.setText(getfarminfo.get(position).getName());
+        holder.price.setText(getfarminfo.get(position).getPrice());
+        Glide.with(getContext()).load(getfarminfo.get(position).getImage()).into(holder.image);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return getfarminfo.size();
+    }
+
+    public class CustomViewHolder extends RecyclerView.ViewHolder{
+        ImageView image;
+        TextView name, price;
+
+        public CustomViewHolder(@NonNull View itemView) {
+            super(itemView);
+            name = itemView.findViewById(R.id.ftext2page11);
+            price = itemView.findViewById(R.id.ftext3page11);
+            image = itemView.findViewById(R.id.fimage1page11);
+
+        }
+    }
+}
 
 
 

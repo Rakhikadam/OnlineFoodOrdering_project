@@ -3,20 +3,19 @@ package com.example.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link payments_page21#newInstance} factory method to
+ * Use the {@link Farm_SQLite#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class payments_page21 extends Fragment {
-
-    OnPageChangedListner listner;
+public class Farm_SQLite extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,8 +26,7 @@ public class payments_page21 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public payments_page21(OnPageChangedListner listner) {
-        this.listner = listner;
+    public Farm_SQLite() {
         // Required empty public constructor
     }
 
@@ -38,18 +36,18 @@ public class payments_page21 extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment payments_page21.
+     * @return A new instance of fragment Farm_SQLite.
      */
     // TODO: Rename and change types and number of parameters
-  /*  public static payments_page21 newInstance(String param1, String param2) {
-      //  payments_page21 fragment = new payments_page21();
+    public static Farm_SQLite newInstance(String param1, String param2) {
+        Farm_SQLite fragment = new Farm_SQLite();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-       // fragment.setArguments(args);
-       // return fragment;
+        fragment.setArguments(args);
+        return fragment;
     }
-*/
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +61,27 @@ public class payments_page21 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_payments_page21, container, false);
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.payment ,new payment21_page1(listner));
-        transaction.commit();
-        return view;
+        DBHelper helper = new DBHelper(getContext());
+        View view = inflater.inflate(R.layout.fragment_farm__s_q_lite, container, false);
+        EditText name = view.findViewById(R.id.ftext1);
+        EditText image = view.findViewById(R.id.ftext2);
+        EditText price = view.findViewById(R.id.ftext3);
+        EditText about = view.findViewById(R.id.ftext4);
+        EditText nutriation = view.findViewById(R.id.ftext5);
+        Button sunmit = view.findViewById(R.id.fsubmit);
+        sunmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String Name = name.getText().toString();
+                String Image = image.getText().toString();
+                String Price = price.getText().toString();
+                String About = about.getText().toString();
+                String Nutriation = nutriation.getText().toString();
+
+                helper.addfarminfo(Name,Image,Price,About,Nutriation);
+            }
+        });
+
+   return view;
     }
-
-
 }

@@ -3,10 +3,19 @@ package com.example.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +68,85 @@ public class hotelFineDinning_page10 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hotel_fine_dinning_page10, container, false);
+     View view=    inflater.inflate(R.layout.fragment_hotel_fine_dinning_page10, container, false);
+     Button resturant = view.findViewById(R.id.text1);
+     Button homemade = view.findViewById(R.id.text2);
+     Button farm = view.findViewById(R.id.text3);
+     Button menulist = view.findViewById(R.id.text4);
+     Button MenuPhotes = view.findViewById(R.id.text5);
+     Button About = view.findViewById(R.id.text6);
+     Button Review = view.findViewById(R.id.text7);
+
+
+
+     resturant.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+             transaction.replace(R.id.sqlfame,new Resturant_SQLite());
+             transaction.commit();
+
+         }
+     });
+
+     homemade.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+             transaction.replace(R.id.sqlfame,new Homemade_SQLite());
+             transaction.commit();
+         }
+     });
+
+      farm.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+              transaction.replace(R.id.sqlfame,new Farm_SQLite());
+              transaction.commit();
+          }
+      });
+
+      menulist.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+              transaction.replace(R.id.sqlfame,new MenuListSQL_page13());
+              transaction.commit();
+          }
+      });
+
+     /*  EditText name = view.findViewById(R.id.text1);
+        EditText location = view.findViewById(R.id.text2);
+        EditText offers = view.findViewById(R.id.text3);
+        EditText image = view.findViewById(R.id.text4);
+        EditText about = view.findViewById(R.id.text5);
+        EditText number = view.findViewById(R.id.text6);
+        EditText averagecost = view.findViewById(R.id.text7);
+        Button submit = view.findViewById(R.id.submitb);
+
+     DBHelper helper = new DBHelper(getContext());
+
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String strname = name.getText().toString();
+              String Location =  location.getText().toString();
+              String Offer=  offers.getText().toString();
+              String About =  about.getText().toString();
+              String Image =  image.getText().toString();
+              String Number =  number.getText().toString();
+              String Averagecost =  averagecost.getText().toString();
+
+                helper.addhotelinfo(strname,Location,Image,Offer,About,Number,Averagecost);
+
+            }
+        });
+
+
+      */  return view;
+
     }
+
 }

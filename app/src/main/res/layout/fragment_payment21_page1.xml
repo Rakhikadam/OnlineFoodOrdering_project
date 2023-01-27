@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".payment21_page1">
 
     <!-- TODO: Update blank fragment layout -->
 
 
-  <ScrollView
+  <androidx.core.widget.NestedScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:layout_above="@+id/pay"
       >
 
       <LinearLayout
@@ -315,31 +317,6 @@
             android:layout_marginLeft="20dp"></TextView>
 </RelativeLayout>
 
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GRAND TOTAL"
-            android:textSize="30dp"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"></TextView>
-
-            <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="900RS"
-            android:textSize="30dp"
-                android:layout_alignParentRight="true"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-                android:gravity="right"
-            android:layout_marginLeft="20dp"></TextView>
-        </RelativeLayout>
 
 
     <RelativeLayout
@@ -365,7 +342,120 @@
            android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             ></Spinner>
+
+
     </RelativeLayout>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Ship to"
+              android:textColor="@color/black"
+              android:layout_marginLeft="10dp"
+              android:gravity="center"
+              android:paddingTop="5dp"
+              ></TextView>
+
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:id="@+id/addresspay"
+              >
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_marginTop="20dp"
+          android:layout_marginLeft="20dp"
+          android:layout_marginRight="20dp"
+          >
+          <TextView
+              android:id="@+id/addressname"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="rakhi kadam"
+              android:textColor="@color/black"
+              android:textSize="20dp"
+              android:layout_marginLeft="10dp"
+              ></TextView>
+          <TextView
+              android:id="@+id/area"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Home"
+              android:textSize="20dp"
+              android:layout_marginLeft="20dp"
+              android:background="@drawable/bg"
+              ></TextView>
       </LinearLayout>
-  </ScrollView>
-</LinearLayout>
+          <TextView
+              android:id="@+id/addressperson"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="60dp"
+              android:layout_marginTop="5dp"
+              android:layout_marginRight="20dp"
+              android:text="aaaaaaaaaaa"></TextView>
+          <TextView
+              android:id="@+id/mobilenumber"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="60dp"
+              android:layout_marginTop="5dp"
+              android:layout_marginRight="20dp"
+              android:text="56373788"></TextView>
+
+
+          </LinearLayout>
+      </LinearLayout>
+  </androidx.core.widget.NestedScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/pay"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:background="@drawable/bg"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total"
+            android:paddingLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/payprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            ></TextView>
+        <Button
+            android:id="@+id/paynow"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Pay Now"
+            android:textSize="20dp"
+            android:layout_marginLeft="50dp"
+            android:background="@color/orange"
+            android:textColor="@color/white"
+            ></Button>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

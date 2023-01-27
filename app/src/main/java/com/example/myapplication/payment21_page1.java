@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,6 +33,9 @@ import java.util.regex.Pattern;
  * create an instance of this fragment.
  */
 public class payment21_page1 extends Fragment {
+    OnPageChangedListner listner;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,7 +46,8 @@ public class payment21_page1 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public payment21_page1() {
+    public payment21_page1(OnPageChangedListner listner) {
+        this.listner = listner;
         // Required empty public constructor
     }
 
@@ -54,7 +60,7 @@ public class payment21_page1 extends Fragment {
      * @return A new instance of fragment payment21_page1.
      */
     // TODO: Rename and change types and number of parameters
-    public static payment21_page1 newInstance(String param1, String param2) {
+   /* public static payment21_page1 newInstance(String param1, String param2) {
         payment21_page1 fragment = new payment21_page1();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -62,10 +68,12 @@ public class payment21_page1 extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+*/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferences = getContext().getSharedPreferences("MYAPP", Context.MODE_PRIVATE);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -103,8 +111,18 @@ public class payment21_page1 extends Fragment {
         LinearLayout card = view.findViewById(R.id.card);
         LinearLayout cardinfo = view.findViewById(R.id.paymentinfo);
         Button add_card = view.findViewById(R.id.add_card);
+        Button paynow = view.findViewById(R.id.paynow);
+        LinearLayout addresslist = view.findViewById(R.id.addresspay);
+
+        //getting total amount price
+        TextView price = view.findViewById(R.id.payprice);
+        editor = preferences.edit();
+        price.setText(preferences.getString("TOTAL",""));
 
 
+
+//getting addresslist of sharedprefernce
+        editor = preferences.edit();
 
 
 
@@ -135,10 +153,21 @@ public class payment21_page1 extends Fragment {
 
 
 
+         paynow.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 listner.OnPageChanged(2);
+
+             }
+         });
 
 
         return view;
     }
+
+
+
+
     class PaymentlistAdpter extends RecyclerView.Adapter<PaymentlistAdpter.CustomViewHolder>{
         List<pesronpayment> list;
 

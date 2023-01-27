@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -40,6 +42,9 @@ public class HomenewPage13 extends Fragment {
     RecyclerView food;
     RecyclerView list1;
     HotelsPage10 activity;
+    SharedPreferences preferences;
+
+
 
 
     List<fooditemlist> list3 = new ArrayList<>();
@@ -87,7 +92,7 @@ public class HomenewPage13 extends Fragment {
         activity  = (HotelsPage10) getActivity();
         if (getArguments() != null) {
             try {
-                Menudata = new JSONArray(getArguments().getString("Menulist"));
+                Menudata = new JSONArray(getArguments().getString("Menulist"));  //JSON menudata list set
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -158,6 +163,7 @@ try {
         MenulistAdpter adpter1 = new MenulistAdpter(list3);
         food.setAdapter(adpter1);
 
+       //set category
         for (fooditemlist item : list3 ){
 
             if (item.category.equalsIgnoreCase("MainCourse")){
@@ -282,7 +288,7 @@ try {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MenulistAdpter.CustomHolderAdpter holder, int position) {
+        public void onBindViewHolder(@NonNull MenulistAdpter.CustomHolderAdpter holder, @SuppressLint("RecyclerView") int position) {
 
             holder.name.setText(list3.get(position).getName());
             holder.price.setText(list3.get(position).getPrice());
@@ -290,6 +296,12 @@ try {
 
             Glide.with(getContext()).load(list3.get(position).getImage()).into(holder.image);
             Log.e("TAG",list3.get(position).getImage());
+
+
+
+
+
+
 
 
             //add button visible and gone method
@@ -300,9 +312,40 @@ try {
                     holder.add.setVisibility(View.GONE);
 
 
+                    //interface class cartitem using and add data in listner
                     CartItem item= new CartItem(list3.get(position).getName(),list3.get(position).getImage(),list3.get(position).getPrice());
                     Log.e("TAG", "onClick: " );
                     activity.listner.AddItem(item);
+
+
+
+                    //sharedprefence using to sare data in this fragement to shopping cart fragement
+                    preferences = getContext().getSharedPreferences("MYAPP", Context.MODE_PRIVATE);//Initalize sharedprefernce
+                    JSONArray array = null;
+                    try {
+                        array = new JSONArray(preferences.getString("CARTLIST","[]"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    JSONObject object = new JSONObject();   //putting list in JSON object
+                    try {
+                        object.put("name",(list3.get(position).getName()));
+                        object.put("price",list3.get(position).getPrice());
+                    //    object.put("Service",holder.serves.getText().toString());
+                        object.put("Image",list3.get(position).getImage());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    array.put(object);
+
+
+
+                    //putting list in sharedreference
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("CARTLIST",array.toString());
+                    editor.commit();   //commit means show data
+
 
 
                 }
@@ -319,7 +362,7 @@ try {
             });
 
 
-            //1st method add food
+            //1st method add food count
             holder.plus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -379,10 +422,6 @@ try {
 
                 }
             });
-
-
-
-
 
 
         }
