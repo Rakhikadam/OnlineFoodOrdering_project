@@ -36,6 +36,7 @@ public class payment21_page1 extends Fragment {
     OnPageChangedListner listner;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    DBHelper helper;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,6 +84,7 @@ public class payment21_page1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        helper = new DBHelper(getContext());
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_payment21_page1, container, false);
         RecyclerView recycler = view.findViewById(R.id.recyclepayment);
@@ -157,6 +159,11 @@ public class payment21_page1 extends Fragment {
              @Override
              public void onClick(View view) {
                  listner.OnPageChanged(2);
+               long order_id =  System.currentTimeMillis();
+               helper.UpdateCart(String.valueOf(order_id));
+               helper.addbookingOrder("98", String.valueOf(order_id));
+
+
 
              }
          });

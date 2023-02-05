@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".AboutPage13_SQLite">
+
+    <!-- TODO: Update blank fragment layout -->
+    <Spinner
+        android:id="@+id/aboutspinner1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:entries="@array/Type"
+        >
+    </Spinner>
+    <Spinner
+        android:id="@+id/aboutspinner2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+
+    <EditText
+        android:id="@+id/Atext1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Cuisine"
+        android:paddingLeft="10dp"
+        android:background="@drawable/bg"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Facilites"
+        android:paddingLeft="10dp"
+        android:background="@drawable/bg"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/Atext3"
+
+        />
+    <Button
+        android:id="@+id/Asubmit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="cusine Submit"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/orange"
+        ></Button>
+ <Button
+        android:id="@+id/Asubmit1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="facility Submit"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/orange"
+        ></Button>
+
+</LinearLayout>

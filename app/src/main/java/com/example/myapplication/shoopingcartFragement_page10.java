@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class shoopingcartFragement_page10 extends Fragment {
     ItemAddListner Listner;
-    List<shoppingcart> list = new ArrayList<shoppingcart>();
+    List<CartItem> list = new ArrayList<CartItem>();
     ShoopingAdpter adpter;
 
 
@@ -73,8 +73,7 @@ public class shoopingcartFragement_page10 extends Fragment {
         activity.Listner = new ItemAddListner() {
             @Override
             public void Itemadd(CartItem item) {
-                shoppingcart cart = new shoppingcart(item.getName(), item.getPrice(), item.getImageUrl());
-                list.add(cart);
+                list.add(item);
                 adpter.notifyDataSetChanged();
 
 
@@ -106,12 +105,12 @@ public class shoopingcartFragement_page10 extends Fragment {
 
         List<shoppingcartlist>list = new ArrayList<>();
 
-        shoppingcartlist list1 = new shoppingcartlist("Paneer","150Rs","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
-        list.add(list1);
- shoppingcartlist list2 = new shoppingcartlist("Paneer","150Rs","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
-        list.add(list2);
- shoppingcartlist list3 = new shoppingcartlist("Paneer","150Rs","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
-        list.add(list3);
+//        shoppingcartlist list1 = new shoppingcartlist("Paneer","150Rs","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
+//        list.add(list1);
+// shoppingcartlist list2 = new shoppingcartlist("Paneer","150Rs","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
+//        list.add(list2);
+// shoppingcartlist list3 = new shoppingcartlist("Paneer","150Rs","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
+//        list.add(list3);
 
         ShoopingAdpter adpter =new ShoopingAdpter(list);
         cartrecycler.setAdapter(adpter);

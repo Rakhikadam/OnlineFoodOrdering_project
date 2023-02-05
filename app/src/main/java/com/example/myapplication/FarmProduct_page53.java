@@ -3,14 +3,12 @@ package com.example.myapplication;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -144,7 +142,7 @@ public class FarmProduct_page53 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_farm_product_page53, container, false);
         RecyclerView farm = view.findViewById(R.id.farmlist);
 
-        List<farmlist>list = new ArrayList<>();
+        //List<farmlist>list = new ArrayList<>();
 
         //ex. using JSONArray
       /* try {
@@ -163,7 +161,7 @@ public class FarmProduct_page53 extends Fragment {
 
 
         //using page on JSON method
-        List<farm> list1 = new ArrayList<>();
+       /* List<farm> list1 = new ArrayList<>();
         try {
             farmproduct = new JSONArray(getArguments().getString("data"));
             for (int i = 0; i < farmproduct.length(); i++) {
@@ -175,14 +173,10 @@ public class FarmProduct_page53 extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
         FarmAdpter adpter = new FarmAdpter(list1);
         farm.setAdapter(adpter);
 
-
-
-
+*/
 
 
 
@@ -196,7 +190,14 @@ public class FarmProduct_page53 extends Fragment {
         farm.setAdapter(adpter);
 
          */
+        DBHelper helper = new DBHelper(getContext());
+        List<farminfo> getfarminfo = helper.getfarminfo();
+        FarmAdpter adpter1 = new FarmAdpter(getfarminfo);
+        farm.setAdapter(adpter1);
+
+
         farm.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+
 
         return view;
     }
@@ -204,9 +205,10 @@ public class FarmProduct_page53 extends Fragment {
 
     //using JSON method
     class FarmAdpter extends RecyclerView.Adapter<FarmAdpter.custoViewHolder>{
-        List<farm> list1;
-
-        public FarmAdpter(List<farm> list1) {
+        //List<farm> list1;
+        List<farminfo> list1;
+        public FarmAdpter(List<farminfo> list1) {
+           // this.list1 = list1;
             this.list1 = list1;
 
         }
@@ -230,7 +232,8 @@ public class FarmProduct_page53 extends Fragment {
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                     Fragment fragment = new Farminfo_page55();
                     Bundle bundle = new Bundle();
-                    JSONObject object = new JSONObject();
+                    bundle.putInt("id",position);
+                    /*JSONObject object = new JSONObject();
 
                     try {
                         object = farmproduct.getJSONObject(position);
@@ -239,6 +242,8 @@ public class FarmProduct_page53 extends Fragment {
                     }
                     bundle.putInt("ID",position);
                     bundle.putString("data",object.toString());
+                    */
+                    bundle.putString("data",list1.get(position).getId());
                     fragment.setArguments(bundle);
                     transaction.replace(R.id.frame,fragment);
                     transaction.commit();

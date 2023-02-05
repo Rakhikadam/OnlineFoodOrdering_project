@@ -93,6 +93,7 @@ public class MenuListSQL_page13 extends Fragment {
                 if (spinner.getSelectedItem().toString().equalsIgnoreCase("Restaurant")){
                     List<Hotelinfo> list = helper.gethotelsinfo();
 
+                    //1st method
                     List<String> spinerlist = new ArrayList<>();
                     for (int j=0; j<list.size();j++){
                          spinerlist.add(list.get(j).getId()+"-"+list.get(j).getName());
@@ -102,9 +103,11 @@ public class MenuListSQL_page13 extends Fragment {
 
 
                 }
+
                 else if (spinner.getSelectedItem().toString().equalsIgnoreCase("Homemade")){
                     List<String> spinerlist1 = new ArrayList<>();
 
+                    //2nd method
                     for (int k=0; k<helper.getHomemadeinfo().size();k++){
                         spinerlist1.add(helper.getHomemadeinfo().get(k).getId()+"-"+helper.getHomemadeinfo().get(k).getName());
                         Log.e("TAG", "onItemSelected: "+helper.getHomemadeinfo().get(k).getName() );
@@ -129,7 +132,7 @@ public class MenuListSQL_page13 extends Fragment {
                 String Serve = menuoffer.getText().toString();
                 String Category = menucategory.getText().toString();
                 String Image = menuimage.getText().toString();
-                helper.addmenuinfo(name,Image,Price,Category,Serve,spinner2.getSelectedItem().toString().split("-")[0]);
+                helper.addmenuinfo(name,Image,Price,Category,Serve,spinner2.getSelectedItem().toString().split("-")[0],spinner.getSelectedItem().toString());
             }
         });
 

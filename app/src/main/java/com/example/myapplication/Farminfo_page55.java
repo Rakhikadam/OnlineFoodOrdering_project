@@ -66,11 +66,12 @@ public class Farminfo_page55 extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getInt("ID");  //set key and change string to int and set same key both fragement
-            try {
+          //JSON set data in Arguments
+           /* try {
                 data = new JSONObject(getArguments().getString("data"));
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 
@@ -104,7 +105,7 @@ public class Farminfo_page55 extends Fragment {
 
         */
 
-        //JSON set data
+       /* //JSON set data
         ImageView imageView = view.findViewById(R.id.image_page55);
         try {
             Glide.with(getContext()).load(data.getString("Farmimage")).into(imageView);
@@ -124,7 +125,7 @@ public class Farminfo_page55 extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+*/
 
 //both the list same
         //2.list page53
@@ -147,7 +148,7 @@ public class Farminfo_page55 extends Fragment {
 
     */
 
-        ImageView image = view.findViewById(R.id.image_page55);
+      /*  ImageView image = view.findViewById(R.id.image_page55);
         try {
             Glide.with(getContext()).load(data.getString("Farmimage")).into(image);
         } catch (JSONException e) {
@@ -167,6 +168,19 @@ public class Farminfo_page55 extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+*/
+        //SQLitedata get
+        ImageView image = view.findViewById(R.id.image_page55);
+        TextView price1 = view.findViewById(R.id.text1_page55);
+        TextView name1 = view.findViewById(R.id.text_page55);
+
+        DBHelper helper = new DBHelper(getContext());
+       farminfo farm= helper.getFarm(String.valueOf(getArguments().getString("data")));
+        name1.setText(farm.getName());
+        price1.setText(farm.getPrice());
+        Glide.with(getContext()).load(farm.getImage()).into(image);
+
 
 
         return view;

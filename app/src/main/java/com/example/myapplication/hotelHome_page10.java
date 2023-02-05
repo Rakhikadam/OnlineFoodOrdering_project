@@ -34,6 +34,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class hotelHome_page10 extends Fragment {
+    public DBHelper helper = new DBHelper(getContext());
+
 
     //JSON list of Arraylist
     /*String dataList = "[\n" +
@@ -1156,7 +1158,6 @@ public class hotelHome_page10 extends Fragment {
             "}";
 
 
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -1213,7 +1214,6 @@ public class hotelHome_page10 extends Fragment {
         }
 
 
-
         //firstrecycler view
         RecyclerView recycler = view.findViewById(R.id.himagerecycle);
         List<hotellist> list = new ArrayList<>();
@@ -1243,8 +1243,6 @@ public class hotelHome_page10 extends Fragment {
         recycler1.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
 
 
-
-
         //Third recyclerview
         //Third recycler using JSON method
         RecyclerView recycler2 = view.findViewById(R.id.himagerecycle2);
@@ -1252,13 +1250,13 @@ public class hotelHome_page10 extends Fragment {
 
         try {
             JSONArray array = dataArray.getJSONArray("ReatoList");
-          //  System.out.print(array);
-           // Log.e("TAG", "onCreateView: "+array );
-            for (int i=0 ; i<array.length(); i++){
+            //  System.out.print(array);
+            // Log.e("TAG", "onCreateView: "+array );
+            for (int i = 0; i < array.length(); i++) {
                 JSONObject object = dataArray.getJSONArray("ReatoList").getJSONObject(i);
-                restaurant restaurantlist = new restaurant(object.getString("hotelname"),object.getString("offers"),object.getString("hotelimage"));
+                restaurant restaurantlist = new restaurant(object.getString("hotelname"), object.getString("offers"), object.getString("hotelimage"));
                 image2.add(restaurantlist);
-                Log.e("TAG", "onCreateView: "+array.length() );
+                Log.e("TAG", "onCreateView: " + array.length());
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1267,7 +1265,7 @@ public class hotelHome_page10 extends Fragment {
 
         RestaturantAdpter adpter2 = null;
         try {
-            adpter2 = new RestaturantAdpter(image2,dataArray.getJSONArray("ReatoList"));
+            adpter2 = new RestaturantAdpter(image2, dataArray.getJSONArray("ReatoList"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -1284,10 +1282,8 @@ public class hotelHome_page10 extends Fragment {
         restaurant list8 = new restaurant("Taj hotel", "30% OFF", "https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg");
         image2.add(list8);
         */
-      //  RestaturantAdpter adpter2 = new RestaturantAdpter(image2);
-       // recycler2.setAdapter(adpter2);
-
-
+        //  RestaturantAdpter adpter2 = new RestaturantAdpter(image2);
+        // recycler2.setAdapter(adpter2);
 
 
         //Fourth recyclerview
@@ -1296,9 +1292,9 @@ public class hotelHome_page10 extends Fragment {
 
         try {
             JSONArray array = dataArray.getJSONArray("HomemadeList");
-            for (int i = 0 ; i< array.length();i++){
+            for (int i = 0; i < array.length(); i++) {
                 JSONObject object = dataArray.getJSONArray("HomemadeList").getJSONObject(i);
-                restaurant homemade = new restaurant(object.getString("hotelname"),object.getString("offers"),object.getString("hotelimage"));
+                restaurant homemade = new restaurant(object.getString("hotelname"), object.getString("offers"), object.getString("hotelimage"));
                 image3.add(homemade);
             }
         } catch (JSONException e) {
@@ -1318,7 +1314,7 @@ public class hotelHome_page10 extends Fragment {
         */
         RestaturantAdpter adpter3 = null;
         try {
-            adpter3 = new RestaturantAdpter(image3,dataArray.getJSONArray("HomemadeList"));
+            adpter3 = new RestaturantAdpter(image3, dataArray.getJSONArray("HomemadeList"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -1332,9 +1328,9 @@ public class hotelHome_page10 extends Fragment {
 
         try {
             JSONObject array = new JSONObject(dataList);
-            for (int i =0; i<array.length(); i++){
+            for (int i = 0; i < array.length(); i++) {
                 JSONObject object = dataArray.getJSONArray("FarmProduct").getJSONObject(i);
-                farm farmlist = new farm(object.getString("name"),object.getString("price"),object.getString("Farmimage"));
+                farm farmlist = new farm(object.getString("name"), object.getString("price"), object.getString("Farmimage"));
                 image4.add(farmlist);
             }
         } catch (JSONException e) {
@@ -1354,26 +1350,32 @@ public class hotelHome_page10 extends Fragment {
         recycler4.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
 
 
-
         //using viewall textview clicklistner
         TextView viewall1 = view.findViewById(R.id.llviewall1);
         viewall1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-               Fragment fragment = new HotelList_page53();
-               Bundle bundle = new Bundle();
-               JSONArray array = new JSONArray();
+                Fragment fragment = new HotelList_page53();
+                Bundle bundle = new Bundle();
+
+                //JSON data pass
+               /* JSONArray array = new JSONArray();
                 try {
                     array = dataArray.getJSONArray("ReatoList");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                bundle.putString("data",array.toString());
+                bundle.putString("data", array.toString());
+               */
+
+                //SQLite data pass
+                bundle.putString("data","data");
+                bundle.putString("type","Restaurant");
                 fragment.setArguments(bundle);
 
-                transaction.add(R.id.frame,fragment);
-               transaction.commit();
+                transaction.add(R.id.frame, fragment);
+                transaction.commit();
             }
         });
 
@@ -1382,20 +1384,25 @@ public class hotelHome_page10 extends Fragment {
             @Override
             public void onClick(View view) {
                 //Intent intent = new Intent(getContext(), Page11.class);
-             //   startActivity(intent);
+                //   startActivity(intent);
 
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 Fragment fragment = new HotelList_page53();
                 Bundle bundle = new Bundle();
-                JSONArray array = new JSONArray();
+              /*  JSONArray array = new JSONArray();
                 try {
                     array = dataArray.getJSONArray("HomemadeList");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                bundle.putString("data",array.toString());
+                bundle.putString("data", array.toString());
+              */
+
+                //SQLite pass data method
+                bundle.putString("data","data");
+                bundle.putString("type","Homemade");
                 fragment.setArguments(bundle);
-                transaction.add(R.id.frame,fragment);
+                transaction.add(R.id.frame, fragment);
                 transaction.commit();
             }
         });
@@ -1406,32 +1413,31 @@ public class hotelHome_page10 extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-               Fragment fragment = new FarmProduct_page53();
-               Bundle bundle = new Bundle();
-               JSONArray array = new JSONArray();
+                Fragment fragment = new FarmProduct_page53();
+                Bundle bundle = new Bundle();
+                bundle.putString("data","data");
+               /* JSONArray array = new JSONArray();
                 try {
                     array = dataArray.getJSONArray("FarmProduct");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                bundle.putString("data",array.toString());
-                fragment.setArguments(bundle);
+                bundle.putString("data", array.toString());
+               */ fragment.setArguments(bundle);
                 transaction.add(R.id.frame, fragment);
                 transaction.commit();
             }
         });
 
 
-
-
 //SQLite Database Example
-  //3rd recycler hotellist
+        //3rd recycler hotellist
         RecyclerView sqlrecycler = view.findViewById(R.id.himagerecycle2);
         DBHelper helper = new DBHelper(getContext());
 //        helper.getWritableDatabase().execSQL("UPDATE Hotel SET image = 'https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg' WHERE id = '1';");
 //        helper.getWritableDatabase().execSQL("UPDATE Hotel SET image = 'https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg' WHERE id = '2';");
 //        helper.getWritableDatabase().execSQL("UPDATE Hotel SET image = 'https://media.architecturaldigest.com/photos/56c64bb95ef3a2f746a41f52/master/w_3600,h_2400,c_limit/hotel-restaurants-006.jpg' WHERE id = '3';");
-       // helper.getWritableDatabase().execSQL("DELETE FROM Hotel WHERE id='1'");delete row in SQL database list and run only one time. command willbe write on Execute SQL
+        // helper.getWritableDatabase().execSQL("DELETE FROM Hotel WHERE id='1'");delete row in SQL database list and run only one time. command willbe write on Execute SQL
         List<Hotelinfo> hotelinfos = helper.gethotelsinfo();
        /* Hotelinfo hotel1 = new Hotelinfo("Alpha Hotel","Bhandup","https://www.itchotels.com/content/dam/itchotels/in/umbrella/images/headmast-desktop/welcomhotel-bhubaneswar.jpg","25% OFF","Any bar, cafe, restaurant, hotel or similar business needs","988765554","500RS for two people");
         hotelinfos.add(hotel1);
@@ -1445,27 +1451,26 @@ public class hotelHome_page10 extends Fragment {
         sqlrecycler.setAdapter(adpter5);
 
 
-
         //4 SQLite Recycler homemade
         RecyclerView sqlrecycler2 = view.findViewById(R.id.himagerecycle3);
-       // DBHelper helper = new DBHelper(getContext());
-        List<Homemadeinfo>homemadeinfo = helper.getHomemadeinfo();
-        sqlrecycler2.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        // DBHelper helper = new DBHelper(getContext());
+        List<Homemadeinfo> homemadeinfo = helper.getHomemadeinfo();
+        sqlrecycler2.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         HomemadeAdpter adpter6 = new HomemadeAdpter(helper.getHomemadeinfo());
         sqlrecycler2.setAdapter(adpter6);
 
 
         //sth SQLite recycler farmproduct
         RecyclerView sqlrecyclet3 = view.findViewById(R.id.himagerecycle4);
-       // DBHelper helper2 = new DBHelper(getContext());
+        // DBHelper helper2 = new DBHelper(getContext());
      /*   helper.getWritableDatabase().execSQL("UPDATE Farm SET image = 'https://www.shutterstock.com/image-photo/green-grape-leaves-isolated-on-260nw-533487490.jpg' WHERE id = '1'");
         helper.getWritableDatabase().execSQL("UPDATE Farm SET image = 'https://www.shutterstock.com/image-photo/green-grape-leaves-isolated-on-260nw-533487490.jpg' WHERE id = '2'");
         helper.getWritableDatabase().execSQL("UPDATE Farm SET image = 'https://www.shutterstock.com/image-photo/green-grape-leaves-isolated-on-260nw-533487490.jpg' WHERE id = '3'");
         helper.getWritableDatabase().execSQL("UPDATE Farm SET name = 'mango' WHERE id = '2'");
 
      */
-        List<farminfo>list6 = helper.getfarminfo();
-        sqlrecyclet3.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        List<farminfo> list6 = helper.getfarminfo();
+        sqlrecyclet3.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         FarmAdpter adpter7 = new FarmAdpter(helper.getfarminfo());
         sqlrecyclet3.setAdapter(adpter7);
 
@@ -1473,192 +1478,201 @@ public class hotelHome_page10 extends Fragment {
     }
 
 
+    //3recycler SQLite adpter class
+    class HotelinfoAdpter extends RecyclerView.Adapter<HotelinfoAdpter.CustomViewHolder> {
+        List<Hotelinfo> gethotelsinfo;
 
-//3recycler SQLite adpter class
-class HotelinfoAdpter extends RecyclerView.Adapter<HotelinfoAdpter.CustomViewHolder>{
-    List<Hotelinfo> gethotelsinfo;
 
-    public HotelinfoAdpter(List<Hotelinfo> gethotelsinfo) {
-        this.gethotelsinfo = gethotelsinfo;
-
-    }
-
-    @NonNull
-    @Override
-    public HotelinfoAdpter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View ABC = LayoutInflater.from(getContext()).inflate(R.layout.imagepagenew10,parent,false);
-       CustomViewHolder holder = new CustomViewHolder(ABC);
-       return holder;
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull HotelinfoAdpter.CustomViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.name.setText(gethotelsinfo.get(position).getName());
-        holder.offer.setText(gethotelsinfo.get(position).getOffers());
-        Glide.with(getContext()).load(gethotelsinfo.get(position).getImage()).into(holder.image);
-
-        holder.relative.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        Fragment fragment = new FragementNew_page13();
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", position);
-        //initalize JSONobject
-       /* JSONObject object =new JSONObject();
-        try {
-            object = data.getJSONObject(position);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.e("MSG",object.toString());
-       */ bundle.putString("data", toString());
-        fragment.setArguments(bundle);
-        transaction.replace(R.id.frame, fragment);
-        transaction.commit();
-
-    }
-        });
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return gethotelsinfo.size();
-    }
-
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView name;
-        TextView offer;
-        RelativeLayout relative;
-        public CustomViewHolder(@NonNull View itemView) {
-            super(itemView);
-            image = itemView.findViewById(R.id.fimage1page10);
-            name = itemView.findViewById(R.id.ftext2page10);
-            offer = itemView.findViewById(R.id.ftext1page10);
-            relative = itemView.findViewById(R.id.realitive1);
+        public HotelinfoAdpter(List<Hotelinfo> gethotelsinfo) {
+            this.gethotelsinfo = gethotelsinfo;
 
         }
+
+        @NonNull
+        @Override
+        public HotelinfoAdpter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View ABC = LayoutInflater.from(getContext()).inflate(R.layout.imagepagenew10, parent, false);
+            CustomViewHolder holder = new CustomViewHolder(ABC);
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull HotelinfoAdpter.CustomViewHolder holder, @SuppressLint("RecyclerView") int position) {
+            holder.name.setText(gethotelsinfo.get(position).getName());
+            holder.offer.setText(gethotelsinfo.get(position).getOffers());
+            Glide.with(getContext()).load(gethotelsinfo.get(position).getImage()).into(holder.image);
+
+            holder.relative.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    Fragment fragment = new FragementNew_page13();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", position);
+                    bundle.putString("data", gethotelsinfo.get(position).getId());  //put key name data
+                    bundle.putString("type", "Restaurant");  //put key name type
+                    fragment.setArguments(bundle);
+                    transaction.replace(R.id.frame, fragment);
+                    transaction.commit();
+
+                }
+            });
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return gethotelsinfo.size();
+        }
+
+        public class CustomViewHolder extends RecyclerView.ViewHolder {
+            ImageView image;
+            TextView name;
+            TextView offer;
+            RelativeLayout relative;
+
+            public CustomViewHolder(@NonNull View itemView) {
+                super(itemView);
+                image = itemView.findViewById(R.id.fimage1page10);
+                name = itemView.findViewById(R.id.ftext2page10);
+                offer = itemView.findViewById(R.id.ftext1page10);
+                relative = itemView.findViewById(R.id.realitive1);
+
+            }
+        }
     }
-}
 
-//4th SQLite Adpter class
-class HomemadeAdpter extends RecyclerView.Adapter<HomemadeAdpter.CustomViewHolder>{
-    List<Homemadeinfo> homemadeinfo;
+    //4th SQLite Adpter class
+    class HomemadeAdpter extends RecyclerView.Adapter<HomemadeAdpter.CustomViewHolder> {
+        List<Homemadeinfo> homemadeinfo;
 
 
-    public HomemadeAdpter(List<Homemadeinfo> homemadeinfo) {
-        this.homemadeinfo = homemadeinfo;
+        public HomemadeAdpter(List<Homemadeinfo> homemadeinfo) {
+            this.homemadeinfo = homemadeinfo;
 
-    }
+        }
 
-    @NonNull
-    @Override
-    public HomemadeAdpter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View ABC = LayoutInflater.from(getContext()).inflate(R.layout.imagepagenew10,parent,false);
-        CustomViewHolder holder = new CustomViewHolder(ABC);
+        @NonNull
+        @Override
+        public HomemadeAdpter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View ABC = LayoutInflater.from(getContext()).inflate(R.layout.imagepagenew10, parent, false);
+            CustomViewHolder holder = new CustomViewHolder(ABC);
 
-        return holder;
-    }
+            return holder;
+        }
 
-    @Override
-    public void onBindViewHolder(@NonNull HomemadeAdpter.CustomViewHolder holder, int position) {
-        holder.name.setText(homemadeinfo.get(position).getName());
-        holder.offer.setText(homemadeinfo.get(position).getOffers());
-        Glide.with(getContext()).load(homemadeinfo.get(position).getImage()).into(holder.image);
+        @Override
+        public void onBindViewHolder(@NonNull HomemadeAdpter.CustomViewHolder holder, int position) {
+            holder.name.setText(homemadeinfo.get(position).getName());
+            holder.offer.setText(homemadeinfo.get(position).getOffers());
+            Glide.with(getContext()).load(homemadeinfo.get(position).getImage()).into(holder.image);
 
-        holder.relative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment fragment = new FragementNew_page13();
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", position);
-                //initalize JSONobject
+            holder.relative.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    Fragment fragment = new FragementNew_page13();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", position);
+//                    bundle.putString("type","Homemade");
+                    //initalize JSONobject
              /*   JSONObject object =new JSONObject();
                 try {
                     object = data.getJSONObject(position);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-             */ //  Log.e("MSG",object.toString());
-                bundle.putString("data", toString());
-                fragment.setArguments(bundle);
-                transaction.replace(R.id.frame, fragment);
-                transaction.commit();
+               Log.e("MSG",object.toString());
+                   */ bundle.putString("data",homemadeinfo.get(position).getId());  //put key name data
+                   bundle.putString("type","Homemade");      //put key name type
+                    fragment.setArguments(bundle);
+                    transaction.replace(R.id.frame, fragment);
+                    transaction.commit();
+
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return homemadeinfo.size();
+        }
+
+        public class CustomViewHolder extends RecyclerView.ViewHolder {
+            ImageView image;
+            TextView name;
+            TextView offer;
+            RelativeLayout relative;
+
+            public CustomViewHolder(@NonNull View itemView) {
+                super(itemView);
+                image = itemView.findViewById(R.id.fimage1page10);
+                name = itemView.findViewById(R.id.ftext2page10);
+                offer = itemView.findViewById(R.id.ftext1page10);
+                relative = itemView.findViewById(R.id.realitive1);
+
 
             }
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return homemadeinfo.size();
-    }
-
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView name;
-        TextView offer;
-        RelativeLayout relative;
-
-        public CustomViewHolder(@NonNull View itemView) {
-            super(itemView);
-            image = itemView.findViewById(R.id.fimage1page10);
-            name = itemView.findViewById(R.id.ftext2page10);
-            offer = itemView.findViewById(R.id.ftext1page10);
-            relative = itemView.findViewById(R.id.realitive1);
-
-
         }
     }
-}
 
-//5th farmproduct SQLite adpterclass
-    class FarmAdpter extends RecyclerView.Adapter<FarmAdpter.CustomViewHolder>{
-    List<farminfo> getfarminfo;
+    //5th farmproduct SQLite adpterclass
+    class FarmAdpter extends RecyclerView.Adapter<FarmAdpter.CustomViewHolder> {
+        List<farminfo> getfarminfo;
 
-    public FarmAdpter(List<farminfo> getfarminfo) {
-        this.getfarminfo = getfarminfo;
-    }
+        public FarmAdpter(List<farminfo> getfarminfo) {
+            this.getfarminfo = getfarminfo;
+        }
 
-    @NonNull
-    @Override
-    public FarmAdpter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.farmproductpage10, parent, false);
-        CustomViewHolder holder = new CustomViewHolder(view);
-        return holder;
-    }
+        @NonNull
+        @Override
+        public FarmAdpter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.farmproductpage10, parent, false);
+            CustomViewHolder holder = new CustomViewHolder(view);
+            return holder;
+        }
 
-    @Override
-    public void onBindViewHolder(@NonNull FarmAdpter.CustomViewHolder holder, int position) {
-        holder.name.setText(getfarminfo.get(position).getName());
-        holder.price.setText(getfarminfo.get(position).getPrice());
-        Glide.with(getContext()).load(getfarminfo.get(position).getImage()).into(holder.image);
+        @Override
+        public void onBindViewHolder(@NonNull FarmAdpter.CustomViewHolder holder, int position) {
+            holder.name.setText(getfarminfo.get(position).getName());
+            holder.price.setText(getfarminfo.get(position).getPrice());
+            Glide.with(getContext()).load(getfarminfo.get(position).getImage()).into(holder.image);
+            holder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentTransaction transaction= getActivity().getSupportFragmentManager().beginTransaction();
+                    Fragment fragment = new Farminfo_page55();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id",position);
+                    bundle.putString("data",getfarminfo.get(position).getId());
+                    fragment.setArguments(bundle);
+                    transaction.replace(R.id.frame,fragment);
+                    transaction.commit();
 
-    }
+                }
+            });
+        }
 
-    @Override
-    public int getItemCount() {
-        return getfarminfo.size();
-    }
+        @Override
+        public int getItemCount() {
+            return getfarminfo.size();
+        }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder{
-        ImageView image;
-        TextView name, price;
+        public class CustomViewHolder extends RecyclerView.ViewHolder {
+            ImageView image;
+            TextView name, price;
+            LinearLayout layout;
 
-        public CustomViewHolder(@NonNull View itemView) {
-            super(itemView);
-            name = itemView.findViewById(R.id.ftext2page11);
-            price = itemView.findViewById(R.id.ftext3page11);
-            image = itemView.findViewById(R.id.fimage1page11);
+            public CustomViewHolder(@NonNull View itemView) {
+                super(itemView);
+                name = itemView.findViewById(R.id.ftext2page11);
+                price = itemView.findViewById(R.id.ftext3page11);
+                image = itemView.findViewById(R.id.fimage1page11);
+                layout = itemView.findViewById(R.id.linearfarm);
 
+            }
         }
     }
-}
-
-
 
 
     //first recycler class adpter
@@ -1751,7 +1765,7 @@ class HomemadeAdpter extends RecyclerView.Adapter<HomemadeAdpter.CustomViewHolde
 
         public RestaturantAdpter(List<restaurant> image2, JSONArray reatoList) {
             this.image2 = image2;
-            data=reatoList;
+            data = reatoList;
 
         }
 
@@ -1779,13 +1793,13 @@ class HomemadeAdpter extends RecyclerView.Adapter<HomemadeAdpter.CustomViewHolde
                     Bundle bundle = new Bundle();
                     bundle.putInt("id", position);
                     //initalize JSONobject
-                    JSONObject object =new JSONObject();
+                    JSONObject object = new JSONObject();
                     try {
                         object = data.getJSONObject(position);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Log.e("MSG",object.toString());
+                    Log.e("MSG", object.toString());
                     bundle.putString("data", object.toString());
                     fragment.setArguments(bundle);
                     transaction.replace(R.id.frame, fragment);
@@ -1819,8 +1833,7 @@ class HomemadeAdpter extends RecyclerView.Adapter<HomemadeAdpter.CustomViewHolde
     }
 
 
-
-   //fivth class
+    //fivth class
 
     class FarmProductAdpter extends RecyclerView.Adapter<FarmProductAdpter.CustomAdpterHolder> {
         List<farm> image4;
@@ -1856,7 +1869,7 @@ class HomemadeAdpter extends RecyclerView.Adapter<HomemadeAdpter.CustomViewHolde
                         e.printStackTrace();
                     }
                     bundle.putInt("ID", position);
-                    bundle.putString("data",object.toString());
+                    bundle.putString("data", object.toString());
                     fragment.setArguments(bundle);
                     transaction.replace(R.id.frame, fragment);
                     transaction.commit();

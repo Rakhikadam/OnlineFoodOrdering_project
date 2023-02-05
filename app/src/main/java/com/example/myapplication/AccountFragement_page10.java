@@ -112,6 +112,8 @@ public class AccountFragement_page10 extends Fragment {
             holder.text.setText(list.get(position).getText());
 
 
+
+
         }
 
         @Override

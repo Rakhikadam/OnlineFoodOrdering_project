@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -27,7 +25,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,6 +39,7 @@ public class location21_page1 extends Fragment {
     private JSONArray adddata;
     JSONArray array;
     SharedPreferences.Editor editor;
+    DBHelper helper;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -113,7 +111,8 @@ public class location21_page1 extends Fragment {
 
         //set data on the list
         RecyclerView listadd = view.findViewById(R.id.addresslist);
-        List<addresslist> list = new ArrayList<>();
+        //JSON method
+      /*  List<addresslist> list = new ArrayList<>();
         try {
             adddata = new JSONArray(preferences.getString("ADDRESS", "[]"));
             for (int i = 0; i < adddata.length(); i++) {
@@ -127,7 +126,12 @@ public class location21_page1 extends Fragment {
         adpter = new AddressAdpter(list);
         listadd.setLayoutManager(new LinearLayoutManager(getContext()));
         listadd.setAdapter(adpter);
-
+*/
+        helper = new DBHelper(getContext());
+       List<address>list = helper.getaddressinfo();
+        listadd.setLayoutManager(new LinearLayoutManager(getContext()));
+         adpter = new AddressAdpter(list);
+       listadd.setAdapter(adpter);
 
         Button savebutton = view.findViewById(R.id.savebutton);
         savebutton.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +144,7 @@ public class location21_page1 extends Fragment {
                 add_address.setVisibility(View.VISIBLE);
 
 
-                //set data using JSON
+               /* //set data using JSON
                 array = null;
                 try {
                     array = new JSONArray(preferences.getString("ADDRESS", "[]"));
@@ -162,17 +166,16 @@ public class location21_page1 extends Fragment {
 
                 Log.e("TAG", array.toString());
 
-                //save data in sharedpreferences
-                editor = preferences.edit();
-                editor.putString("ADDRESS", array.toString());
-                editor.commit();
-                email.setText(preferences.getString("EmailId", null));
-                name.setText(preferences.getString("Name", null));
-                address.setText(preferences.getString("Address", null));
-                landmark.setText(preferences.getString("Landmark", null));
-                state.setText(preferences.getString("State", null));
-                city.setText(preferences.getString("City", null));
+               */
 
+                //set data on the table using SQLite method
+                String Email = email.getText().toString();
+                String Name = name.getText().toString();
+                String Address = address.getText().toString();
+                String Landmark = landmark.getText().toString();
+                String State = state.getText().toString();
+                String City = city.getText().toString();
+                helper.addaddress(Name,Email,Address,Landmark,State,City);
 
                 adpter.notifyDataSetChanged();
             }
@@ -219,15 +222,15 @@ public class location21_page1 extends Fragment {
 
         return view;
 
-
     }
 
     class AddressAdpter extends RecyclerView.Adapter<AddressAdpter.CustomViewHolder> {
-        List<addresslist> list;
+       // List<addresslist> list;
+        List<address> list;
         public int checkPosition = -1;
 
 
-        public AddressAdpter(List<addresslist> list) {
+        public AddressAdpter(List<address> list) { //        List<addresslist> list
             this.list = list;
 //            this.listner = listner;
 
@@ -244,10 +247,16 @@ public class location21_page1 extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull AddressAdpter.CustomViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-            holder.name.setText(list.get(position).getName());
+         /*   holder.name.setText(list.get(position).getName());
             holder.location.setText(list.get(position).getLocation());
+            holder.location.setText(list.get(position).getCity());
             holder.address.setText(list.get(position).getAddress());
             holder.number.setText(list.get(position).getNumber());
+*/
+            holder.name.setText(list.get(position).getName());
+            holder.address.setText(list.get(position).getAddress());
+            holder.number.setText(list.get(position).getEmail());
+            holder.location.setText(list.get(position).getCity());
 
             //radio button check condition
             if (checkPosition == position) {

@@ -20,10 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,12 +65,13 @@ public class ReviewnewPage13 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            try {
+           /* try {
                 reviewdata = new JSONArray(getArguments().getString("Review"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            mParam2 = getArguments().getString(ARG_PARAM2);
+           */
+            mParam2 = getArguments().getString("data");
         }
     }
 
@@ -83,8 +81,10 @@ public class ReviewnewPage13 extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_reviewnew_page13, container, false);
         RecyclerView recyclernew = view.findViewById(R.id.ll_reviewewcycle);
-        List<reviewlistnew> list = new ArrayList<>();
+       // List<reviewlistnew> list = new ArrayList<>();
 
+/*
+//JSON method
         try {
             reviewdata = new JSONArray(getArguments().getString("Review"));
             for (int i = 0; i<reviewdata.length();i++){
@@ -96,6 +96,7 @@ public class ReviewnewPage13 extends Fragment {
         catch (JSONException e) {
             e.printStackTrace();
         }
+*/
 
 
        /* reviewlistnew user = new reviewlistnew("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", "Rakhi kadam", "Food is realy amizing", "22 Dec 2023", "Had a lovely time.Good food and amience and service. A sunny Easter bunny lunch", "4");
@@ -116,12 +117,12 @@ public class ReviewnewPage13 extends Fragment {
         list.add(user7);
 
       */
-        ReviewnewAdpter adpter = new ReviewnewAdpter(list);
+      /*  ReviewnewAdpter adpter = new ReviewnewAdpter(list);
         recyclernew.setAdapter(adpter);
-        recyclernew.setLayoutManager(new LinearLayoutManager(getContext()));
+      */
+        //recyclernew.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Button reviewbutton = view.findViewById(R.id.ll_addreview);
-
         reviewbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,15 +133,22 @@ public class ReviewnewPage13 extends Fragment {
             }
         });
 
+        //SQLite method
+        DBHelper helper = new DBHelper(getContext());
+        List<Review>getReviewinfo =helper.getReviewinfo(getArguments().getString("data"),getArguments().getString("type"));
+    recyclernew.setLayoutManager(new LinearLayoutManager(getContext()));
+      ReviewnewAdpter adpter = new ReviewnewAdpter(getReviewinfo);
+       recyclernew.setAdapter(adpter);
 
 
         return view;
     }
     class ReviewnewAdpter extends RecyclerView.Adapter<ReviewnewAdpter.CustomAdpterHolder>{
 
-        List<reviewlistnew> list;
+       // List<reviewlistnew> list;
+       List<Review> list;
 
-        public ReviewnewAdpter(List<reviewlistnew> list) {
+        public ReviewnewAdpter(List<Review> list) {
             this.list = list;
 
         }
@@ -158,15 +166,20 @@ public class ReviewnewPage13 extends Fragment {
 
             holder.date.setText(list.get(position).getDate());
             holder.name.setText(list.get(position).getName());
-            holder.message.setText(list.get(position).getMessage());
+           /* holder.message.setText(list.get(position).getMessage());
             holder.comment.setText(list.get(position).getComments());
             Glide.with(getContext()).load(list.get(position).getProfile()).into(holder.profile);
+*/
+            holder.message.setText(list.get(position).getTitle());
+            holder.comment.setText(list.get(position).getDecription());
+            Glide.with(getContext()).load(list.get(position).getImage()).into(holder.profile);
 
 
             //set star background using case
 
-            Log.e("TAG",(list.get(position).getStar()));
-            switch (list.get(position).getStar()) {
+          //  Log.e("TAG",(list.get(position).getReviewaverage()));
+            //switch (list.get(position).getStar()) {
+          /*  switch (list.get(position).getReviewaverage()) {
                 case "1":
                     holder.ll_star.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.green));
                     holder.ll_star.getChildAt(1).setBackgroundColor(getResources().getColor(R.color.gray));
@@ -206,7 +219,8 @@ public class ReviewnewPage13 extends Fragment {
                     holder.ll_star.getChildAt(4).setBackgroundColor(getResources().getColor(R.color.green));
                     break;
             }
-            Glide.with(getContext()).load(list.get(position).getProfile()).into(holder.profile);
+          */ // Glide.with(getContext()).load(list.get(position).getProfile()).into(holder.profile);
+            Glide.with(getContext()).load(list.get(position).getImage()).into(holder.profile);
 
         }
 

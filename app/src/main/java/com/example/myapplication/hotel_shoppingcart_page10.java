@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class hotel_shoppingcart_page10 extends Fragment {
     HotelsPage10.ItemCartAddListner listner;
-    List<shoppingcart> list= new ArrayList<>();
+    List<CartItem> list= new ArrayList<>();
     ShoopingcarAdpter adpter;
     int Totalprice = 0;
     TextView price;
@@ -44,6 +44,7 @@ public class hotel_shoppingcart_page10 extends Fragment {
     JSONArray adddata;
     SharedPreferences.Editor editor;
     SharedPreferences preferences; //declare
+    DBHelper helper;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -80,6 +81,7 @@ public class hotel_shoppingcart_page10 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        helper =new DBHelper(getContext());
          preferences = getContext().getSharedPreferences("MYAPP", Context.MODE_PRIVATE);
         if (getArguments() != null) {
 
@@ -93,8 +95,16 @@ public class hotel_shoppingcart_page10 extends Fragment {
        activity.listner = new HotelsPage10.ItemCartAddListner() { //initalize listner
             @Override
             public void AddItem(CartItem item) {
-                shoppingcart shoppingcart = new shoppingcart(item.getName(),item.getPrice(),item.getImageUrl());
+                for (int i=0; i<list.size(); i++){
+                    if (list.get(i).getName().equals(item.getName())){
+                        listner.Update(item.getName(),item.getCount(),item.getId());
+                        return;
+                    }
+                }
+
+                CartItem shoppingcart = new CartItem(item.getId(),item.getName(),item.getImageUrl(),item.getPrice(),item.getCount(),item.getUser_id(),null);
                 list.add(shoppingcart);
+                helper.addcartItem(shoppingcart);
                 adpter.notifyDataSetChanged(); //change the data n update new value
 
                update_total();
@@ -103,20 +113,33 @@ public class hotel_shoppingcart_page10 extends Fragment {
                 Log.e(getClass().getSimpleName(), "AddItem: "+item.getPrice() );
             }
 
-            @Override
+           @Override
+           public void Update(String name, String quntity, String id) {
+               for (int i=0; i<list.size(); i++){
+
+                   if (list.get(i).getName().equals(name)){
+//                       list.get(i).getName().equals(name);
+                       list.get(i).setCount(quntity);
+                       if (quntity.equals("0")){
+                           helper.DeleteCart(list.get(i).getId());
+                           list.remove(i);
+                       }
+//                       helper.Update(list.get(i).getId(),quntity);  //SQlite update method call
+                      Log.e("TAG",quntity);
+                       adpter.notifyDataSetChanged();
+
+                       update_total();
+
+                   }
+               }
+
+           }
+
+         /*  @Override
             public void Update(String name, String quntity) {
-                for (int i=0; i<list.size(); i++){
-
-                    if (list.get(i).getName().equals(name)){
-                        list.get(i).setCount(quntity);
-                        adpter.notifyDataSetChanged();
-                        update_total();
-
-                    }
-                }
 
             }
-        };
+       */ };
 
         listner = activity.listner;   //assign listner of main activity to this activity
 
@@ -139,7 +162,7 @@ public class hotel_shoppingcart_page10 extends Fragment {
 
 
         //get Shareprefernce data in cart
-        try {
+      /*  try {
             adddata = new JSONArray(preferences.getString("CARTLIST","[]"));
             editor = preferences.edit();
 
@@ -152,7 +175,7 @@ public class hotel_shoppingcart_page10 extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+*/
 
 //        shoppingcart image1 = new shoppingcart("Paneer", "150Rs", "https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
 //        list.add(image1);
@@ -162,10 +185,10 @@ public class hotel_shoppingcart_page10 extends Fragment {
 //        list.add(image3);
 //        shoppingcart image4 = new shoppingcart("Paneer", "150Rs", "https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg");
 //        list.add(image4);
-
-         adpter = new ShoopingcarAdpter(list);
-        cart.setAdapter(adpter);
         cart.setLayoutManager(new LinearLayoutManager(getContext()));
+        list= helper.getcartItem("98");
+        adpter = new ShoopingcarAdpter(list);//usig SQLite method
+        cart.setAdapter(adpter);
 
 
         //checkout button set listner
@@ -180,7 +203,8 @@ public class hotel_shoppingcart_page10 extends Fragment {
                 editor.putString("TOTAL",totalprice.getText().toString());
                 editor.commit();
 
-      //Intent convert class
+
+                //Intent convert class
                 Intent intent = new Intent(getActivity(),Page21.class);
                 startActivity(intent);
             }
@@ -195,9 +219,10 @@ public class hotel_shoppingcart_page10 extends Fragment {
 
     //
     class  ShoopingcarAdpter extends RecyclerView.Adapter<ShoopingcarAdpter.CustomAdpterHolder>{
-    List<shoppingcart> list;
-
-    public ShoopingcarAdpter(List<shoppingcart> list) {
+    List<CartItem> list;  //change the typeof list name using SQLite
+       // List<shoppingcart> list;
+    public ShoopingcarAdpter(List<CartItem> list) {
+       // this.list = list;
         this.list = list;
 
     }
@@ -217,7 +242,8 @@ public class hotel_shoppingcart_page10 extends Fragment {
         holder.price.setText(list.get(position).getPrice());
         holder.name.setText(list.get(position).getName());
         holder.count.setText(list.get(position).getCount());
-        Glide.with(getContext()).load(list.get(position).getImage()).into(holder.image);
+       // Glide.with(getContext()).load(list.get(position).getImage()).into(holder.image);
+        Glide.with(getContext()).load(list.get(position).getImageUrl()).into(holder.image);
 
 
 
@@ -236,7 +262,10 @@ public class hotel_shoppingcart_page10 extends Fragment {
               else {
                   Toast.makeText(getActivity(), "maxium value exceed", Toast.LENGTH_SHORT).show();
               }
-              listner.Update(list.get(position).getName(),holder.count.getText().toString());
+              //add ID in update method using Sqlite
+              listner.Update(list.get(position).getName(),holder.count.getText().toString(),list.get(position).getId());
+              helper.Update(list.get(position).getName(),list.get(position).getCount());  //SQlite update method call
+
           }
       });
 
@@ -247,17 +276,24 @@ public class hotel_shoppingcart_page10 extends Fragment {
               if (value1>1){
                   value1 = value1-1;
                   holder.count.setText(String.valueOf(value1));
-                  listner.Update(list.get(position).getName(),holder.count.getText().toString());
+//                  helper.Update(list.get(position).getId(),list.get(position).getCount());
+                  //add ID in update method using Sqlite
+                  listner.Update(list.get(position).getName(),holder.count.getText().toString(),list.get(position).getId());
+                  helper.Update(list.get(position).getId(),list.get(position).getCount());  //SQlite update method call
+
               }
               else {
                   JSONArray array = new JSONArray();   //removelist in shoopingcart
                   try {
                       array = new JSONArray(preferences.getString("CARTLIST","[]"));
                       array.remove(position);
-                       list.remove(position);
+                      helper.DeleteCart(list.get(position).getId());//Delete shoopingcart item using SQL
+                      list.remove(position);
                       editor = preferences.edit();
                       editor.putString("CARTLIST",array.toString());
                       editor.commit();
+
+
                       // update_total();
 
                   } catch (JSONException e) {

@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -38,8 +39,6 @@ public class Page21 extends AppCompatActivity implements OnPageChangedListner {
         tab.getTabAt(2).setText("Complete");
 
 
-
-
     }
 
 
@@ -55,15 +54,32 @@ public class Page21 extends AppCompatActivity implements OnPageChangedListner {
     public void onBackPressed() {
         for (Fragment fragment : getSupportFragmentManager().getFragments()){
             if (fragment instanceof payments_page21||fragment instanceof complete_page21){
+                if (pager.getCurrentItem()==0){  //using finish method call
+                    finish();
+                    return;
+                }
+
                 if (pager.getCurrentItem()==1){
                     pager.setCurrentItem(0);
+                    return;
+
                 }
                 if (pager.getCurrentItem()==2){
                     pager.setCurrentItem(1);
+                    return;
                 }
 
-                return;
+               /* for (Fragment fragment1 = getSupportFragmentManager().getFragment()){
+                    if (fragment1 instanceof payment21_page1){
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.remove(fragment1);
+                        finish();
+                    }
+                }
+*/
+
             }
+
         }
 
     }
@@ -96,6 +112,7 @@ public class Page21 extends AppCompatActivity implements OnPageChangedListner {
             return 3;
         }
     }
+
 
 
 }

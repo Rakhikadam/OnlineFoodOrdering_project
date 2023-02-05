@@ -40,7 +40,7 @@ public class FragementNew_page13 extends Fragment {
     private String mParam2;
     JSONObject data= new JSONObject();
 
-    public FragementNew_page13() {
+    public  FragementNew_page13() {
         // Required empty public constructor
     }
 
@@ -50,6 +50,7 @@ public class FragementNew_page13 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            //set data using JSON method
             mParam1 = getArguments().getInt("id");
             try {
                 data = new JSONObject(getArguments().getString("data")) ;
@@ -87,18 +88,19 @@ public class FragementNew_page13 extends Fragment {
 //        image2.add(list8);
 
         //set data
+        DBHelper helper = new DBHelper(getContext());
         ImageView image = view.findViewById(R.id.imagep13);
-        try {
-            Glide.with(getContext()).load(data.getString("hotelimage")).into(image);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         TextView text = view.findViewById(R.id.textp13);
-        try {
-            text.setText(data.getString("hotelname"));
-        } catch (JSONException e) {
-            e.printStackTrace();
+        //set type and set data using SQLite method
+        if (getArguments().getString("type").equalsIgnoreCase("Restaurant")){
+            Hotelinfo hotelinfo = helper.getHotelForID(getArguments().getString("data"));
+            Glide.with(getContext()).load(hotelinfo.getImage()).into(image);
+            text.setText(hotelinfo.getName());
+        }
+        else if (getArguments().getString("type").equalsIgnoreCase("homemade")){
+            Homemadeinfo homemadeinfo =helper.getHomemadeForID(getArguments().getString("data"));//SQLite pass hotelId and pass image and set key
+            Glide.with(getContext()).load(homemadeinfo.getImage()).into(image);
+            text.setText(homemadeinfo.getName());
         }
 
 
@@ -110,8 +112,9 @@ public class FragementNew_page13 extends Fragment {
 
     }
 
-    public  class PagernewAdpter extends  FragmentPagerAdapter{
 
+
+    public  class PagernewAdpter extends  FragmentPagerAdapter{
         public PagernewAdpter(@NonNull FragmentManager fm) {
             super(fm);
         }
@@ -120,57 +123,74 @@ public class FragementNew_page13 extends Fragment {
         @Override
         public Fragment getItem(int position) {
             if (position == 0){
+                Fragment fragment = new HomenewPage13();
+                Bundle bundle = new Bundle();
+                bundle.putString("data",getArguments().getString("data"));
+                bundle.putString("type",getArguments().getString("type"));
+                fragment.setArguments(bundle);
 
-                Fragment fragment =  new HomenewPage13();
+                //JSON get data method
+             /*  Fragment fragment =  new HomenewPage13();
                 try {
                     Bundle bundle =new Bundle();
-                    bundle.putString("Menulist",data.getJSONArray("Menulist").toString());
+                    bundle.putString("menulist",data.getJSONArray("menulist").toString());
                     fragment.setArguments(bundle);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                return fragment;
+             */   return fragment;
             }
 
             else if (position == 1){
 
                 Fragment fragment = new PhotonewPage13();
-
                 Bundle bundle = new Bundle();
+                bundle.putString("id",getArguments().getString("id"));
+                bundle.putString("type",getArguments().getString("type"));
+                fragment.setArguments(bundle);
+
+              /*  Bundle bundle = new Bundle();
                 try {
                     bundle.putString("hotelphotos",data.getJSONArray("hotelphotos").toString());
                     fragment.setArguments(bundle);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                return fragment;
+              */  return fragment;
             }
 
             else if (position == 2){
                 Fragment fragment =  new ReviewnewPage13();
-
                 Bundle bundle = new Bundle();
+                bundle.putString("data",getArguments().getString("data"));
+                bundle.putString("type",getArguments().getString("type"));
+                fragment.setArguments(bundle);
+
+              /*  Bundle bundle = new Bundle();
                 try {
                     bundle.putString("Review",data.getJSONArray("Review").toString());
                     fragment.setArguments(bundle);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                return fragment;
+              */  return fragment;
             }
 
 
             else if (position == 3 ){
                 Fragment fragment = new AboutnewPage13();
                 Bundle bundle = new Bundle();
+                bundle.putString("data",getArguments().getString("data"));
+                bundle.putString("type",getArguments().getString("type"));
+                fragment.setArguments(bundle);
 
-                try {
+               /* try {
                     bundle.putString("About",data.getString("About").toString());
                     fragment.setArguments(bundle);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                return fragment;
+               */ return fragment;
             }
 
 

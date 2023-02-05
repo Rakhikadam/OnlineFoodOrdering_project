@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -13,9 +14,7 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,12 +59,12 @@ public class AboutnewPage13 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            try {
+          /*  try {
                 aboutlist = new JSONArray(getArguments().getString("About"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+*/
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -76,20 +75,20 @@ public class AboutnewPage13 extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_aboutnew_page13, container, false);
         RecyclerView facilities = view.findViewById(R.id.ll_aboutrecycler);
-        List<facility>aboutlist = new ArrayList<>();
-        try {
+        RecyclerView cuisine = view.findViewById(R.id.cuisine);
+
+     //   List<facility>aboutlist = new ArrayList<>();
+     /*   try {
             aboutlist = (List<facility>) new JSONArray(getArguments().getString("About"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
+*/
 
 
 
 
-
-
-
-       /* facility first = new facility("wifi");
+        /* facility first = new facility("wifi");
         aboutlist.add(first);
         facility first1 = new facility("Aire conditioner");
         aboutlist.add(first1);
@@ -99,20 +98,71 @@ public class AboutnewPage13 extends Fragment {
         aboutlist.add(first3);
         facility first4 = new facility("Wallet Accepted");
         aboutlist.add(first4);
-
-        */
         FacilityAdpter adpter = new FacilityAdpter(aboutlist);
         facilities.setAdapter(adpter);
 
+        */
+//SQLite method used
+        DBHelper helper = new DBHelper(getContext());
+        List<facilites>list = helper.getfacilityinfo(getArguments().getString("data"),getArguments().getString("type"));
+        facilities.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        FacilityAdpter adpter = new FacilityAdpter(list);
+        facilities.setAdapter(adpter);
+
+        List<cuisine>getcuisineinfo = helper.getcuisineinfo(getArguments().getString("data"),getArguments().getString("type"));
+        cuisine.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        CuisineAdpter adpter1 = new CuisineAdpter(getcuisineinfo);
+        cuisine.setAdapter(adpter1);
 
 
         return view;
     }
 
-    class FacilityAdpter extends RecyclerView.Adapter<FacilityAdpter.CustomViewHolder>{
-        List<facility> aboutlist;
+    //create cuisine class adpter
+    class CuisineAdpter extends RecyclerView.Adapter<CuisineAdpter.CustomViwHolder>{
+    List<cuisine> data;
 
-        public FacilityAdpter(List<facility> aboutlist) {
+    public CuisineAdpter(List<cuisine> data) {
+        this.data = data;
+
+    }
+
+    @NonNull
+    @Override
+    public CuisineAdpter.CustomViwHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View ABC = LayoutInflater.from(getContext()).inflate(R.layout.facilites_recycler13,parent,false);
+        CustomViwHolder holder = new CustomViwHolder(ABC);
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CuisineAdpter.CustomViwHolder holder, int position) {
+
+        holder.cuisine.setText(data.get(position).getName());
+    }
+
+    @Override
+    public int getItemCount() {
+        return data.size();
+    }
+
+    public class CustomViwHolder extends RecyclerView.ViewHolder {
+        TextView cuisine;
+
+        public CustomViwHolder(@NonNull View itemView) {
+            super(itemView);
+            cuisine = itemView.findViewById(R.id.textfacility);
+
+        }
+    }
+}
+
+//create facility class adpter
+    class FacilityAdpter extends RecyclerView.Adapter<FacilityAdpter.CustomViewHolder>{
+      //  List<facility> aboutlist;
+      List<facilites> aboutlist;
+
+        public FacilityAdpter(List<facilites> aboutlist) {
             this.aboutlist = aboutlist;
 
         }
@@ -128,7 +178,8 @@ public class AboutnewPage13 extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull FacilityAdpter.CustomViewHolder holder, int position) {
 
-            holder.facilityname.setText(aboutlist.get(position).getFacility_name());
+          //  holder.facilityname.setText(aboutlist.get(position).getFacility_name());
+            holder.facilityname.setText(aboutlist.get(position).getText());
 
         }
 

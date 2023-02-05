@@ -73,9 +73,9 @@ public class hotelFineDinning_page10 extends Fragment {
      Button homemade = view.findViewById(R.id.text2);
      Button farm = view.findViewById(R.id.text3);
      Button menulist = view.findViewById(R.id.text4);
-     Button MenuPhotes = view.findViewById(R.id.text5);
-     Button About = view.findViewById(R.id.text6);
-     Button Review = view.findViewById(R.id.text7);
+     Button menuPhotes = view.findViewById(R.id.text5);
+     Button about = view.findViewById(R.id.text6);
+     Button review = view.findViewById(R.id.text7);
 
 
 
@@ -112,6 +112,34 @@ public class hotelFineDinning_page10 extends Fragment {
           public void onClick(View view) {
               FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
               transaction.replace(R.id.sqlfame,new MenuListSQL_page13());
+              transaction.commit();
+          }
+      });
+
+      menuPhotes.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+              transaction.replace(R.id.sqlfame,new PhotoPage13_SQLite());
+              transaction.commit();
+          }
+      });
+
+      about.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+              transaction.replace(R.id.sqlfame,new AboutPage13_SQLite());
+              transaction.commit();
+          }
+
+      });
+
+      review.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+              transaction.replace(R.id.sqlfame,new ReviewPage13_SQLite());
               transaction.commit();
           }
       });

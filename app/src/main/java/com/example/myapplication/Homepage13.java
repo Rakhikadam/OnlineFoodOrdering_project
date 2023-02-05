@@ -182,9 +182,9 @@ public class Homepage13 extends Fragment {
                 public void onClick(View view) {
                     holder.gone.setVisibility(View.VISIBLE);
                     holder.add.setVisibility(View.GONE);
-                    CartItem item = new CartItem(list.get(position).getName(),list.get(position).getImage(),list.get(position).getPrice());
+                   /* CartItem item = new CartItem(list.get(position).getName(),list.get(position).getImage(),list.get(position).getPrice());
                     activity.Listner.Itemadd(item);
-
+*/
 
                 }
             });

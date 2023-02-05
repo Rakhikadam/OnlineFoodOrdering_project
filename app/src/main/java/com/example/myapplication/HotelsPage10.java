@@ -22,6 +22,7 @@ public class HotelsPage10 extends AppCompatActivity {
     ViewPager pager;
     TabLayout tab;
     public HotelsPage10.ItemCartAddListner listner ;
+    DBHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,8 @@ public class HotelsPage10 extends AppCompatActivity {
         setContentView(R.layout.activity_hotels_page10);
         pager = findViewById(R.id.hpager);
         tab = findViewById(R.id.htab10);
+        helper = new DBHelper(HotelsPage10.this);
+//        helper.TruncateCart();
         //listner.AddItem();
 
         PagerAdpter adpter = new PagerAdpter(getSupportFragmentManager());
@@ -121,6 +124,53 @@ public class HotelsPage10 extends AppCompatActivity {
                  }
              }
 
+             for (Fragment fragment1 : getSupportFragmentManager().getFragments()){
+                 if (fragment1 instanceof PhotoPage13_SQLite){
+                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                     transaction.remove(fragment1);
+                     transaction.commit();
+                     return;
+                 }
+             }
+              for (Fragment fragment1 : getSupportFragmentManager().getFragments()){
+                  if (fragment1 instanceof  ReviewPage13_SQLite){
+                      FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                      transaction.remove(fragment1);
+                      transaction.commit();
+                      return;
+                  }
+              }
+              for (Fragment fragment1 :getSupportFragmentManager().getFragments()){
+                  if (fragment1 instanceof AboutPage13_SQLite){
+                      FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                      transaction.remove(fragment1);
+                      transaction.commit();
+                  }
+              }
+              for (Fragment fragment1 : getSupportFragmentManager().getFragments()){
+                  if (fragment1 instanceof location_page21){
+                      FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                      transaction.remove(fragment1);
+                      transaction.commit();
+
+                  }
+              }
+              for (Fragment fragment1 :getSupportFragmentManager().getFragments()){
+                  if (fragment1 instanceof Myorder_page10){
+                      FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                      transaction.remove(fragment1);
+                      transaction.commit();
+
+                  }
+              }
+              for (Fragment fragment1 : getSupportFragmentManager().getFragments()){
+                  if (fragment1 instanceof MyAccountorderList_page10){
+                      FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                      transaction.remove(fragment1);
+                      transaction.commit();
+                  }
+              }
+
 
 
             JSONObject object = new JSONObject();
@@ -170,8 +220,9 @@ public class HotelsPage10 extends AppCompatActivity {
     }
 
     interface ItemCartAddListner {
-        void AddItem(CartItem item);
-        void  Update(String name , String quntity);
+        void AddItem(CartItem item);   //add order_id in CartItem class using Sqlite method
+       // void  Update(String name , String quntity);
+        void Update(String name,String quntity,String id);  //add id and count using SQLite method
 
 
     }

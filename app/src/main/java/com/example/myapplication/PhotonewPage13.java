@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,12 +65,15 @@ public class PhotonewPage13 extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            try {
+
+          /*  try {
                 Photodata = new JSONArray(getArguments().getString("hotelphotos"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            mParam2 = getArguments().getString(ARG_PARAM2);
+          */
+            //get key name using SQLite method
+            mParam2 = getArguments().getString("id");
         }
     }
 
@@ -83,7 +87,7 @@ public class PhotonewPage13 extends Fragment {
 
 
 
-        List<photo> list = new ArrayList<>();
+       // List<photo> list = new ArrayList<>();
        /* photo image1 = new photo("https://assets1.cbsnewsstatic.com/hub/i/2015/07/01/0b059f60-344d-4ada-baae-e683aff3650a/istock000044051102large.jpg");
         list.add(image1);
         photo image2 = new photo("https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/seqow1xpsqqmheeipuso");
@@ -94,7 +98,8 @@ public class PhotonewPage13 extends Fragment {
         list.add(image4);
 
        */
-
+//JSON get data method
+/*
         try {
             Photodata =new JSONArray(getArguments().getString("hotelphotos"));
             for (int i=0 ; i<Photodata.length(); i++){
@@ -105,16 +110,66 @@ public class PhotonewPage13 extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-        recycler.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
-        PhotolistnewAdpter adpter = new PhotolistnewAdpter(list);
+         PhotolistnewAdpter adpter = new PhotolistnewAdpter(list);
         recycler.setAdapter(adpter);
+                recycler.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
+
+
+*/
+        //SQLite method
+        DBHelper helper = new DBHelper(getContext());
+        List<Photoinfo>photoinfos = helper.getphotoinfo(getArguments().getString("data"),getArguments().getString("type"));
+        PhotoinfoAdpter adpter = new PhotoinfoAdpter(photoinfos);
+        recycler.setAdapter(adpter);
+        recycler.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
 
 
         return view;
     }
+//SQLte method adpter class
+    class  PhotoinfoAdpter extends RecyclerView.Adapter<PhotoinfoAdpter.CustomAdpterHolder>{
+        List<Photoinfo> getphotoinfo;
+
+        public PhotoinfoAdpter(List<Photoinfo> getphotoinfo) {
+            this.getphotoinfo = getphotoinfo;
+
+        }
+
+        @NonNull
+        @Override
+        public PhotoinfoAdpter.CustomAdpterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View ABC = LayoutInflater.from(getContext()).inflate(R.layout.photoimage13,parent,false);
+            CustomAdpterHolder holder = new CustomAdpterHolder(ABC);
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull PhotoinfoAdpter.CustomAdpterHolder holder, int position) {
+            Glide.with(getContext()).load(getphotoinfo.get(position).getImage()).into(holder.image);
+
+            Log.e("tag",getphotoinfo.get(position).getImage());
+        }
+
+        @Override
+        public int getItemCount() {
+
+            return getphotoinfo.size();
+        }
+
+        public class CustomAdpterHolder extends RecyclerView.ViewHolder{
+            ImageView image;
+
+            public CustomAdpterHolder(@NonNull View itemView) {
+                super(itemView);
+                image = itemView.findViewById(R.id.photo);
+
+            }
+        }
+    }
+
+
+
+
 
     class PhotolistnewAdpter extends RecyclerView.Adapter<PhotolistnewAdpter.CustomAdpterHolder>{
 

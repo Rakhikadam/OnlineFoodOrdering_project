@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".PhotoPage13_SQLite">
+
+    <!-- TODO: Update blank fragment layout -->
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      >
+      <Spinner
+          android:id="@+id/photospinner1"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:background="@drawable/bg"
+          android:layout_marginRight="10dp"
+          android:layout_marginLeft="10dp"
+          android:layout_marginTop="10dp"
+          android:entries="@array/Type"
+          >
+      </Spinner>
+      <Spinner
+          android:id="@+id/photospinner2"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:background="@drawable/bg"
+          android:layout_marginBottom="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          />
+
+
+      <EditText
+        android:id="@+id/photosql"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:hint="image URL"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/bg"
+        ></EditText>
+
+    <Button
+        android:id="@+id/psubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="SUBMIT"
+        ></Button>
+  </LinearLayout>
+  </ScrollView>
+
+</LinearLayout>

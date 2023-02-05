@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.compose.ui.BiasAbsoluteAlignment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,15 +43,23 @@ public class HomenewPage13 extends Fragment {
     HotelsPage10 activity;
     SharedPreferences preferences;
 
+    DBHelper helper;
 
-
-
-    List<fooditemlist> list3 = new ArrayList<>();
-    List<fooditemlist> MainCourse = new ArrayList<>();
-    List<fooditemlist> Desserts = new ArrayList<fooditemlist>();
-    List<fooditemlist> Chiness = new ArrayList<fooditemlist>();
+//convert data fooditemlist to menulist using SQLite method
+  /*  List<fooditemlist> list3 = new ArrayList<>();
+List<fooditemlist> MainCourse = new ArrayList<>();
+    List<fooditemlist> Desserts = new ArrayList<>();
+    List<fooditemlist> Chiness = new ArrayList<>();
     List<fooditemlist> Breakfast = new ArrayList<>();
-    List<fooditemlist> Starters = new ArrayList<fooditemlist>();
+    List<fooditemlist> Starters = new ArrayList<>();
+*/
+//SQLite method
+    List<Menulist> list3 = new ArrayList<>();
+    List<Menulist> MainCourse = new ArrayList<>();
+    List<Menulist> Desserts = new ArrayList<>();
+    List<Menulist> Chiness = new ArrayList<>();
+    List<Menulist> Breakfast = new ArrayList<>();
+    List<Menulist> Starters = new ArrayList<>();
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -90,9 +97,11 @@ public class HomenewPage13 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity  = (HotelsPage10) getActivity();
+        helper = new DBHelper(getContext());
         if (getArguments() != null) {
             try {
-                Menudata = new JSONArray(getArguments().getString("Menulist"));  //JSON menudata list set
+             //   Menudata = new JSONArray(getArguments().getString("Menulist"));  //JSON menudata list set
+                Menudata = new JSONArray(getArguments().getString("data"));  //SQLite menudata list set
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -132,10 +141,9 @@ public class HomenewPage13 extends Fragment {
 
         //2nd recycler view adpter
          food = v.findViewById(R.id.frecyle2page13);
-        List<fooditemlist>list3 = new ArrayList<>();
-
-
-try {
+         //using JSON method
+      /*  List<fooditemlist>list3 = new ArrayList<>();
+        try {
 //            Menudata = new JSONArray(getArguments().getString("Menulist"));
             for (int i=0; i<Menudata.length(); i++){
                 JSONObject object = Menudata.getJSONObject(i);
@@ -145,10 +153,9 @@ try {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-       /* fooditemlist image1 = new fooditemlist("Paneer","150Rs","MainCourse","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg","service2");
+      */
+        //using basic method
+        /* fooditemlist image1 = new fooditemlist("Paneer","150Rs","MainCourse","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg","service2");
         list3.add(image1);
         fooditemlist image2 = new fooditemlist("Ice-Cream","150Rs","Desserts","https://joyfoodsunshine.com/wp-content/uploads/2020/06/homemade-chocolate-ice-cream-recipe-7.jpg","service2");
         list3.add(image2);
@@ -158,13 +165,24 @@ try {
         list3.add(image4);
         fooditemlist image5 = new fooditemlist("Noodels","150Rs","Breakfast","https://thumbs.dreamstime.com/b/paneer-butter-masala-cheese-cottage-curry-indian-main-course-recipe-popular-lunch-dinner-menu--served-ceramic-bowl-191806910.jpg","service2");
         list3.add(image5);*/
-        food.setLayoutManager(new LinearLayoutManager(getContext()));//first set layout
+        //  MenulistAdpter adpter1 = new MenulistAdpter(list3);
+        //  food.setAdapter(adpter1);
 
-        MenulistAdpter adpter1 = new MenulistAdpter(list3);
+
+        //SQLite method
+       // DBHelper helper = new DBHelper(getContext());
+        List<Menulist>getMebnulist = helper.getMenulist(getArguments().getString("data"),getArguments().getString("type"));
+        food.setLayoutManager(new LinearLayoutManager(getContext()));//first set layout
+        MenulistAdpter adpter1 = new MenulistAdpter(getMebnulist);
         food.setAdapter(adpter1);
 
+
+
+
        //set category
-        for (fooditemlist item : list3 ){
+      //  for (fooditemlist item : list3 ){} //convert fooditemlist to menulist
+//using SQLite method
+            for (Menulist item : list3 ){
 
             if (item.category.equalsIgnoreCase("MainCourse")){
                 MainCourse.add(item);
@@ -270,10 +288,11 @@ try {
 
     //second Recyclerview adpter class
   public   class MenulistAdpter extends RecyclerView.Adapter<MenulistAdpter.CustomHolderAdpter>{
-        List<fooditemlist> list3;
+       // List<fooditemlist> list3;
+        List<Menulist> list3;//exachange constructor name becz of using SQLite method
 
 
-        public MenulistAdpter(List<fooditemlist> list3) {
+        public MenulistAdpter(List<Menulist> list3) {
             this.list3 = list3;
 
         }
@@ -292,13 +311,10 @@ try {
 
             holder.name.setText(list3.get(position).getName());
             holder.price.setText(list3.get(position).getPrice());
-            holder.serves.setText(list3.get(position).getService_type());
+           // holder.serves.setText(list3.get(position).getService_type());
 
             Glide.with(getContext()).load(list3.get(position).getImage()).into(holder.image);
             Log.e("TAG",list3.get(position).getImage());
-
-
-
 
 
 
@@ -312,16 +328,21 @@ try {
                     holder.add.setVisibility(View.GONE);
 
 
+
                     //interface class cartitem using and add data in listner
-                    CartItem item= new CartItem(list3.get(position).getName(),list3.get(position).getImage(),list3.get(position).getPrice());
+                    CartItem item= new CartItem(list3.get(position).getId(),list3.get(position).getName(),list3.get(position).getImage(),list3.get(position).getPrice(),"1","98",null);
+                    //by defualt count = 1 and add ID using SQLite method
                     Log.e("TAG", "onClick: " );
                     activity.listner.AddItem(item);
+//                    helper.addcartItem(item);
 
 
 
-                    //sharedprefence using to sare data in this fragement to shopping cart fragement
+                    //sharedprefence using to share data in this fragement to shopping cart fragement
                     preferences = getContext().getSharedPreferences("MYAPP", Context.MODE_PRIVATE);//Initalize sharedprefernce
-                    JSONArray array = null;
+
+                    //pass data using JSON methd
+                    /*JSONArray array = null;
                     try {
                         array = new JSONArray(preferences.getString("CARTLIST","[]"));
                     } catch (JSONException e) {
@@ -338,14 +359,13 @@ try {
                         e.printStackTrace();
                     }
                     array.put(object);
-
-
+*/
 
                     //putting list in sharedreference
-                    SharedPreferences.Editor editor = preferences.edit();
+                  /*  SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("CARTLIST",array.toString());
                     editor.commit();   //commit means show data
-
+*/
 
 
                 }
@@ -398,7 +418,8 @@ try {
                             holder.onetext.getText().toString().equalsIgnoreCase("10")){
                         Toast.makeText(getActivity(), "Maximum value exceed", Toast.LENGTH_SHORT).show();
                     }
-                    activity.listner.Update(list3.get(position).getName(),holder.onetext.getText().toString());
+                    activity.listner.Update(list3.get(position).getName(),holder.onetext.getText().toString(),list3.get(position).getId());
+//                    helper.Update(list3.get(position).getName(),holder.onetext.getText().toString());  //SQlite update method call
 
                 }
             });
@@ -412,12 +433,19 @@ try {
                     if (value>1){
                         value = value-1;
                         holder.onetext.setText(String.valueOf(value));
+//                        helper.Update(list3.get(position).getName(),holder.onetext.getText().toString());  //SQlite update method call
+                        activity.listner.Update(list3.get(position).getName(),holder.onetext.getText().toString(),list3.get(position).getId());  //SQlite update method call
+
                     }
                     else {
                         Toast.makeText(getActivity(), "Add value", Toast.LENGTH_SHORT).show();
 
                         holder.add.setVisibility(View.VISIBLE);
                         holder.gone.setVisibility(View.GONE);
+                        activity.listner.Update(list3.get(position).getName(),"0",list3.get(position).getId());  //SQlite update method call
+
+//                        helper.DeleteCart(list3.get(position).getId());//Delete shoopingcart item using SQL
+
                     }
 
                 }

@@ -8,6 +8,16 @@
     tools:context=".Resturant_SQLite">
 
     <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
     <EditText
         android:id="@+id/Rtext1"
         android:layout_width="match_parent"
@@ -105,5 +115,10 @@
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         ></Button>
+        </LinearLayout>
+    </ScrollView>
+
+
+
 
 </LinearLayout>

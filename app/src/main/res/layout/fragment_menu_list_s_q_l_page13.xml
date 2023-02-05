@@ -39,6 +39,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         />
+
     <EditText
         android:id="@+id/mtext1"
         android:layout_width="match_parent"
