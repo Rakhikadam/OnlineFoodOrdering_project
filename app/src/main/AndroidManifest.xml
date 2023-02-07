@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".Myapplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -37,7 +36,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".HotelsPage10"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -107,7 +106,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".HotelsPage10"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
