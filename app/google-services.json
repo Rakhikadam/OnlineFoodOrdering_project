@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1042349127091",
+    "project_id": "city-parcel-4c711",
+    "storage_bucket": "city-parcel-4c711.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042349127091:android:7761ccfd254f35b82e87c6",
+        "android_client_info": {
+          "package_name": "com.myapp.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042349127091-n1c5kha7du5u9l7vughea2aiijttgrqd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myapp.myapplication",
+            "certificate_hash": "2b7ade7736c5f1ccb2a311993ffd0e0c25e42789"
+          }
+        },
+        {
+          "client_id": "1042349127091-kjqqtqafbsgnpadpsn05elva354d2gv7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzE0_hqKTymFDq5yvLkO_OiL4Laeh_F_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042349127091-kjqqtqafbsgnpadpsn05elva354d2gv7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
