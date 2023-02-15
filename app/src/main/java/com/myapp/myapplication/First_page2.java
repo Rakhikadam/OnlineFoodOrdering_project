@@ -1,6 +1,8 @@
 package com.myapp.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -23,7 +25,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class First_page2 extends Fragment {
-
+SharedPreferences preferences;
+SharedPreferences.Editor editor;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -70,16 +73,26 @@ public class First_page2 extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_first_page2, container, false);
         ImageView image = view.findViewById(R.id.image1);
-        TextView text = view.findViewById(R.id.text1);
         TextView text1 = view.findViewById(R.id.text2);
         Button next =  view.findViewById(R.id.button1);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.framepage2,new Second_page2());
-                transaction.commit();
 
+                preferences = getActivity().getSharedPreferences("MyApp", Context.MODE_PRIVATE);
+                if (!preferences.getString("number","").equalsIgnoreCase("")){
+                    editor = preferences.edit();
+                    preferences.getString("number","");
+                    Intent intent = new Intent(getActivity(),HotelsPage10.class);
+                    startActivity(intent);
+
+                }
+                else {
+                    transaction.replace(R.id.framepage2,new Second_page2());
+                    transaction.commit();
+
+                }
 
             }
         });

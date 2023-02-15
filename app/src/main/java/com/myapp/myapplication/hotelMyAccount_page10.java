@@ -1,5 +1,8 @@
 package com.myapp.myapplication;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,6 +23,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class hotelMyAccount_page10 extends Fragment {
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,6 +72,7 @@ public class hotelMyAccount_page10 extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_hotel_my_account_page10, container, false);
         LinearLayout myorder = view.findViewById(R.id.myorder);
+        LinearLayout logout = view.findViewById(R.id.logout);
         myorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +81,22 @@ public class hotelMyAccount_page10 extends Fragment {
                 transaction.commit();
             }
         });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preferences = getActivity().getSharedPreferences("MyApp", Context.MODE_PRIVATE);
+                editor = preferences.edit();
+                editor.clear();
+                /*FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.accountframe,new Page2());
+                transaction.commit();
+*/
+                Intent intent = new Intent(getActivity(),Page2.class);
+                startActivity(intent);
+            }
+        });
+
 
    return view;
     }

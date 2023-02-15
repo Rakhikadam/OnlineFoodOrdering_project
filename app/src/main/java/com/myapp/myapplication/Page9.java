@@ -65,9 +65,14 @@ public class Page9 extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Page9.this,Page10_FragementandTab.class);
+                Intent intent = new Intent(Page9.this,HotelsPage10.class);
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

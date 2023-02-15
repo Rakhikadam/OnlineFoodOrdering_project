@@ -161,7 +161,9 @@ public class payment21_page1 extends Fragment {
                  listner.OnPageChanged(2);
                long order_id =  System.currentTimeMillis();
                helper.UpdateCart(String.valueOf(order_id));
-               helper.addbookingOrder("98", String.valueOf(order_id));
+              // helper.addbookingOrder("98", String.valueOf(order_id));
+               editor = preferences.edit();
+               helper.addbookingOrder(preferences.getString("number",""),String.valueOf(order_id));
 
 
 

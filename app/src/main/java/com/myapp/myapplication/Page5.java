@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 public class Page5 extends AppCompatActivity {
     SharedPreferences.Editor editor;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +28,17 @@ public class Page5 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String number = text.getText().toString();
-                if (Pattern.matches("[[7-9]+[0-9]],{8}",number)){
-                editor.putString("mobile number",number);
-                editor.commit();
+                if (Pattern.matches("[7-9]{1}[0-9]{9}",number)){
+
+                    preferences = getSharedPreferences("MyApp",MODE_PRIVATE);
+                    editor= preferences.edit();
+                    editor.putString("number",number);
+                    editor.commit();
                 }
                 else {
                     Toast.makeText(Page5.this, "Enter the valid number", Toast.LENGTH_SHORT).show();
                 }
+
 
                 Intent intent = new Intent(Page5.this,Page7.class);
                 startActivity(intent);
