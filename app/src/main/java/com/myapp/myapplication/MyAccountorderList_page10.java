@@ -1,5 +1,6 @@
 package com.myapp.myapplication;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,8 @@ import java.util.List;
  */
 public class MyAccountorderList_page10 extends Fragment {
     DBHelper helper;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -73,8 +76,10 @@ public class MyAccountorderList_page10 extends Fragment {
         RecyclerView recycler = view.findViewById(R.id.listorderitem);
 
          helper = new DBHelper(getContext());
-         helper.BookingID(mParam1,"98");
-         ListItemAdpter adpter = new ListItemAdpter(helper.BookingID(mParam1,"98"));
+         //helper.BookingID(mParam1,"98");
+         helper.BookingID(mParam1,preferences.getString("number",""));
+        // ListItemAdpter adpter = new ListItemAdpter(helper.BookingID(mParam1,"98"));
+         ListItemAdpter adpter = new ListItemAdpter(helper.BookingID(mParam1,preferences.getString("number","")));
          recycler.setLayoutManager(new LinearLayoutManager(getContext()));
          recycler.setAdapter(adpter);
 

@@ -37,7 +37,9 @@ public class Page21 extends AppCompatActivity implements OnPageChangedListner {
         tab.getTabAt(1).setText("Payment");
         tab.getTabAt(2).setIcon(R.drawable.complete);
         tab.getTabAt(2).setText("Complete");
-
+//        pager.addOnPageChangeListener(null);
+        tab.setEnabled(false);
+//        pager.setSwipePagingEnabled(false);
 
     }
 
@@ -49,13 +51,14 @@ public class Page21 extends AppCompatActivity implements OnPageChangedListner {
     }
 
 
+
     //backpressed fargement
     @Override
     public void onBackPressed() {
         for (Fragment fragment : getSupportFragmentManager().getFragments()){
             if (fragment instanceof payments_page21||fragment instanceof complete_page21){
                 if (pager.getCurrentItem()==0){  //using finish method call
-                    finish();
+                    finish();                    //goto 0 to 1 position
                     return;
                 }
 
@@ -81,6 +84,7 @@ public class Page21 extends AppCompatActivity implements OnPageChangedListner {
             }
 
         }
+
 
     }
 

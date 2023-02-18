@@ -269,9 +269,6 @@ public class location21_page1 extends Fragment {
                 public void onClick(View view) {
                     checkPosition = position;         //checkposition means save position
                     adpter.notifyDataSetChanged();
-
-
-
                 }
             });
 
